@@ -43,11 +43,18 @@ const LoginPage: React.FC = () => {
           />
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-        <Text style={[textSubTitle, {textAlign: 'center', color: '#7C7C7C'}]}>
-          Đã có sẵn tài khoản? <Text style={{color: '#F7F9FA'}}>Đăng nhập</Text>
-        </Text>
-      </TouchableOpacity>
+      <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: vw(2),
+          }}>
+          <Text style={{color: '#7C7C7C'}}>Đã có sẵn tài khoản?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng nhập</Text>
+          </TouchableOpacity>
+        </View>
     </SafeAreaView>
   );
 };

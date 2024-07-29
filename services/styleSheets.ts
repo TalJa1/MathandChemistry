@@ -15,6 +15,11 @@ export const vmax = (number: number) =>
     Dimensions.get('window').height * (number / 100),
   );
 
+export const centerAll: TextStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 export const textTitle: TextStyle = {
   fontSize: 28,
   color: '#0D0D0D',
@@ -31,4 +36,8 @@ export const signInTitle: TextStyle = {
   fontSize: 28,
   color: '#F7F9FA',
   fontWeight: '700',
+};
+
+export const textNormal: TextStyle = {
+  color: '#F7F9FA',
 };

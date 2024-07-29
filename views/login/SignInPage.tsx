@@ -1,18 +1,189 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
-import { signInTitle, vw } from '../../services/styleSheets';
+import {
+  centerAll,
+  signInTitle,
+  textNormal,
+  vh,
+  vw,
+} from '../../services/styleSheets';
+import NavigationHeaderComponent from '../../components/login/NavigationHeaderComponent';
+import {
+  LoginInputGrpProps,
+  LoginInputOptionsProps,
+} from '../../services/typeProps';
+import {checkIcon} from '../../assets/svgXml';
 
 const SignInPage = () => {
   useStatusBar('black');
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={signInTitle}>Chào mừng bạn</Text>
+      <View style={{height: '15%'}}>
+        <NavigationHeaderComponent isSkip={false} isback={false} process={0} />
+      </View>
+      <View style={{height: '55%'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: vw(2),
+            columnGap: vw(4),
+          }}>
+          <Text style={signInTitle}>Chào mừng bạn</Text>
+          <Image source={require('../../assets/login/wavingHand.png')} />
+        </View>
+        <View style={{rowGap: vh(3), paddingVertical: vh(3)}}>
+          <LoginInputGrp
+            label="Địa chỉ email"
+            placeholder="example@gmail.com"
+            type="email"
+          />
+          <LoginInputGrp
+            label="Mật khẩu"
+            placeholder="Tối thiểu 8 ký tự"
+            type="password"
+          />
+          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', columnGap: vw(2)}}>
+              <TouchableOpacity
+                style={[
+                  {
+                    width: vw(5),
+                    height: vw(5),
+                    backgroundColor: 'white',
+                    borderRadius: vw(5),
+                  },
+                  centerAll,
+                ]}>
+                {checkIcon(vw(3), vh(3), '#1B1B1B')}
+              </TouchableOpacity>
+              <Text style={textNormal}>Ghi nhớ</Text>
+            </View>
+            <TouchableOpacity>
+              <Text style={textNormal}>Quên mật khẩu?</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            style={[
+              {
+                width: '100%',
+                height: 56,
+                backgroundColor: '#D2FD7C',
+                borderRadius: 10,
+              },
+              centerAll,
+            ]}>
+            <Text style={{color: '#1B1B1B', fontSize: 16}}>Đăng nhập</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={{height: '30%'}}>
+        <View style={styles.centerText}>
+          <View style={styles.line} />
+          <Text style={styles.text}>Hoặc đăng nhập với</Text>
+          <View style={styles.line} />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: vh(4),
+          }}>
+          <LoginOptionsBtn
+            name="Facebook"
+            img={require('../../assets/login/Facebook.png')}
+          />
+          <LoginOptionsBtn
+            name="Google"
+            img={require('../../assets/login/Google.png')}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: vw(2),
+          }}>
+          <Text style={{color: '#7C7C7C'}}>Bạn chưa có tài khoản?</Text>
+          <TouchableOpacity>
+            <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng ký</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
+  );
+};
+
+const LoginOptionsBtn: React.FC<LoginInputOptionsProps> = ({name, img}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        {
+          width: '45%',
+          flexDirection: 'row',
+          borderWidth: 1,
+          borderRadius: 10,
+          backgroundColor: '#1B1B1B',
+          height: 56,
+          borderColor: '#7C7C7C',
+        },
+        centerAll,
+      ]}>
+      <Image source={img} />
+      <Text style={textNormal}>{name}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const LoginInputGrp: React.FC<LoginInputGrpProps> = ({
+  label,
+  placeholder,
+  type,
+}) => {
+  const [inputValue, setInputValue] = useState('');
+  const [error, setError] = useState('');
+
+  const handleInputChange = (text: string) => {
+    setInputValue(text);
+    if (type === 'password' && text.length < 8) {
+      setError('Mật khẩu phải có ít nhất 8 ký tự');
+    } else {
+      setError('');
+    }
+  };
+  return (
+    <View style={{flexDirection: 'column', rowGap: vh(1)}}>
+      <Text style={textNormal}>{label}</Text>
+      <TextInput
+        style={{
+          borderRadius: 15,
+          borderWidth: 1,
+          borderColor: '#7C7C7C',
+          color: '#F7F9FA',
+          padding: vw(3),
+          backgroundColor: '#1B1B1B',
+        }}
+        placeholder={placeholder}
+        placeholderTextColor="#7C7C7C"
+        keyboardType={type === 'email' ? 'email-address' : 'default'}
+        secureTextEntry={type === 'password' ? true : false}
+        onChange={e => handleInputChange(e.nativeEvent.text)}
+        value={inputValue}
+      />
+      {error ? <Text style={{color: 'red'}}>{error}</Text> : null}
+    </View>
   );
 };
 
@@ -23,5 +194,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     paddingHorizontal: vw(5),
+  },
+  centerText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  text: {
+    textAlign: 'center',
+    color: '#7C7C7C',
+    marginHorizontal: 10,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#7C7C7C',
   },
 });
