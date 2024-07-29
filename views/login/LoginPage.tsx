@@ -3,16 +3,19 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import useStatusBarCustom from '../services/useStatusBarCustom';
-import {textSubTitle, textTitle, vh, vw} from '../services/styleSheets';
-import {LoginButtonTypeProps} from '../services/typeProps';
+import useStatusBarCustom from '../../services/useStatusBarCustom';
+import {textSubTitle, textTitle, vh, vw} from '../../services/styleSheets';
+import {LoginButtonTypeProps} from '../../services/typeProps';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const LoginPage: React.FC = () => {
   useStatusBarCustom('black');
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.loginGrp}>
-        <Image source={require('../assets/login/StarGrp.png')} />
+        <Image source={require('../../assets/login/StarGrp.png')} />
         <View
           style={{
             alignItems: 'center',
@@ -27,20 +30,20 @@ const LoginPage: React.FC = () => {
         </View>
         <View style={{width: '100%', marginVertical: vh(2), rowGap: vh(1)}}>
           <LoginTypeButton
-            image={require('../assets/login/Google.png')}
+            image={require('../../assets/login/Google.png')}
             title="Google"
           />
           <LoginTypeButton
-            image={require('../assets/login/Apple.png')}
+            image={require('../../assets/login/Apple.png')}
             title="Apple"
           />
           <LoginTypeButton
-            image={require('../assets/login/Mail.png')}
+            image={require('../../assets/login/Mail.png')}
             title="Email"
           />
         </View>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
         <Text style={[textSubTitle, {textAlign: 'center', color: '#7C7C7C'}]}>
           Đã có sẵn tài khoản? <Text style={{color: '#F7F9FA'}}>Đăng nhập</Text>
         </Text>

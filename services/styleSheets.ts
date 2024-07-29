@@ -26,3 +26,9 @@ export const textSubTitle: TextStyle = {
   color: '#1B1B1B',
   fontWeight: '400',
 };
+
+export const signInTitle: TextStyle = {
+  fontSize: 28,
+  color: '#F7F9FA',
+  fontWeight: '700',
+};
