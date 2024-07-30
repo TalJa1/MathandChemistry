@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -32,99 +33,110 @@ const SignInPage = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{height: '15%'}}>
-        <NavigationHeaderComponent isSkip={false} isback={false} process={0} />
-      </View>
-      <View style={{height: '55%'}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: vw(2),
-            columnGap: vw(4),
-          }}>
-          <Text style={signInTitle}>Chào mừng bạn</Text>
-          <Image source={require('../../assets/login/wavingHand.png')} />
-        </View>
-        <View style={{rowGap: vh(3), paddingVertical: vh(3)}}>
-          <LoginInputGrp
-            label="Địa chỉ email"
-            placeholder="example@gmail.com"
-            type="email"
-          />
-          <LoginInputGrp
-            label="Mật khẩu"
-            placeholder="Tối thiểu 8 ký tự"
-            type="password"
-          />
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-            <View style={{flexDirection: 'row', columnGap: vw(2)}}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={{height: vh(100)}}>
+          <View style={{height: '15%'}}>
+            <NavigationHeaderComponent
+              isSkip={false}
+              isback={false}
+              process={0}
+            />
+          </View>
+          <View style={{height: '55%'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: vw(2),
+                columnGap: vw(4),
+              }}>
+              <Text style={signInTitle}>Chào mừng bạn</Text>
+              <Image source={require('../../assets/login/wavingHand.png')} />
+            </View>
+            <View style={{rowGap: vh(3), paddingVertical: vh(3)}}>
+              <LoginInputGrp
+                label="Địa chỉ email"
+                placeholder="example@gmail.com"
+                type="email"
+              />
+              <LoginInputGrp
+                label="Mật khẩu"
+                placeholder="Tối thiểu 8 ký tự"
+                type="password"
+              />
+              <View
+                style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', columnGap: vw(2)}}>
+                  <TouchableOpacity
+                    style={[
+                      {
+                        width: vw(5),
+                        height: vw(5),
+                        backgroundColor: 'white',
+                        borderRadius: vw(5),
+                      },
+                      centerAll,
+                    ]}>
+                    {checkIcon(vw(3), vh(3), '#1B1B1B')}
+                  </TouchableOpacity>
+                  <Text style={textNormal}>Ghi nhớ</Text>
+                </View>
+                <TouchableOpacity>
+                  <Text style={textNormal}>Quên mật khẩu?</Text>
+                </TouchableOpacity>
+              </View>
               <TouchableOpacity
                 style={[
                   {
-                    width: vw(5),
-                    height: vw(5),
-                    backgroundColor: 'white',
-                    borderRadius: vw(5),
+                    width: '100%',
+                    height: 56,
+                    backgroundColor: '#D2FD7C',
+                    borderRadius: 10,
                   },
                   centerAll,
                 ]}>
-                {checkIcon(vw(3), vh(3), '#1B1B1B')}
+                <Text style={{color: '#1B1B1B', fontSize: 16}}>Đăng nhập</Text>
               </TouchableOpacity>
-              <Text style={textNormal}>Ghi nhớ</Text>
             </View>
-            <TouchableOpacity>
-              <Text style={textNormal}>Quên mật khẩu?</Text>
-            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={[
-              {
-                width: '100%',
-                height: 56,
-                backgroundColor: '#D2FD7C',
-                borderRadius: 10,
-              },
-              centerAll,
-            ]}>
-            <Text style={{color: '#1B1B1B', fontSize: 16}}>Đăng nhập</Text>
-          </TouchableOpacity>
+          <View style={{height: '30%'}}>
+            <View style={styles.centerText}>
+              <View style={styles.line} />
+              <Text style={styles.text}>Hoặc đăng nhập với</Text>
+              <View style={styles.line} />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: vh(4),
+              }}>
+              <LoginOptionsBtn
+                name="Facebook"
+                img={require('../../assets/login/Facebook.png')}
+              />
+              <LoginOptionsBtn
+                name="Google"
+                img={require('../../assets/login/Google.png')}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                columnGap: vw(2),
+              }}>
+              <Text style={{color: '#7C7C7C'}}>Bạn chưa có tài khoản?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>
+                  Đăng ký
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-      <View style={{height: '30%'}}>
-        <View style={styles.centerText}>
-          <View style={styles.line} />
-          <Text style={styles.text}>Hoặc đăng nhập với</Text>
-          <View style={styles.line} />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: vh(4),
-          }}>
-          <LoginOptionsBtn
-            name="Facebook"
-            img={require('../../assets/login/Facebook.png')}
-          />
-          <LoginOptionsBtn
-            name="Google"
-            img={require('../../assets/login/Google.png')}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            columnGap: vw(2),
-          }}>
-          <Text style={{color: '#7C7C7C'}}>Bạn chưa có tài khoản?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng ký</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -213,5 +225,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 1,
     backgroundColor: '#7C7C7C',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
