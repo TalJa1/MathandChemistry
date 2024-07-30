@@ -8,6 +8,7 @@ import {backArrow, signInStar} from '../../assets/svgXml';
 import {vw} from '../../services/styleSheets';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import * as Progress from 'react-native-progress';
 
 const NavigationHeaderComponent: React.FC<SignInNavigationHeaderProps> = ({
   isSkip,
@@ -26,7 +27,19 @@ const NavigationHeaderComponent: React.FC<SignInNavigationHeaderProps> = ({
       ) : (
         <View />
       )}
-      {process === 0 ? <View /> : <View />}
+      {process === 0 ? (
+        <View />
+      ) : (
+        <Progress.Bar
+          progress={process}
+          width={vw(60)}
+          height={vw(2)}
+          color="#D2FD7C"
+          borderColor="black"
+          unfilledColor="#1B1B1B"
+          borderRadius={vw(10)}
+        />
+      )}
       {isSkip ? (
         <TouchableOpacity>
           <Text style={{color: '#A3A3F2', fontSize: 16}}>Bỏ qua</Text>
