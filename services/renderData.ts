@@ -21,3 +21,14 @@ export const languageOptions = [
     img: require('../assets/inputInfo/han.png'),
   },
 ];
+
+export const whoOptions = [
+  {
+    name: 'Học sinh',
+    img: require('../assets/inputInfo/student.png'),
+  },
+  {
+    name: 'Giáo viên',
+    img: require('../assets/inputInfo/teacher.png'),
+  },
+];

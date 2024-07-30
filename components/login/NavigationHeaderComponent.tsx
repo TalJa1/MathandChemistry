@@ -14,6 +14,8 @@ const NavigationHeaderComponent: React.FC<SignInNavigationHeaderProps> = ({
   isSkip,
   isback,
   process,
+  step,
+  setStep,
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
@@ -21,7 +23,13 @@ const NavigationHeaderComponent: React.FC<SignInNavigationHeaderProps> = ({
       {isback ? (
         <TouchableOpacity
           style={styles.backBtn}
-          onPress={() => navigation.goBack()}>
+          onPress={() => {
+            if ((step ?? 0) === 0) {
+              navigation.goBack();
+            } else if (setStep) {
+              setStep((step ?? 1) - 1);
+            }
+          }}>
           {backArrow(vw(4), vw(4))}
         </TouchableOpacity>
       ) : (

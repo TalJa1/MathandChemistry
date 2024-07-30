@@ -51,5 +51,5 @@ export const scrollContainer: TextStyle = {
 
 export const scrollContainernotCenter: TextStyle = {
   flexGrow: 1,
-  paddingVertical: vh(5),
+  paddingVertical: vh(0),
 };

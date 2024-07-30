@@ -8,6 +8,8 @@ export interface SignInNavigationHeaderProps {
   isback: boolean;
   isSkip: boolean;
   process: number;
+  step?: number;
+  setStep?: (step: number) => void;
 }
 
 export interface LoginInputGrpProps {
