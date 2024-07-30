@@ -5,12 +5,15 @@ import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBarCustom from '../../services/useStatusBarCustom';
 import {textSubTitle, textTitle, vh, vw} from '../../services/styleSheets';
-import {LoginAccountProps, LoginButtonTypeProps} from '../../services/typeProps';
+import {
+  LoginAccountProps,
+  LoginButtonTypeProps,
+} from '../../services/typeProps';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {loadData, saveData} from '../../services/storage';
 import {loginAccount} from '../../data/login/loginData';
-import { loginAccountStorage } from '../../data/rootStorage';
+import {loginAccountStorage} from '../../data/rootStorage';
 
 const LoginPage: React.FC = () => {
   useStatusBarCustom('black');
@@ -19,7 +22,7 @@ const LoginPage: React.FC = () => {
     loadData<LoginAccountProps[]>(loginAccountStorage)
       .then(loadedData => {
         if (loadedData) {
-          console.log(loadedData);
+          // console.log(loadedData);
         } else {
           saveData(loginAccountStorage, loginAccount);
         }

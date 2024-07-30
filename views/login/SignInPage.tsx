@@ -35,20 +35,48 @@ import {loginAccount} from '../../data/login/loginData';
 const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [loginAcc, setLoginAcc] = useState(loginAccount);
+  const [account, setAccount] = useState({email: '', password: ''});
+  const [error, setError] = useState('');
 
   React.useEffect(() => {
     loadData<LoginAccountProps[]>(loginAccountStorage)
       .then(loadedData => {
-        if (loadedData) {
-          console.log(loadedData);
-        } else {
-          saveData(loginAccountStorage, loginAccount);
-        }
+        console.log(loadedData);
       })
       .catch(() => {
         saveData(loginAccountStorage, loginAccount);
+        setLoginAcc(loginAccount);
       });
   }, []);
+
+  const handleChange = (field: string, value: string) => {
+    setAccount(prevState => ({...prevState, [field]: value}));
+  };
+
+  const handleLogin = () => {
+    const accountExists = loginAcc.some(
+      acc => acc.email === account.email && acc.password === account.password,
+    );
+
+    if (!accountExists) {
+      setError('Email hoặc mật khẩu không đúng');
+    } else {
+      setError('');
+      const role = loginAcc.find(acc => acc.email === account.email)?.role;
+      switch (role) {
+        case 'STUDENT':
+          console.log('Student');
+          break;
+        case 'TEACHER':
+          console.log('Teacher');
+          break;
+        case '':
+          navigation.navigate('InputInfor');
+          break;
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,12 +105,15 @@ const SignInPage: React.FC = () => {
                 label="Địa chỉ email"
                 placeholder="example@gmail.com"
                 type="email"
+                onChange={text => handleChange('email', text)}
               />
               <LoginInputGrp
                 label="Mật khẩu"
                 placeholder="Tối thiểu 8 ký tự"
                 type="password"
+                onChange={text => handleChange('password', text)}
               />
+              {error ? <Text style={{color: 'red'}}>{error}</Text> : null}
               <View
                 style={{justifyContent: 'space-between', flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row', columnGap: vw(2)}}>
@@ -105,6 +136,7 @@ const SignInPage: React.FC = () => {
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
+                onPress={handleLogin}
                 style={[
                   {
                     width: '100%',
@@ -181,11 +213,9 @@ const LoginOptionsBtn: React.FC<LoginInputOptionsProps> = ({name, img}) => {
   );
 };
 
-const LoginInputGrp: React.FC<LoginInputGrpProps> = ({
-  label,
-  placeholder,
-  type,
-}) => {
+const LoginInputGrp: React.FC<
+  LoginInputGrpProps & {onChange: (text: string) => void}
+> = ({label, placeholder, type, onChange}) => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
 
@@ -213,7 +243,10 @@ const LoginInputGrp: React.FC<LoginInputGrpProps> = ({
         placeholderTextColor="#7C7C7C"
         keyboardType={type === 'email' ? 'email-address' : 'default'}
         secureTextEntry={type === 'password' ? true : false}
-        onChange={e => handleInputChange(e.nativeEvent.text)}
+        onChange={e => {
+          handleInputChange(e.nativeEvent.text);
+          onChange(e.nativeEvent.text);
+        }}
         value={inputValue}
       />
       {error ? <Text style={{color: 'red'}}>{error}</Text> : null}
