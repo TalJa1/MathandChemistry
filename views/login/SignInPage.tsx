@@ -21,16 +21,35 @@ import {
 } from '../../services/styleSheets';
 import NavigationHeaderComponent from '../../components/login/NavigationHeaderComponent';
 import {
+  LoginAccountProps,
   LoginInputGrpProps,
   LoginInputOptionsProps,
 } from '../../services/typeProps';
 import {checkIcon} from '../../assets/svgXml';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {loadData, saveData} from '../../services/storage';
+import {loginAccountStorage} from '../../data/rootStorage';
+import {loginAccount} from '../../data/login/loginData';
 
-const SignInPage = () => {
+const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  React.useEffect(() => {
+    loadData<LoginAccountProps[]>(loginAccountStorage)
+      .then(loadedData => {
+        if (loadedData) {
+          console.log(loadedData);
+        } else {
+          saveData(loginAccountStorage, loginAccount);
+        }
+      })
+      .catch(() => {
+        saveData(loginAccountStorage, loginAccount);
+      });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>

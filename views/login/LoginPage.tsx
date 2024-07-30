@@ -1,17 +1,33 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBarCustom from '../../services/useStatusBarCustom';
 import {textSubTitle, textTitle, vh, vw} from '../../services/styleSheets';
-import {LoginButtonTypeProps} from '../../services/typeProps';
+import {LoginAccountProps, LoginButtonTypeProps} from '../../services/typeProps';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {loadData, saveData} from '../../services/storage';
+import {loginAccount} from '../../data/login/loginData';
+import { loginAccountStorage } from '../../data/rootStorage';
 
 const LoginPage: React.FC = () => {
   useStatusBarCustom('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  useEffect(() => {
+    loadData<LoginAccountProps[]>(loginAccountStorage)
+      .then(loadedData => {
+        if (loadedData) {
+          console.log(loadedData);
+        } else {
+          saveData(loginAccountStorage, loginAccount);
+        }
+      })
+      .catch(() => {
+        saveData(loginAccountStorage, loginAccount);
+      });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.loginGrp}>
@@ -44,17 +60,17 @@ const LoginPage: React.FC = () => {
         </View>
       </View>
       <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            columnGap: vw(2),
-          }}>
-          <Text style={{color: '#7C7C7C'}}>Đã có sẵn tài khoản?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng nhập</Text>
-          </TouchableOpacity>
-        </View>
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          columnGap: vw(2),
+        }}>
+        <Text style={{color: '#7C7C7C'}}>Đã có sẵn tài khoản?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng nhập</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

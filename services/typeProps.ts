@@ -26,3 +26,9 @@ export interface TextInputComponentProps {
   secureTextEntry?: boolean;
   isEmail?: boolean;
 }
+
+export type LoginAccountProps = {
+  email: string;
+  password: string;
+  role: string;
+};
