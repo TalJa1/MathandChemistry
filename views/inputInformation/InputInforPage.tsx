@@ -21,9 +21,14 @@ import {
   vw,
 } from '../../services/styleSheets';
 import {searchIcon} from '../../assets/svgXml';
-import {languageOptions, whoOptions} from '../../services/renderData';
+import {
+  classNumbers,
+  languageOptions,
+  whoOptions,
+} from '../../services/renderData';
 import {languageOptionsProps} from '../../services/typeProps';
 import CheckBox from '@react-native-community/checkbox';
+import Slider from '@react-native-community/slider';
 
 const InputInforPage: React.FC = () => {
   useStatusBar('black');
@@ -64,9 +69,12 @@ const InputInforPage: React.FC = () => {
         return <LanguageOptionsGroup />;
       case 1:
         return <WhoOptionsGroup />;
-
+      case 2:
+        return <ClassOptionsGroup />;
+      case 3:
+        return <AbilityCheckGroup />;
       default:
-        return <LanguageOptionsGroup />;
+        return <View />;
     }
   };
 
@@ -75,7 +83,7 @@ const InputInforPage: React.FC = () => {
       <ScrollView contentContainerStyle={scrollContainernotCenter}>
         <View style={{height: vh(15)}}>
           <NavigationHeaderComponent
-            isSkip={false}
+            isSkip={step === 0 ? false : true}
             isback={true}
             process={progress}
             step={step}
@@ -97,6 +105,121 @@ const InputInforPage: React.FC = () => {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
+  );
+};
+
+const AbilityCheckGroup: React.FC = () => {
+  const [math, setMath] = useState(0);
+  const [chemistry, setChemistry] = useState(0);
+  return (
+    <View style={{width: '100%', height: '100%'}}>
+      <View style={{rowGap: vh(2)}}>
+        <Text style={[textTitle, {color: 'white', textAlign: 'center'}]}>
+          Tự đánh giá học lực:
+        </Text>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginVertical: vh(3),
+          }}>
+          <View style={[styles.subjectBox, centerAll]}>
+            <Text style={{color: '#7C7C7C'}}>Toán</Text>
+          </View>
+          <View style={[styles.subjectBox, centerAll]}>
+            <Text style={{color: '#7C7C7C'}}>Hóa</Text>
+          </View>
+        </View>
+        <View style={{rowGap: vh(4)}}>
+          <View>
+            <Text style={[textTitle, {color: 'white', fontSize: 20}]}>
+              Toán
+            </Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 48,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {math}
+            </Text>
+            <Slider
+              style={{width: '100%'}}
+              minimumValue={0}
+              maximumValue={100}
+              value={math}
+              onValueChange={value => setMath(value)}
+              step={1}
+              minimumTrackTintColor="#1fb28a"
+              maximumTrackTintColor="#d3d3d3"
+              thumbTintColor="#b9e4c9"
+            />
+          </View>
+          <View>
+            <Text style={[textTitle, {color: 'white', fontSize: 20}]}>Hóa</Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 48,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {chemistry}
+            </Text>
+            <Slider
+              style={{width: '100%'}}
+              minimumValue={0}
+              maximumValue={100}
+              value={chemistry}
+              onValueChange={value => setChemistry(value)}
+              step={1}
+              minimumTrackTintColor="#1fb28a"
+              maximumTrackTintColor="#d3d3d3"
+              thumbTintColor="#b9e4c9"
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const ClassOptionsGroup: React.FC = () => {
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+
+  const handlePress = (number: number) => {
+    setSelectedNumber(number);
+  };
+  return (
+    <View style={{width: '100%', height: '100%'}}>
+      <View style={{rowGap: vh(2)}}>
+        <Text style={[textTitle, {color: 'white', textAlign: 'center'}]}>
+          Bạn đang học lớp:
+        </Text>
+      </View>
+      <View style={[centerAll, {marginVertical: vh(2)}]}>
+        {classNumbers.map(number => (
+          <TouchableOpacity key={number} onPress={() => handlePress(number)}>
+            <View
+              style={[
+                styles.numberBox,
+                selectedNumber === number && styles.selectedNumberBox,
+              ]}>
+              <Text
+                style={[
+                  styles.numberText,
+                  selectedNumber === number && styles.selectedNumberText,
+                ]}>
+                {number}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
   );
 };
 
@@ -238,5 +361,29 @@ const styles = StyleSheet.create({
   languageOptionText: {
     flex: 1,
     color: 'white',
+  },
+  numberBox: {
+    borderRadius: 24,
+    backgroundColor: 'transparent',
+    padding: vw(4),
+  },
+  selectedNumberBox: {
+    backgroundColor: '#D2FD7C',
+    borderWidth: 3, // Added border width
+    borderColor: '#464646',
+  },
+  numberText: {
+    fontSize: 60,
+  },
+  selectedNumberText: {
+    fontSize: 128,
+    color: '#0D0D0D',
+    fontWeight: '800',
+  },
+  subjectBox: {
+    height: 56,
+    width: '45%',
+    backgroundColor: '#464646',
+    borderRadius: 12,
   },
 });

@@ -32,3 +32,5 @@ export const whoOptions = [
     img: require('../assets/inputInfo/teacher.png'),
   },
 ];
+
+export const classNumbers = [10, 11, 12];
