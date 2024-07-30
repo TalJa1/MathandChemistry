@@ -32,3 +32,8 @@ export type LoginAccountProps = {
   password: string;
   role: string;
 };
+
+export interface languageOptionsProps {
+  name: string;
+  img: any;
+}

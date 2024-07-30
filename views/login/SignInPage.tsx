@@ -36,7 +36,7 @@ const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [loginAcc, setLoginAcc] = useState(loginAccount);
-  const [account, setAccount] = useState({email: '', password: ''});
+  const [account, setAccount] = useState({email: 'Te@gmail.com', password: 'test1234'});
   const [error, setError] = useState('');
 
   React.useEffect(() => {
@@ -216,7 +216,7 @@ const LoginOptionsBtn: React.FC<LoginInputOptionsProps> = ({name, img}) => {
 const LoginInputGrp: React.FC<
   LoginInputGrpProps & {onChange: (text: string) => void}
 > = ({label, placeholder, type, onChange}) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(type === 'email' ? 'Te@gmail.com' : 'test1234');
   const [error, setError] = useState('');
 
   const handleInputChange = (text: string) => {

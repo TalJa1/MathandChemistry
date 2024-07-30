@@ -41,3 +41,15 @@ export const signInTitle: TextStyle = {
 export const textNormal: TextStyle = {
   color: '#F7F9FA',
 };
+
+export const scrollContainer: TextStyle = {
+  flexGrow: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingVertical: vh(5),
+};
+
+export const scrollContainernotCenter: TextStyle = {
+  flexGrow: 1,
+  paddingVertical: vh(5),
+};
