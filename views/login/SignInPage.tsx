@@ -24,9 +24,12 @@ import {
   LoginInputOptionsProps,
 } from '../../services/typeProps';
 import {checkIcon} from '../../assets/svgXml';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const SignInPage = () => {
   useStatusBar('black');
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={{height: '15%'}}>
@@ -117,7 +120,7 @@ const SignInPage = () => {
             columnGap: vw(2),
           }}>
           <Text style={{color: '#7C7C7C'}}>Bạn chưa có tài khoản?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>Đăng ký</Text>
           </TouchableOpacity>
         </View>

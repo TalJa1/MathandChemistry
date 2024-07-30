@@ -20,3 +20,9 @@ export interface LoginInputOptionsProps {
   name: string;
   img: any;
 }
+
+export interface TextInputComponentProps {
+  placeholder: string;
+  secureTextEntry?: boolean;
+  isEmail?: boolean;
+}

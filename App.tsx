@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginPage from './views/login/LoginPage';
 import SignInPage from './views/login/SignInPage';
+import SignUpPage from './views/signup/SignUpPage';
 
 const Stack = createNativeStackNavigator();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
+        {/* Login Group */}
         <Stack.Screen
           name="Login"
           component={LoginPage}
@@ -24,6 +26,12 @@ const App = () => {
           component={SignInPage}
           options={{headerShown: false}}
         />
+          <Stack.Screen
+          name="SignUp"
+          component={SignUpPage}
+          options={{headerShown: false}}
+        />
+        {/* End login Group */}
       </Stack.Navigator>
     </NavigationContainer>
   );
