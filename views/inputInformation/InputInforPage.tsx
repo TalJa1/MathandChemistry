@@ -9,14 +9,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import NavigationHeaderComponent from '../../components/login/NavigationHeaderComponent';
 import {
   centerAll,
   scrollContainernotCenter,
-  textSubTitle,
   textTitle,
   vh,
   vw,
@@ -29,11 +28,35 @@ import CheckBox from '@react-native-community/checkbox';
 const InputInforPage: React.FC = () => {
   useStatusBar('black');
   const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState(0);
   const handleNextStep = () => {
     if (step <= 6) {
       setStep(step + 1);
     }
   };
+
+  useEffect(() => {
+    switch (step) {
+      case 0:
+        setProgress(0);
+        break;
+      case 1:
+        setProgress(0.2);
+        break;
+      case 2:
+        setProgress(0.4);
+        break;
+      case 3:
+        setProgress(0.6);
+        break;
+      case 4:
+        setProgress(0.8);
+        break;
+      case 5:
+        setProgress(1);
+        break;
+    }
+  }, [step]);
 
   const switchLayout = () => {
     switch (step) {
@@ -54,7 +77,7 @@ const InputInforPage: React.FC = () => {
           <NavigationHeaderComponent
             isSkip={false}
             isback={true}
-            process={0}
+            process={progress}
             step={step}
             setStep={setStep}
           />
