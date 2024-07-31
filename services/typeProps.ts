@@ -4,6 +4,10 @@ export interface LoginButtonTypeProps {
   title: string;
 }
 
+export interface searchBarProps {
+  placeholder: string;
+}
+
 export interface SignInNavigationHeaderProps {
   isback: boolean;
   isSkip: boolean;
