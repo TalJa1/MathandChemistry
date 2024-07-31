@@ -609,6 +609,7 @@ const LanguageOptionsGroup: React.FC<{
               name={item.name}
               img={item.img}
               onLanguageChange={handleLanguageChange}
+              globalData={globalData}
             />
           </View>
         ))}
@@ -621,8 +622,11 @@ const LanguageOptionsLayout: React.FC<languageOptionsProps> = ({
   name,
   img,
   onLanguageChange,
+  globalData,
 }) => {
-  const [isSelected, setSelection] = useState(false);
+  const [isSelected, setSelection] = useState(
+    globalData.language === name ? true : false,
+  );
 
   const handleSelectionChange = (newValue: boolean) => {
     setSelection(newValue);

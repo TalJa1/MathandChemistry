@@ -43,6 +43,7 @@ export interface languageOptionsProps {
   name: string;
   img: any;
   onLanguageChange: (language: string) => void;
+  globalData: GlobalData;
 }
 
 export interface GlobalData {
