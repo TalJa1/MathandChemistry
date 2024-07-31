@@ -30,9 +30,11 @@ import {
   whoOptions,
 } from '../../services/renderData';
 import {
+  commonOptionsProps,
   GlobalData,
   languageOptionsProps,
   searchBarProps,
+  whoOptionsProps,
 } from '../../services/typeProps';
 import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
@@ -46,10 +48,10 @@ const InputInforPage: React.FC = () => {
   const [globalData, setGlobalData] = useState<GlobalData>({
     language: '',
     who: '',
-    class: 0,
+    class: 11,
     ability: {
-      math: 0,
-      chemistry: 0,
+      math: 50,
+      chemistry: 50,
     },
     goal: [],
     difficulty: {
@@ -63,6 +65,8 @@ const InputInforPage: React.FC = () => {
       image: '',
     },
   });
+
+  console.log(globalData);
 
   const handleNextStep = () => {
     if (step <= 6) {
@@ -81,15 +85,23 @@ const InputInforPage: React.FC = () => {
         break;
       case 1:
         setProgress(0.2);
+        if (globalData.who.length > 0) {
+          setIsNext(true);
+        }
         break;
       case 2:
         setProgress(0.4);
+        setIsNext(true);
         break;
       case 3:
         setProgress(0.5);
+        setIsNext(true);
         break;
       case 4:
         setProgress(0.7);
+        if (globalData.goal.length > 0) {
+          setIsNext(true);
+        }
         break;
       case 5:
         setProgress(0.9);
@@ -110,13 +122,24 @@ const InputInforPage: React.FC = () => {
           />
         );
       case 1:
-        return <WhoOptionsGroup />;
+        return (
+          <WhoOptionsGroup
+            globalData={globalData}
+            onWhoChange={setGlobalData}
+          />
+        );
       case 2:
-        return <ClassOptionsGroup />;
+        return (
+          <ClassOptionsGroup globalData={globalData} onChange={setGlobalData} />
+        );
       case 3:
-        return <AbilityCheckGroup />;
+        return (
+          <AbilityCheckGroup globalData={globalData} onChange={setGlobalData} />
+        );
       case 4:
-        return <GoalCheckGroup />;
+        return (
+          <GoalCheckGroup globalData={globalData} onChange={setGlobalData} />
+        );
       case 5:
         return <Difficulty />;
       case 6:
@@ -380,7 +403,10 @@ const Difficulty: React.FC = () => {
   );
 };
 
-const GoalCheckGroup: React.FC = () => {
+const GoalCheckGroup: React.FC<commonOptionsProps> = ({
+  globalData,
+  onChange,
+}) => {
   const [selectedGoals, setSelectedGoals] = useState<boolean[]>(
     new Array(goalOptions.length).fill(false),
   );
@@ -389,6 +415,11 @@ const GoalCheckGroup: React.FC = () => {
     const updatedSelectedGoals = [...selectedGoals];
     updatedSelectedGoals[index] = !updatedSelectedGoals[index];
     setSelectedGoals(updatedSelectedGoals);
+
+    const selectedGoalNames = goalOptions.filter(
+      (_, i) => updatedSelectedGoals[i],
+    );
+    onChange({...globalData, goal: selectedGoalNames});
   };
 
   return (
@@ -426,9 +457,10 @@ const GoalCheckGroup: React.FC = () => {
   );
 };
 
-const AbilityCheckGroup: React.FC = () => {
-  const [math, setMath] = useState(50);
-  const [chemistry, setChemistry] = useState(50);
+const AbilityCheckGroup: React.FC<commonOptionsProps> = ({
+  globalData,
+  onChange,
+}) => {
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={{rowGap: vh(2)}}>
@@ -462,14 +494,22 @@ const AbilityCheckGroup: React.FC = () => {
                 textAlign: 'center',
                 fontWeight: '700',
               }}>
-              {math}
+              {globalData.ability.math}
             </Text>
             <Slider
               style={{width: '100%'}}
               minimumValue={0}
               maximumValue={100}
-              value={math}
-              onValueChange={value => setMath(value)}
+              value={globalData.ability.math}
+              onValueChange={value =>
+                onChange({
+                  ...globalData,
+                  ability: {
+                    math: value,
+                    chemistry: globalData.ability.chemistry,
+                  },
+                })
+              }
               step={1}
               minimumTrackTintColor="#A3A3F2"
               maximumTrackTintColor="#A3A3F24D"
@@ -485,14 +525,19 @@ const AbilityCheckGroup: React.FC = () => {
                 textAlign: 'center',
                 fontWeight: '700',
               }}>
-              {chemistry}
+              {globalData.ability.chemistry}
             </Text>
             <Slider
               style={{width: '100%'}}
               minimumValue={0}
               maximumValue={100}
-              value={chemistry}
-              onValueChange={value => setChemistry(value)}
+              value={globalData.ability.chemistry}
+              onValueChange={value =>
+                onChange({
+                  ...globalData,
+                  ability: {math: globalData.ability.math, chemistry: value},
+                })
+              }
               step={1}
               minimumTrackTintColor="#A3A3F2"
               maximumTrackTintColor="#A3A3F24D"
@@ -505,11 +550,12 @@ const AbilityCheckGroup: React.FC = () => {
   );
 };
 
-const ClassOptionsGroup: React.FC = () => {
-  const [selectedNumber, setSelectedNumber] = useState<number | null>(11);
-
+const ClassOptionsGroup: React.FC<commonOptionsProps> = ({
+  globalData,
+  onChange,
+}) => {
   const handlePress = (number: number) => {
-    setSelectedNumber(number);
+    onChange({...globalData, class: number});
   };
   return (
     <View style={{width: '100%', height: '100%'}}>
@@ -524,12 +570,12 @@ const ClassOptionsGroup: React.FC = () => {
             <View
               style={[
                 styles.numberBox,
-                selectedNumber === number && styles.selectedNumberBox,
+                globalData.class === number && styles.selectedNumberBox,
               ]}>
               <Text
                 style={[
                   styles.numberText,
-                  selectedNumber === number && styles.selectedNumberText,
+                  globalData.class === number && styles.selectedNumberText,
                 ]}>
                 {number}
               </Text>
@@ -541,8 +587,13 @@ const ClassOptionsGroup: React.FC = () => {
   );
 };
 
-const WhoOptionsGroup: React.FC = () => {
-  const [choice, setChoice] = useState('');
+const WhoOptionsGroup: React.FC<whoOptionsProps> = ({
+  globalData,
+  onWhoChange,
+}) => {
+  const handleChange = (who: string) => {
+    onWhoChange({...globalData, who});
+  };
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={{rowGap: vh(2)}}>
@@ -559,12 +610,12 @@ const WhoOptionsGroup: React.FC = () => {
         }}>
         {whoOptions.map((item, index) => (
           <View key={index}>
-            <TouchableOpacity onPress={() => setChoice(item.name)}>
+            <TouchableOpacity onPress={() => handleChange(item.name)}>
               <Image
                 source={item.img}
                 style={[
                   {width: 100, height: 100, resizeMode: 'contain'},
-                  choice === item.name
+                  globalData.who === item.name
                     ? {
                         borderWidth: 2,
                         borderColor: '#D2FD7C',
@@ -577,7 +628,7 @@ const WhoOptionsGroup: React.FC = () => {
             <Text
               style={[
                 {color: '#A7A7A7', fontSize: 16, textAlign: 'center'},
-                choice === item.name ? {color: '#D2FD7C'} : {},
+                globalData.who === item.name ? {color: '#D2FD7C'} : {},
               ]}>
               {item.name}
             </Text>

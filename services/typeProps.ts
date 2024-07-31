@@ -39,13 +39,6 @@ export type LoginAccountProps = {
   role: string;
 };
 
-export interface languageOptionsProps {
-  name: string;
-  img: any;
-  onLanguageChange: (language: string) => void;
-  globalData: GlobalData;
-}
-
 export interface GlobalData {
   language: string;
   who: string;
@@ -65,4 +58,21 @@ export interface GlobalData {
     city: string;
     image: string;
   };
+}
+
+export interface languageOptionsProps {
+  name: string;
+  img: any;
+  onLanguageChange: (language: string) => void;
+  globalData: GlobalData;
+}
+
+export interface whoOptionsProps {
+  globalData: GlobalData;
+  onWhoChange: React.Dispatch<React.SetStateAction<GlobalData>>;
+}
+
+export interface commonOptionsProps {
+  globalData: GlobalData;
+  onChange: React.Dispatch<React.SetStateAction<GlobalData>>;
 }
