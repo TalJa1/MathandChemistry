@@ -29,7 +29,11 @@ import {
   mathContents,
   whoOptions,
 } from '../../services/renderData';
-import {languageOptionsProps, searchBarProps} from '../../services/typeProps';
+import {
+  GlobalData,
+  languageOptionsProps,
+  searchBarProps,
+} from '../../services/typeProps';
 import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -38,6 +42,28 @@ const InputInforPage: React.FC = () => {
   useStatusBar('black');
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isNext, setIsNext] = useState(false);
+  const [globalData, setGlobalData] = useState<GlobalData>({
+    language: '',
+    who: '',
+    class: 0,
+    ability: {
+      math: 0,
+      chemistry: 0,
+    },
+    goal: [],
+    difficulty: {
+      math: [],
+      chemistry: [],
+    },
+    infor: {
+      name: '',
+      school: '',
+      city: '',
+      image: '',
+    },
+  });
+
   const handleNextStep = () => {
     if (step <= 6) {
       setStep(step + 1);
@@ -45,9 +71,13 @@ const InputInforPage: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsNext(false);
     switch (step) {
       case 0:
         setProgress(0);
+        if (globalData.language.length > 0) {
+          setIsNext(true);
+        }
         break;
       case 1:
         setProgress(0.2);
@@ -68,12 +98,17 @@ const InputInforPage: React.FC = () => {
         setProgress(1);
         break;
     }
-  }, [step]);
+  }, [step, globalData]);
 
   const switchLayout = () => {
     switch (step) {
       case 0:
-        return <LanguageOptionsGroup />;
+        return (
+          <LanguageOptionsGroup
+            globalData={globalData}
+            setGlobalData={setGlobalData}
+          />
+        );
       case 1:
         return <WhoOptionsGroup />;
       case 2:
@@ -108,9 +143,11 @@ const InputInforPage: React.FC = () => {
       <View style={{marginBottom: vh(1)}}>
         <TouchableOpacity
           onPress={handleNextStep}
+          disabled={isNext === true ? false : true}
           style={[
             centerAll,
             {backgroundColor: '#D2FD7C', height: 56, borderRadius: 10},
+            isNext === false ? {backgroundColor: '#464646'} : {},
           ]}>
           <Text style={{color: '#1B1B1B', fontSize: 16, fontWeight: '600'}}>
             Tiếp tục
@@ -551,7 +588,14 @@ const WhoOptionsGroup: React.FC = () => {
   );
 };
 
-const LanguageOptionsGroup: React.FC = () => {
+const LanguageOptionsGroup: React.FC<{
+  globalData: GlobalData;
+  setGlobalData: React.Dispatch<React.SetStateAction<GlobalData>>;
+}> = ({globalData, setGlobalData}) => {
+  const handleLanguageChange = (language: string) => {
+    setGlobalData({...globalData, language});
+  };
+
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={{rowGap: vh(2)}}>
@@ -561,7 +605,11 @@ const LanguageOptionsGroup: React.FC = () => {
         <SearchBar placeholder="Tìm kiếm ngôn ngữ" />
         {languageOptions.map((item, index) => (
           <View key={index}>
-            <LanguageOptionsLayout name={item.name} img={item.img} />
+            <LanguageOptionsLayout
+              name={item.name}
+              img={item.img}
+              onLanguageChange={handleLanguageChange}
+            />
           </View>
         ))}
       </View>
@@ -569,8 +617,21 @@ const LanguageOptionsGroup: React.FC = () => {
   );
 };
 
-const LanguageOptionsLayout: React.FC<languageOptionsProps> = ({name, img}) => {
+const LanguageOptionsLayout: React.FC<languageOptionsProps> = ({
+  name,
+  img,
+  onLanguageChange,
+}) => {
   const [isSelected, setSelection] = useState(false);
+
+  const handleSelectionChange = (newValue: boolean) => {
+    setSelection(newValue);
+    if (newValue) {
+      onLanguageChange(name);
+    } else {
+      onLanguageChange('');
+    }
+  };
   return (
     <View
       style={[
@@ -581,7 +642,8 @@ const LanguageOptionsLayout: React.FC<languageOptionsProps> = ({name, img}) => {
       <Text style={styles.languageOptionText}>{name}</Text>
       <CheckBox
         value={isSelected}
-        onValueChange={name === 'Việt Nam' ? setSelection : () => {}}
+        // onValueChange={name === 'Việt Nam' ? setSelection : () => {}}
+        onValueChange={handleSelectionChange}
         tintColors={{
           true: '#0D0D0D',
           false: name === 'Việt Nam' ? '#A3A3F2' : '#7C7C7C',

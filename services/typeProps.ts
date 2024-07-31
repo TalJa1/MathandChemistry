@@ -42,4 +42,26 @@ export type LoginAccountProps = {
 export interface languageOptionsProps {
   name: string;
   img: any;
+  onLanguageChange: (language: string) => void;
+}
+
+export interface GlobalData {
+  language: string;
+  who: string;
+  class: number;
+  ability: {
+    math: number;
+    chemistry: number;
+  };
+  goal: string[];
+  difficulty: {
+    math: string[];
+    chemistry: string[];
+  };
+  infor: {
+    name: string;
+    school: string;
+    city: string;
+    image: string;
+  };
 }
