@@ -20,7 +20,7 @@ import {
   vh,
   vw,
 } from '../../services/styleSheets';
-import {searchIcon} from '../../assets/svgXml';
+import {searchIcon, signInStar} from '../../assets/svgXml';
 import {
   chemistryContents,
   classNumbers,
@@ -123,6 +123,12 @@ const InputInforPage: React.FC = () => {
 
 const SeftInfor: React.FC = () => {
   const [image, setImage] = React.useState<Array<string>>([]);
+  const [infor, setInfor] = useState({
+    name: '',
+    school: '',
+    city: '',
+  });
+
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={{rowGap: vh(2)}}>
@@ -138,7 +144,7 @@ const SeftInfor: React.FC = () => {
               setImage([]);
               const result: any = await launchImageLibrary({
                 mediaType: 'photo',
-                selectionLimit: 8,
+                selectionLimit: 1,
               });
               if (result.assets.length > 0) {
                 for (let i = 0; i < result.assets.length; i++) {
@@ -166,8 +172,80 @@ const SeftInfor: React.FC = () => {
           />
         </TouchableOpacity>
         <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: '700'}}>
-          Học sinh
+          {infor.name.length > 0 ? infor.name : 'Học sinh'}
         </Text>
+      </View>
+      <View style={{position: 'absolute', right: 0, top: 200}}>
+        {signInStar(vw(10), vw(10))}
+      </View>
+      <View style={{marginVertical: vh(3)}}>
+        <View>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: '700'}}>
+            Tên hiển thị
+          </Text>
+          <TextInput
+            placeholder="Nhập tên hiển thị"
+            value={infor.name}
+            onChange={e => setInfor({...infor, name: e.nativeEvent.text})}
+            style={{
+              backgroundColor: '#1B1B1B',
+              color: 'white',
+              borderRadius: 20,
+              padding: 10,
+              marginVertical: 10,
+              borderWidth: 1,
+              borderColor: '#7C7C7C',
+              height: 56,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{width: '55%'}}>
+            <Text style={{color: 'white', fontSize: 16, fontWeight: '700'}}>
+              Bạn đang học trường
+            </Text>
+            <TextInput
+              placeholder="Nhập tên trường"
+              value={infor.school}
+              onChange={e => setInfor({...infor, school: e.nativeEvent.text})}
+              style={{
+                backgroundColor: '#1B1B1B',
+                color: 'white',
+                borderRadius: 20,
+                padding: 10,
+                marginVertical: 10,
+                borderWidth: 1,
+                borderColor: '#7C7C7C',
+                height: 56,
+              }}
+            />
+          </View>
+          <View style={{width: '40%'}}>
+            <Text style={{color: 'white', fontSize: 16, fontWeight: '700'}}>
+              Tỉnh/TP
+            </Text>
+            <TextInput
+              placeholder="Nhập tên tỉnh/thành phố"
+              value={infor.city}
+              onChange={e => setInfor({...infor, city: e.nativeEvent.text})}
+              style={{
+                backgroundColor: '#1B1B1B',
+                color: 'white',
+                borderRadius: 20,
+                padding: 10,
+                marginVertical: 10,
+                borderWidth: 1,
+                borderColor: '#7C7C7C',
+                height: 56,
+              }}
+            />
+          </View>
+        </View>
       </View>
     </View>
   );
