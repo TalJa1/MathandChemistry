@@ -407,9 +407,11 @@ const GoalCheckGroup: React.FC<commonOptionsProps> = ({
   globalData,
   onChange,
 }) => {
-  const [selectedGoals, setSelectedGoals] = useState<boolean[]>(
-    new Array(goalOptions.length).fill(false),
-  );
+  const initialSelectedGoals = globalData.goal
+    ? goalOptions.map(goal => globalData.goal.includes(goal))
+    : new Array(goalOptions.length).fill(false);
+  const [selectedGoals, setSelectedGoals] =
+    useState<boolean[]>(initialSelectedGoals);
 
   const handleCheckboxChange = (index: number) => {
     const updatedSelectedGoals = [...selectedGoals];
