@@ -66,7 +66,7 @@ const InputInforPage: React.FC = () => {
     },
   });
 
-  console.log(globalData);
+  // console.log(globalData);
 
   const handleNextStep = () => {
     if (step <= 6) {
@@ -535,11 +535,35 @@ const AbilityCheckGroup: React.FC<commonOptionsProps> = ({
             justifyContent: 'space-between',
             marginVertical: vh(3),
           }}>
-          <View style={[styles.subjectBox, centerAll]}>
-            <Text style={{color: '#7C7C7C'}}>Toán</Text>
+          <View
+            style={[
+              styles.subjectBox,
+              centerAll,
+              globalData.ability.math > 0 ? {backgroundColor: '#A3A3F2'} : {},
+            ]}>
+            <Text
+              style={[
+                {color: '#7C7C7C'},
+                globalData.ability.math > 0 ? {color: 'black'} : {},
+              ]}>
+              Toán
+            </Text>
           </View>
-          <View style={[styles.subjectBox, centerAll]}>
-            <Text style={{color: '#7C7C7C'}}>Hóa</Text>
+          <View
+            style={[
+              styles.subjectBox,
+              centerAll,
+              globalData.ability.chemistry > 0
+                ? {backgroundColor: '#A3A3F2'}
+                : {},
+            ]}>
+            <Text
+              style={[
+                {color: '#7C7C7C'},
+                globalData.ability.chemistry > 0 ? {color: 'black'} : {},
+              ]}>
+              Hóa
+            </Text>
           </View>
         </View>
         <View style={{rowGap: vh(4)}}>
