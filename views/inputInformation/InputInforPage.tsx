@@ -62,7 +62,7 @@ const InputInforPage: React.FC = () => {
       name: '',
       school: '',
       city: '',
-      image: '',
+      image: [],
     },
   });
 
@@ -105,9 +105,22 @@ const InputInforPage: React.FC = () => {
         break;
       case 5:
         setProgress(0.9);
+        if (
+          globalData.difficulty.math.length > 0 &&
+          globalData.difficulty.chemistry.length > 0
+        ) {
+          setIsNext(true);
+        }
         break;
       case 6:
         setProgress(1);
+        if (
+          globalData.infor.name.length > 0 &&
+          globalData.infor.school.length > 0 &&
+          globalData.infor.city.length > 0
+        ) {
+          setIsNext(true);
+        }
         break;
     }
   }, [step, globalData]);
@@ -141,9 +154,9 @@ const InputInforPage: React.FC = () => {
           <GoalCheckGroup globalData={globalData} onChange={setGlobalData} />
         );
       case 5:
-        return <Difficulty />;
+        return <Difficulty globalData={globalData} onChange={setGlobalData} />;
       case 6:
-        return <SeftInfor />;
+        return <SeftInfor globalData={globalData} onChange={setGlobalData} />;
       default:
         return <View />;
     }
@@ -181,14 +194,7 @@ const InputInforPage: React.FC = () => {
   );
 };
 
-const SeftInfor: React.FC = () => {
-  const [image, setImage] = React.useState<Array<string>>([]);
-  const [infor, setInfor] = useState({
-    name: '',
-    school: '',
-    city: '',
-  });
-
+const SeftInfor: React.FC<commonOptionsProps> = ({globalData, onChange}) => {
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={{rowGap: vh(2)}}>
@@ -201,15 +207,22 @@ const SeftInfor: React.FC = () => {
         <TouchableOpacity
           onPress={async () => {
             try {
-              setImage([]);
+              onChange({
+                ...globalData,
+                infor: {...globalData.infor, image: []},
+              });
               const result: any = await launchImageLibrary({
                 mediaType: 'photo',
                 selectionLimit: 1,
               });
               if (result.assets.length > 0) {
                 for (let i = 0; i < result.assets.length; i++) {
-                  setImage(pre => {
-                    return [...pre, result.assets[i].uri];
+                  onChange({
+                    ...globalData,
+                    infor: {
+                      ...globalData.infor,
+                      image: [result.assets[i].uri],
+                    },
                   });
                 }
               }
@@ -219,8 +232,8 @@ const SeftInfor: React.FC = () => {
           }}>
           <Image
             source={
-              image.length > 0
-                ? {uri: image[0]}
+              globalData.infor.image.length > 0
+                ? {uri: globalData.infor.image[0]}
                 : require('../../assets/inputInfo/imgPicker.png')
             }
             style={{
@@ -232,21 +245,28 @@ const SeftInfor: React.FC = () => {
           />
         </TouchableOpacity>
         <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: '700'}}>
-          {infor.name.length > 0 ? infor.name : 'Học sinh'}
+          {globalData.infor.name.length > 0
+            ? globalData.infor.name
+            : 'Học sinh'}
         </Text>
       </View>
       <View style={{position: 'absolute', right: 0, top: 200}}>
         {signInStar(vw(10), vw(10))}
       </View>
-      <View style={{marginVertical: vh(3)}}>
+      <View style={{marginVertical: vh(3), rowGap: vh(2)}}>
         <View>
           <Text style={{color: 'white', fontSize: 16, fontWeight: '700'}}>
             Tên hiển thị
           </Text>
           <TextInput
             placeholder="Nhập tên hiển thị"
-            value={infor.name}
-            onChange={e => setInfor({...infor, name: e.nativeEvent.text})}
+            value={globalData.infor.name}
+            onChange={e =>
+              onChange({
+                ...globalData,
+                infor: {...globalData.infor, name: e.nativeEvent.text},
+              })
+            }
             style={{
               backgroundColor: '#1B1B1B',
               color: 'white',
@@ -271,8 +291,13 @@ const SeftInfor: React.FC = () => {
             </Text>
             <TextInput
               placeholder="Nhập tên trường"
-              value={infor.school}
-              onChange={e => setInfor({...infor, school: e.nativeEvent.text})}
+              value={globalData.infor.school}
+              onChange={e =>
+                onChange({
+                  ...globalData,
+                  infor: {...globalData.infor, school: e.nativeEvent.text},
+                })
+              }
               style={{
                 backgroundColor: '#1B1B1B',
                 color: 'white',
@@ -291,8 +316,13 @@ const SeftInfor: React.FC = () => {
             </Text>
             <TextInput
               placeholder="Nhập tên tỉnh/thành phố"
-              value={infor.city}
-              onChange={e => setInfor({...infor, city: e.nativeEvent.text})}
+              value={globalData.infor.city}
+              onChange={e =>
+                onChange({
+                  ...globalData,
+                  infor: {...globalData.infor, city: e.nativeEvent.text},
+                })
+              }
               style={{
                 backgroundColor: '#1B1B1B',
                 color: 'white',
@@ -311,21 +341,49 @@ const SeftInfor: React.FC = () => {
   );
 };
 
-const Difficulty: React.FC = () => {
+const Difficulty: React.FC<commonOptionsProps> = ({globalData, onChange}) => {
   const [isMath, setIsMath] = useState(true);
-  const [selectedOptions, setSelectedOptions] = useState<boolean[]>([]);
+  const [selectedMathOptions, setSelectedMathOptions] = useState<boolean[]>([]);
+  const [selectedChemistryOptions, setSelectedChemistryOptions] = useState<
+    boolean[]
+  >([]);
 
   const handleSwitch = (value: boolean) => {
     setIsMath(value);
   };
 
   const handleCheckboxChange = (index: number) => {
-    const updatedSelectedOptions = [...selectedOptions];
-    updatedSelectedOptions[index] = !updatedSelectedOptions[index];
-    setSelectedOptions(updatedSelectedOptions);
+    if (isMath) {
+      const updatedSelectedOptions = [...selectedMathOptions];
+      updatedSelectedOptions[index] = !updatedSelectedOptions[index];
+      setSelectedMathOptions(updatedSelectedOptions);
+      onChange({
+        ...globalData,
+        difficulty: {
+          math: mathContents.filter((_, i) => updatedSelectedOptions[i]),
+          chemistry: globalData.difficulty.chemistry,
+        },
+      });
+    } else {
+      const updatedSelectedOptions = [...selectedChemistryOptions];
+      updatedSelectedOptions[index] = !updatedSelectedOptions[index];
+      setSelectedChemistryOptions(updatedSelectedOptions);
+      onChange({
+        ...globalData,
+        difficulty: {
+          math: globalData.difficulty.math,
+          chemistry: chemistryContents.filter(
+            (_, i) => updatedSelectedOptions[i],
+          ),
+        },
+      });
+    }
   };
 
   const options = isMath ? mathContents : chemistryContents;
+  const selectedOptions = isMath
+    ? selectedMathOptions
+    : selectedChemistryOptions;
 
   return (
     <View style={{width: '100%', height: '100%'}}>

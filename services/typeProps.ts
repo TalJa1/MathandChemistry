@@ -56,7 +56,7 @@ export interface GlobalData {
     name: string;
     school: string;
     city: string;
-    image: string;
+    image: Array<string>;
   };
 }
 
