@@ -21,11 +21,7 @@ const LoginPage: React.FC = () => {
   useEffect(() => {
     loadData<LoginAccountProps[]>(loginAccountStorage)
       .then(loadedData => {
-        if (loadedData) {
-          // console.log(loadedData);
-        } else {
-          saveData(loginAccountStorage, loginAccount);
-        }
+        console.log(loadedData);
       })
       .catch(() => {
         saveData(loginAccountStorage, loginAccount);

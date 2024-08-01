@@ -26,6 +26,7 @@ import {
   classNumbers,
   goalOptions,
   languageOptions,
+  loginAccount,
   mathContents,
   whoOptions,
 } from '../../services/renderData';
@@ -34,6 +35,7 @@ import {
   GlobalData,
   InputInforStackParamList,
   languageOptionsProps,
+  LoginAccountProps,
   searchBarProps,
   whoOptionsProps,
 } from '../../services/typeProps';
@@ -41,6 +43,8 @@ import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {RouteProp, useRoute} from '@react-navigation/native';
+import {loadData, saveData} from '../../services/storage';
+import {loginAccountStorage} from '../../data/rootStorage';
 
 type InputInforRouteProp = RouteProp<InputInforStackParamList, 'InputInfor'>;
 
@@ -52,6 +56,7 @@ const InputInforPage: React.FC = () => {
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isNext, setIsNext] = useState(false);
+  const [data, setData] = useState<LoginAccountProps[]>([]);
   const [globalData, setGlobalData] = useState<GlobalData>({
     language: '',
     who: '',
@@ -73,11 +78,31 @@ const InputInforPage: React.FC = () => {
     },
   });
 
+  // Load data from loginAccountStorage
+  useEffect(() => {
+    loadData<LoginAccountProps[]>(loginAccountStorage)
+      .then(loadedData => {
+        setData(loadedData);
+      })
+      .catch(() => {
+        saveData(loginAccountStorage, loginAccount);
+        setData(loginAccount);
+      });
+  }, []);
+
   const handleNextStep = async () => {
     if (step < 6) {
       setStep(step + 1);
     } else {
-      console.log(globalData);
+      const dataSearch = data.find(
+        item => item.email === email && item.password === password,
+      );
+      if (dataSearch) {
+        dataSearch.accInfor = globalData;
+        await saveData(loginAccountStorage, data);
+      } else {
+        console.log('Data not found');
+      }
     }
   };
 
