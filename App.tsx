@@ -47,16 +47,15 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
-                return focused ? (
+                const iconSize = focused ? vw(7) : vw(6);
+                return (
                   <View
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
                     ]}>
-                    {homeIconSVG(vw(6), vw(6), color)}
+                    {homeIconSVG(iconSize, iconSize, color)}
                   </View>
-                ) : (
-                  <View>{homeIconSVG(vw(6), vw(6), color)}</View>
                 );
               },
             }}
@@ -67,16 +66,15 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
-                return focused ? (
+                const iconSize = focused ? vw(7) : vw(6);
+                return (
                   <View
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
                     ]}>
-                    {docsIconSVG(vw(6), vw(6), color)}
+                    {docsIconSVG(iconSize, iconSize, color)}
                   </View>
-                ) : (
-                  <View>{docsIconSVG(vw(6), vw(6), color)}</View>
                 );
               },
             }}
@@ -87,16 +85,15 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
-                return focused ? (
+                const iconSize = focused ? vw(7) : vw(6);
+                return (
                   <View
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
                     ]}>
-                    {addIconSVG(vw(6), vw(6), color)}
+                    {addIconSVG(iconSize, iconSize, color)}
                   </View>
-                ) : (
-                  <View>{addIconSVG(vw(6), vw(6), color)}</View>
                 );
               },
             }}
@@ -107,16 +104,15 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
-                return focused ? (
+                const iconSize = focused ? vw(7) : vw(6);
+                return (
                   <View
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
                     ]}>
-                    {netWorkIconSVG(vw(6), vw(6), color)}
+                    {netWorkIconSVG(iconSize, iconSize, color)}
                   </View>
-                ) : (
-                  <View>{netWorkIconSVG(vw(6), vw(6), color)}</View>
                 );
               },
             }}
@@ -127,16 +123,15 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
-                return focused ? (
+                const iconSize = focused ? vw(7) : vw(6);
+                return (
                   <View
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
                     ]}>
-                    {profileIconSVG(vw(6), vw(6), color)}
+                    {profileIconSVG(iconSize, iconSize, color)}
                   </View>
-                ) : (
-                  <View>{profileIconSVG(vw(6), vw(6), color)}</View>
                 );
               },
             }}
@@ -207,7 +202,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   focusedIcon: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#D2FD7C',
     borderRadius: vw(8), // Adjust the radius to make it a circle
     padding: vw(4), // Adjust the padding to control the size of the circle
   },
