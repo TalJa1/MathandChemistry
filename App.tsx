@@ -18,6 +18,10 @@ import {
   profileIconSVG,
 } from './assets/svgXml';
 import {vh, vw} from './services/styleSheets';
+import Docs from './views/tabNavigator/Docs';
+import Addition from './views/tabNavigator/Addition';
+import NetWork from './views/tabNavigator/NetWork';
+import Profile from './views/tabNavigator/Profile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,7 +63,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Docs"
-            component={Home}
+            component={Docs}
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
@@ -79,7 +83,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Add"
-            component={Home}
+            component={Addition}
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
@@ -99,7 +103,7 @@ const App = () => {
           />
           <Tab.Screen
             name="NetWork"
-            component={Home}
+            component={NetWork}
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
@@ -119,7 +123,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Profile"
-            component={Home}
+            component={Profile}
             options={{
               headerShown: false,
               tabBarIcon: ({color, focused}) => {
