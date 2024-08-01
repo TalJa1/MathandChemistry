@@ -30,12 +30,12 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {loadData, saveData} from '../../services/storage';
 import {loginAccountStorage} from '../../data/rootStorage';
-import {loginAccount} from '../../data/login/loginData';
+import {loginAccount} from '../../services/renderData';
 
 const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const [loginAcc, setLoginAcc] = useState(loginAccount);
+  const [loginAcc, setLoginAcc] = useState<LoginAccountProps[]>([]);
   const [account, setAccount] = useState({
     email: 'Te@gmail.com',
     password: 'test1234',
@@ -45,7 +45,7 @@ const SignInPage: React.FC = () => {
   React.useEffect(() => {
     loadData<LoginAccountProps[]>(loginAccountStorage)
       .then(loadedData => {
-        console.log(loadedData);
+        setLoginAcc(loadedData);
       })
       .catch(() => {
         saveData(loginAccountStorage, loginAccount);
@@ -75,7 +75,12 @@ const SignInPage: React.FC = () => {
           console.log('Teacher');
           break;
         case '':
-          navigation.navigate('InputInfor');
+          navigation.navigate('InputInfor', {
+            userAccount: {
+              email: account.email,
+              password: account.password,
+            },
+          });
           break;
       }
     }

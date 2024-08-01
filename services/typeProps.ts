@@ -37,6 +37,7 @@ export type LoginAccountProps = {
   email: string;
   password: string;
   role: string;
+  accInfor: GlobalData;
 };
 
 export interface GlobalData {
@@ -76,3 +77,12 @@ export interface commonOptionsProps {
   globalData: GlobalData;
   onChange: React.Dispatch<React.SetStateAction<GlobalData>>;
 }
+
+export type InputInforStackParamList = {
+  InputInfor: {
+    userAccount: {
+      email: string;
+      password: string;
+    };
+  };
+};

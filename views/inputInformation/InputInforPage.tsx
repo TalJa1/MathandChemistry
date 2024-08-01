@@ -32,6 +32,7 @@ import {
 import {
   commonOptionsProps,
   GlobalData,
+  InputInforStackParamList,
   languageOptionsProps,
   searchBarProps,
   whoOptionsProps,
@@ -39,9 +40,15 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {RouteProp, useRoute} from '@react-navigation/native';
+
+type InputInforRouteProp = RouteProp<InputInforStackParamList, 'InputInfor'>;
 
 const InputInforPage: React.FC = () => {
   useStatusBar('black');
+  const route = useRoute<InputInforRouteProp>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {email, password} = route.params.userAccount;
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isNext, setIsNext] = useState(false);
@@ -66,11 +73,11 @@ const InputInforPage: React.FC = () => {
     },
   });
 
-  // console.log(globalData);
-
-  const handleNextStep = () => {
-    if (step <= 6) {
+  const handleNextStep = async () => {
+    if (step < 6) {
       setStep(step + 1);
+    } else {
+      console.log(globalData);
     }
   };
 

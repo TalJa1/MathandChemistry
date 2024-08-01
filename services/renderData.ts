@@ -1,4 +1,85 @@
 /* eslint-disable prettier/prettier */
+export const loginAccount = [
+  {
+    email: 'St@gmail.com',
+    password: '12345678',
+    role: 'STUDENT',
+    accInfor: {
+      language: 'Việt Nam',
+      who: 'Học sinh',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [
+        'Nắm vững kiến thức cơ bản của môn Toán và Hóa',
+        'Cải thiện điểm số trên lớp',
+      ],
+      difficulty: {
+        math: ['Số học', 'Hình học'],
+        chemistry: ['Hóa phân tích'],
+      },
+      infor: {
+        name: 'Dan',
+        school: 'Nguyen Hue',
+        city: 'TPHCM',
+        image: [],
+      },
+    },
+  },
+  {
+    email: 'Tc@gmail.com',
+    password: '12345678',
+    role: 'TEACHER',
+    accInfor: {
+      language: '',
+      who: '',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [],
+      difficulty: {
+        math: [],
+        chemistry: [],
+      },
+      infor: {
+        name: '',
+        school: '',
+        city: '',
+        image: [],
+      },
+    },
+  },
+  {
+    email: 'Te@gmail.com',
+    password: 'test1234',
+    role: '',
+    accInfor: {
+      language: '',
+      who: '',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [],
+      difficulty: {
+        math: [],
+        chemistry: [],
+      },
+      infor: {
+        name: '',
+        school: '',
+        city: '',
+        image: [],
+      },
+    },
+  },
+];
+
 export const languageOptions = [
   {
     name: 'Anh',

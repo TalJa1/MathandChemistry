@@ -12,7 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {loadData, saveData} from '../../services/storage';
-import {loginAccount} from '../../data/login/loginData';
+import {loginAccount} from '../../services/renderData';
 import {loginAccountStorage} from '../../data/rootStorage';
 
 const LoginPage: React.FC = () => {
