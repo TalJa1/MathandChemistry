@@ -11,6 +11,29 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const nextIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6666 5.5L1.33325 5.5M14.6666 5.5L9.66658 10.5M14.6666 5.5L9.66659 0.5" stroke=${
+    color ?? '#464646'
+  } style="stroke:#464646;stroke:color(display-p3 0.2740 0.2740 0.2740);stroke-opacity:1;" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const redBlurDotIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.52" d="M18 9.5C18 14.1944 14.1944 18 9.5 18C4.80558 18 1 14.1944 1 9.5C1 4.80558 4.80558 1 9.5 1C14.1944 1 18 4.80558 18 9.5Z" fill="#B65A46" stroke="#B65A46" style="fill:#B65A46;fill:color(display-p3 0.7118 0.3525 0.2736);fill-opacity:1;stroke:#B65A46;stroke:color(display-p3 0.7118 0.3525 0.2736);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 9.5C16 13.0899 13.0899 16 9.5 16C5.91015 16 3 13.0899 3 9.5C3 5.91015 5.91015 3 9.5 3C13.0899 3 16 5.91015 16 9.5Z" fill="#B65A46" stroke=${
+    color ?? '#B65A46'
+  } style="fill:#B65A46;fill:color(display-p3 0.7118 0.3525 0.2736);fill-opacity:1;stroke:#B65A46;stroke:color(display-p3 0.7118 0.3525 0.2736);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const noticeIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.99994 25.1666V26.8333C8.99994 29.5947 11.2385 31 13.9999 31C16.7614 31 18.9999 29.5947 18.9999 26.8333V25.1666M3.99992 10.1666C3.99992 4.6438 8.47707 1.83331 13.9999 1.83331C19.5228 1.83331 23.9999 4.6438 23.9999 10.1666C23.9999 13.3986 25.175 17.0222 26.3859 19.8982C27.3913 22.2861 25.7036 25.1666 23.1126 25.1666H4.88722C2.29624 25.1666 0.608577 22.2861 1.61396 19.8982C2.82482 17.0222 3.99992 13.3986 3.99992 10.1666Z" stroke=${

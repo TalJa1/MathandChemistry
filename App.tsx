@@ -142,6 +142,7 @@ const App = () => {
   };
   return (
     <NavigationContainer>
+      {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Tab Navigator */}
         <Stack.Screen
