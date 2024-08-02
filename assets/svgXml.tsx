@@ -11,6 +11,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const cameraIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.66667 2.99996L13 1.66663V8.33329L9.66667 6.99996M1.66667 0.666626H9C9.36819 0.666626 9.66667 0.965103 9.66667 1.33329V8.66663C9.66667 9.03481 9.36819 9.33329 9 9.33329H1.66667C1.29848 9.33329 1 9.03481 1 8.66663V1.33329C1 0.965103 1.29848 0.666626 1.66667 0.666626Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const nextIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.6666 5.5L1.33325 5.5M14.6666 5.5L9.66658 10.5M14.6666 5.5L9.66659 0.5" stroke=${

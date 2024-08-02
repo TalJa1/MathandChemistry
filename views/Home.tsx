@@ -15,16 +15,19 @@ import useStatusBar from '../services/useStatusBarCustom';
 import {centerAll, vh, vw} from '../services/styleSheets';
 import {
   alignIconSVG,
+  cameraIcon,
   nextIcon,
   noticeIcon,
   redBlurDotIcon,
   searchIcon,
 } from '../assets/svgXml';
 import * as Progress from 'react-native-progress';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const Home = () => {
   useStatusBar('black');
   const [containerWidth, setContainerWidth] = useState(0);
+  const [toggleNotice, setToggleNotice] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -182,17 +185,53 @@ const Home = () => {
                 </View>
               </TouchableOpacity>
             </View>
+            <View
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View style={[centerAll, {padding: vw(2), width: '55%'}]}>
+                <Text
+                  style={{color: '#D2FD7C', fontWeight: '700', fontSize: 16}}>
+                  Điểm TB
+                </Text>
+              </View>
+              <View
+                style={[
+                  centerAll,
+                  {
+                    padding: vw(2),
+                    width: '40%',
+                    backgroundColor: '#ED7234',
+                    borderRadius: 10,
+                  },
+                ]}>
+                <Text
+                  style={{color: '#0D0D0D', fontSize: 16, fontWeight: '700'}}>
+                  TOÁN
+                </Text>
+                <Text
+                  style={{color: '#0D0D0D', fontSize: 28, fontWeight: '700'}}>
+                  8.4
+                </Text>
+              </View>
+            </View>
           </View>
-          <TouchableOpacity
-            style={[
-              {
+          <View
+            style={{
+              width: '30%',
+              height: '100%',
+              rowGap: vh(2),
+            }}>
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: vw(2),
                 backgroundColor: '#A3A3F2',
                 borderRadius: 10,
-                width: '30%',
-              },
-              centerAll,
-            ]}>
-            <View style={{paddingHorizontal: vw(2)}}>
+                flex: 1,
+                justifyContent: 'center',
+              }}>
               <Text style={{fontSize: 16, fontWeight: '700', color: 'black'}}>
                 Đang làm
               </Text>
@@ -208,8 +247,92 @@ const Home = () => {
                 </Text>
                 {nextIcon(vw(5), vw(5))}
               </View>
+            </TouchableOpacity>
+            <View
+              style={[
+                centerAll,
+                {
+                  padding: vw(2),
+                  backgroundColor: '#ED7234',
+                  borderRadius: 10,
+                },
+              ]}>
+              <Text style={{color: '#0D0D0D', fontSize: 16, fontWeight: '700'}}>
+                HÓA
+              </Text>
+              <Text style={{color: '#0D0D0D', fontSize: 28, fontWeight: '700'}}>
+                8.6
+              </Text>
             </View>
-          </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            marginVertical: vh(2),
+            marginHorizontal: vw(5),
+            rowGap: vh(1),
+          }}>
+          <Text style={{fontSize: 18, fontWeight: '600', color: 'white'}}>
+            Sắp tới
+          </Text>
+          <View
+            style={{
+              backgroundColor: '#A3A3F266',
+              borderRadius: 20,
+              width: '100%',
+              padding: vw(3),
+              rowGap: vh(1),
+            }}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={{color: 'white', fontSize: 18}}>08:45 - 09:30</Text>
+              <ToggleSwitch
+                isOn={toggleNotice}
+                onColor="#0D0D0D"
+                offColor="#0D0D0D"
+                size="medium"
+                thumbOnStyle={{backgroundColor: '#D2FD7C'}}
+                onToggle={isOn => setToggleNotice(isOn)}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                columnGap: vw(2),
+              }}>
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  padding: vw(1),
+                  borderRadius: vw(40),
+                }}>
+                {cameraIcon(vw(4), vw(4))}
+              </View>
+              <Text style={{fontSize: 16, fontWeight: '600', color: 'white'}}>
+                Chữa đề 23 - lớp Hóa 2
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Image source={require('../assets/home/gvIcon.png')} />
+              <Text style={{flex: 1, paddingLeft: vw(2), color: '#A3A3F2'}}>
+                Cô Hoa - Amsterdam
+              </Text>
+              <View
+                style={{
+                  padding: vw(1),
+                  backgroundColor: '#69CB84',
+                  borderRadius: 5,
+                }}>
+                <Text style={{color: 'black'}}>Hóa</Text>
+              </View>
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
