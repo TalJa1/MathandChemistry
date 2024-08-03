@@ -38,7 +38,7 @@ const App = () => {
             tabBarStyle: {
               borderTopColor: '#000000',
               backgroundColor: '#000000',
-              height: vh(9),
+              height: vh(8),
             },
           }}>
           <Tab.Screen
@@ -53,6 +53,7 @@ const App = () => {
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
+                      focused && styles.iconMoveUp,
                     ]}>
                     {homeIconSVG(iconSize, iconSize, color)}
                   </View>
@@ -72,6 +73,7 @@ const App = () => {
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
+                      focused && styles.iconMoveUp,
                     ]}>
                     {docsIconSVG(iconSize, iconSize, color)}
                   </View>
@@ -91,6 +93,7 @@ const App = () => {
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
+                      focused && styles.iconMoveUp,
                     ]}>
                     {addIconSVG(iconSize, iconSize, color)}
                   </View>
@@ -110,6 +113,7 @@ const App = () => {
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
+                      focused && styles.iconMoveUp,
                     ]}>
                     {netWorkIconSVG(iconSize, iconSize, color)}
                   </View>
@@ -129,6 +133,7 @@ const App = () => {
                     style={[
                       styles.iconContainer,
                       focused && styles.focusedIcon,
+                      focused && styles.iconMoveUp,
                     ]}>
                     {profileIconSVG(iconSize, iconSize, color)}
                   </View>
@@ -206,5 +211,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#D2FD7C',
     borderRadius: vw(8), // Adjust the radius to make it a circle
     padding: vw(4), // Adjust the padding to control the size of the circle
+  },
+  iconMoveUp: {
+    transform: [{translateY: -10}], // Adjust the value as needed
   },
 });
