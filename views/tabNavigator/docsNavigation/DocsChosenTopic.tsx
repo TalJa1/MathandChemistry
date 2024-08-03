@@ -59,7 +59,7 @@ const TopicNavigation: React.FC<DocsChosenTopicProps> = ({data}) => {
       }}>
       {data.map((item, index) => (
         <View key={index} style={styles.itemContainer}>
-          <TouchableOpacity style={centerAll}>
+          <TouchableOpacity style={[centerAll, {rowGap: vh(1)}]}>
             <Image style={styles.image} source={item.img} />
             <Text style={styles.label}>{item.label}</Text>
           </TouchableOpacity>
