@@ -213,3 +213,33 @@ export const renderBoxChemistryGroupData = [
     color: '#D2FD7C',
   },
 ];
+
+export const docsMathTopicData = [
+  {
+    img: require('../assets/docs/img1.png'),
+    label: 'Cấp số cộng/ Cấp số nhân',
+  },
+  {
+    img: require('../assets/docs/img2.png'),
+    label: 'Hình học không gian',
+  },
+  {
+    img: require('../assets/docs/img3.png'),
+    label: 'Hình học không gian',
+  },
+];
+
+export const docsChemistryTopicData = [
+  {
+    img: require('../assets/docs/img1.png'),
+    label: 'Hóa vô cơ',
+  },
+  {
+    img: require('../assets/docs/img2.png'),
+    label: 'Hóa hữu cơ',
+  },
+  {
+    img: require('../assets/docs/img3.png'),
+    label: 'Hóa phân tích',
+  },
+];

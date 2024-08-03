@@ -33,6 +33,8 @@ import {
   renderBoxChemistryGroupData,
   renderBoxMathGroupData,
 } from '../../services/renderData';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const Docs = () => {
   useStatusBar('black');
@@ -95,8 +97,12 @@ const MainDataBox: React.FC<DocsMainDataProps & {isMath: boolean}> = ({
   total,
   isMath,
 }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('DocsChosenTopic', {title: title, isMath: isMath});
+      }}
       style={[
         {width: '100%', padding: vw(5), borderRadius: vw(5), rowGap: vh(2)},
         isMath

@@ -123,3 +123,12 @@ export interface DocsMainDataProps {
 export interface RenderDocsMainDataProps {
   data: DocsMainDataProps[];
 }
+
+export interface TopicProps {
+  img: any;
+  label: string;
+}
+
+export interface DocsChosenTopicProps {
+  data: TopicProps[];
+}
