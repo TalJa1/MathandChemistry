@@ -23,6 +23,7 @@ import Addition from './views/tabNavigator/Addition';
 import NetWork from './views/tabNavigator/NetWork';
 import Profile from './views/tabNavigator/Profile';
 import DocsChosenTopic from './views/tabNavigator/docsNavigation/DocsChosenTopic';
+import TopicDetail from './views/tabNavigator/docsNavigation/TopicDetail';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -151,6 +152,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Navigation page */}
+        <Stack.Screen
+          name="TopicDetail"
+          component={TopicDetail}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="DocsChosenTopic"
           component={DocsChosenTopic}

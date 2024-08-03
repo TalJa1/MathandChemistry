@@ -243,3 +243,5 @@ export const docsChemistryTopicData = [
     label: 'Hóa phân tích',
   },
 ];
+
+export const tabTimeData = ['15 phút', '60 phút', '90 phút', 'Xem lại'];

@@ -1,29 +1,24 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {centerAll, vh, vw} from '../../../services/styleSheets';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {DocsChosenTopicProps} from '../../../services/typeProps';
-import {
-  docsChemistryTopicData,
-  docsMathTopicData,
-} from '../../../services/renderData';
-import SearchBar from '../../../components/docs/SearchBar';
 import Header from '../../../components/docs/Header';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useRoute} from '@react-navigation/native';
+import SearchBar from '../../../components/docs/SearchBar';
+import {tabTimeData} from '../../../services/renderData';
 
-const DocsChosenTopic = () => {
+const TopicDetail = () => {
   useStatusBar('black');
+  //get data from navigation
   const route = useRoute();
   const {title, isMath} = route.params as {title: string; isMath: boolean};
   return (
@@ -34,49 +29,40 @@ const DocsChosenTopic = () => {
             borderBottomLeftRadius: 10,
             borderBottomRightRadius: 10,
             marginBottom: vh(1),
-            elevation: 10,
-            shadowColor: 'yellow',
-            backgroundColor: 'black',
           }}>
           <Header title={title} />
           <SearchGrp isMath={isMath} />
         </View>
-        <TopicNavigation
-          data={isMath ? docsMathTopicData : docsChemistryTopicData}
-          isMath={isMath}
-        />
+        <View
+          style={{
+            backgroundColor: '#202020',
+            padding: vw(3),
+            borderRadius: vw(5),
+          }}>
+          <TimeTabs />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-const TopicNavigation: React.FC<DocsChosenTopicProps & {isMath: boolean}> = ({
-  data,
-  isMath,
-}) => {
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+const TimeTabs: React.FC = () => {
+  const [timeTabIndex, setTimeTabIndex] = useState(0);
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginVertical: vh(5),
-        marginHorizontal: vw(5),
-      }}>
-      {data.map((item, index) => (
-        <View key={index} style={styles.itemContainer}>
-          <TouchableOpacity
-            style={[centerAll, {rowGap: vh(1)}]}
-            onPress={() =>
-              navigation.navigate('TopicDetail', {
-                title: item.label,
-                isMath: isMath,
-              })
-            }>
-            <Image style={styles.image} source={item.img} />
-            <Text style={styles.label}>{item.label}</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+      {tabTimeData.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => setTimeTabIndex(index)}
+          style={{
+            padding: vw(2),
+            backgroundColor: timeTabIndex === index ? '#D2FD7C' : 'transparent',
+            borderRadius: vw(20),
+          }}>
+          <Text style={{color: timeTabIndex === index ? '#090A0A' : '#7C7C7C'}}>
+            {item}
+          </Text>
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -127,23 +113,8 @@ const SearchGrp: React.FC<{isMath: boolean}> = ({isMath}) => {
   );
 };
 
-export default DocsChosenTopic;
+export default TopicDetail;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  itemContainer: {
-    flex: 1,
-  },
-  image: {
-    width: vw(20),
-    height: vw(20),
-    resizeMode: 'contain',
-  },
-  label: {
-    textAlign: 'center', // Center text horizontally
-    flexWrap: 'wrap', // Wrap text if it overflows
-  },
+  container: {flex: 1, backgroundColor: 'black'},
 });
