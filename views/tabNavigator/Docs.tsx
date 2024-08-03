@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -12,14 +11,7 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import {vh, vw} from '../../services/styleSheets';
-import {
-  alignIconSVG,
-  backArrow,
-  finishDocsIcon,
-  noticeIcon,
-  pendingDocsIcon,
-  searchIcon,
-} from '../../assets/svgXml';
+import {finishDocsIcon, pendingDocsIcon} from '../../assets/svgXml';
 import SwitchTabComponent from '../../components/SwitchTabComponent';
 import {
   BoxDataProps,
@@ -35,6 +27,8 @@ import {
 } from '../../services/renderData';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import SearchBar from '../../components/docs/SearchBar';
+import Header from '../../components/docs/Header';
 
 const Docs = () => {
   useStatusBar('black');
@@ -42,7 +36,7 @@ const Docs = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Header />
+        <Header title="Đề thi" />
         <View style={{paddingHorizontal: vw(5), marginVertical: vh(1)}}>
           <SearchBar />
         </View>
@@ -167,48 +161,6 @@ const BoxData: React.FC<BoxDataProps> = ({color, content, title}) => {
           {content}
         </Text>
       </View>
-    </View>
-  );
-};
-
-const Header: React.FC = () => {
-  return (
-    <View
-      style={{
-        width: vw(100),
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: vw(5),
-        justifyContent: 'space-between',
-        marginVertical: vh(2),
-      }}>
-      <TouchableOpacity>{backArrow(vw(8), vw(8))}</TouchableOpacity>
-      <View style={{flex: 1, marginHorizontal: 10}}>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: '#A7A7A7',
-            fontSize: 16,
-            fontWeight: '500',
-          }}>
-          Đề thi
-        </Text>
-      </View>
-      {noticeIcon(vw(8), vw(8))}
-    </View>
-  );
-};
-
-const SearchBar: React.FC = () => {
-  return (
-    <View style={styles.searchContainer}>
-      {searchIcon(vw(5), vw(5))}
-      <TextInput
-        style={styles.input}
-        placeholder="Search"
-        placeholderTextColor="#999"
-      />
-      {alignIconSVG(vw(5), vw(5))}
     </View>
   );
 };

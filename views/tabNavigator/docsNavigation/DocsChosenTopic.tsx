@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -13,19 +12,14 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {centerAll, vh, vw} from '../../../services/styleSheets';
-import {
-  alignIconSVG,
-  backArrow,
-  noticeIcon,
-  searchIcon,
-} from '../../../assets/svgXml';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useRoute} from '@react-navigation/native';
 import {DocsChosenTopicProps} from '../../../services/typeProps';
 import {
   docsChemistryTopicData,
   docsMathTopicData,
 } from '../../../services/renderData';
+import SearchBar from '../../../components/docs/SearchBar';
+import Header from '../../../components/docs/Header';
 
 const DocsChosenTopic = () => {
   useStatusBar('black');
@@ -120,71 +114,12 @@ const SearchGrp: React.FC<{isMath: boolean}> = ({isMath}) => {
   );
 };
 
-const Header: React.FC<{title: string}> = ({title}) => {
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  return (
-    <View
-      style={{
-        width: vw(100),
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: vw(5),
-        justifyContent: 'space-between',
-        marginVertical: vh(2),
-      }}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        {backArrow(vw(8), vw(8))}
-      </TouchableOpacity>
-      <View style={{flex: 1, marginHorizontal: 10}}>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: '#A7A7A7',
-            fontSize: 16,
-            fontWeight: '500',
-          }}>
-          {title}
-        </Text>
-      </View>
-      {noticeIcon(vw(8), vw(8))}
-    </View>
-  );
-};
-
-const SearchBar: React.FC = () => {
-  return (
-    <View style={styles.searchContainer}>
-      {searchIcon(vw(5), vw(5))}
-      <TextInput
-        style={styles.input}
-        placeholder="Search"
-        placeholderTextColor="#999"
-      />
-      {alignIconSVG(vw(5), vw(5))}
-    </View>
-  );
-};
-
 export default DocsChosenTopic;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderColor: '#E5F55426',
-    borderWidth: 2,
-    borderRadius: 50,
-    paddingHorizontal: vw(5),
-  },
-  input: {
-    fontSize: 16,
-    marginHorizontal: 10,
-    flex: 1,
   },
   itemContainer: {
     flex: 1,
