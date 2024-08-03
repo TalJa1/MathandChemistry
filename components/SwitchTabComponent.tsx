@@ -23,7 +23,11 @@ const SwitchTabComponent: React.FC<SwitchButtonProps> = ({
           centerAll,
           isMath ? {backgroundColor: '#D2FD7C'} : {},
         ]}>
-        <Text style={[{color: '#7C7C7C'}, isMath ? {color: '#090A0A'} : {}]}>
+        <Text
+          style={[
+            {color: '#7C7C7C', fontWeight: '500'},
+            isMath ? {color: '#090A0A'} : {},
+          ]}>
           Toán
         </Text>
       </TouchableOpacity>
@@ -34,7 +38,11 @@ const SwitchTabComponent: React.FC<SwitchButtonProps> = ({
           centerAll,
           isMath ? {} : {backgroundColor: '#D2FD7C'},
         ]}>
-        <Text style={[{color: '#7C7C7C'}, isMath ? {} : {color: '#090A0A'}]}>
+        <Text
+          style={[
+            {color: '#7C7C7C', fontWeight: '500'},
+            isMath ? {} : {color: '#090A0A'},
+          ]}>
           Hóa
         </Text>
       </TouchableOpacity>
