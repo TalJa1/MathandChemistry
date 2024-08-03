@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
 import React from 'react';
 
 // style import

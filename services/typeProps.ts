@@ -97,3 +97,29 @@ export interface BoxDataProps {
   content: number;
   color: string;
 }
+
+export interface DocsMainDataProps {
+  title: string;
+  amount: number;
+  total: number;
+}
+
+export interface BoxGroupProps {
+  color: string;
+  content: number;
+  title: string;
+}
+
+export interface RenderBoxGroupProps {
+  data: BoxDataProps[];
+}
+
+export interface DocsMainDataProps {
+  title: string;
+  amount: number;
+  total: number;
+}
+
+export interface RenderDocsMainDataProps {
+  data: DocsMainDataProps[];
+}

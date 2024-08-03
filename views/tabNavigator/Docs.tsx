@@ -21,7 +21,18 @@ import {
   searchIcon,
 } from '../../assets/svgXml';
 import SwitchTabComponent from '../../components/SwitchTabComponent';
-import {BoxDataProps} from '../../services/typeProps';
+import {
+  BoxDataProps,
+  DocsMainDataProps,
+  RenderBoxGroupProps,
+  RenderDocsMainDataProps,
+} from '../../services/typeProps';
+import {
+  mainDocsChemistryData,
+  mainDocsMathData,
+  renderBoxChemistryGroupData,
+  renderBoxMathGroupData,
+} from '../../services/renderData';
 
 const Docs = () => {
   useStatusBar('black');
@@ -42,13 +53,69 @@ const Docs = () => {
           }}>
           <SwitchTabComponent isMath={isMath} setIsMath={setIsMath} />
         </View>
-        <RenderBoxGroup />
+        {isMath ? (
+          <View>
+            <RenderBoxGroup data={renderBoxMathGroupData} />
+            <MainData data={mainDocsMathData} isMath={isMath} />
+          </View>
+        ) : (
+          <View>
+            <RenderBoxGroup data={renderBoxChemistryGroupData} />
+            <MainData data={mainDocsChemistryData} isMath={isMath} />
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-const RenderBoxGroup: React.FC = () => {
+const MainData: React.FC<RenderDocsMainDataProps & {isMath: boolean}> = ({
+  data,
+  isMath,
+}) => {
+  return (
+    <View style={{rowGap: vh(2), marginHorizontal: vw(5)}}>
+      {data.map((item, index) => (
+        <View key={index}>
+          <MainDataBox
+            amount={item.amount}
+            title={item.title}
+            total={item.total}
+            isMath={isMath}
+          />
+        </View>
+      ))}
+    </View>
+  );
+};
+
+const MainDataBox: React.FC<DocsMainDataProps & {isMath: boolean}> = ({
+  amount,
+  title,
+  total,
+  isMath,
+}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        {width: '100%', padding: vw(5), borderRadius: vw(5), rowGap: vh(2)},
+        isMath
+          ? {backgroundColor: '#A7A7A726'}
+          : {backgroundColor: '#A3A3F21A'},
+      ]}>
+      <Text>{title}</Text>
+      <View
+        style={{flexDirection: 'row', columnGap: vw(2), alignItems: 'center'}}>
+        {finishDocsIcon(vw(6), vw(6), '#D2FD7C')}
+        <Text>
+          {amount}/{total}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const RenderBoxGroup: React.FC<RenderBoxGroupProps> = ({data}) => {
   return (
     <View
       style={{
@@ -56,8 +123,15 @@ const RenderBoxGroup: React.FC = () => {
         justifyContent: 'space-around',
         marginVertical: vh(2),
       }}>
-      <BoxData color="#A3A3F2" content={3} title="Đang làm" />
-      <BoxData color="#D2FD7C" content={12} title="Đã làm" />
+      {data.map((item, index) => (
+        <View key={index}>
+          <BoxData
+            color={item.color}
+            content={item.content}
+            title={item.title}
+          />
+        </View>
+      ))}
     </View>
   );
 };

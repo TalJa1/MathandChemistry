@@ -151,3 +151,65 @@ export const chemistryContents = [
   'Hóa học thực phẩm',
   'Khác',
 ];
+
+export const mainDocsMathData = [
+  {
+    title: 'Đề tổng hợp',
+    amount: 5,
+    total: 30,
+  },
+  {
+    title: 'Ôn tập theo chuyên đề',
+    amount: 2,
+    total: 30,
+  },
+  {
+    title: 'Đề thi đại học',
+    amount: 3,
+    total: 30,
+  },
+];
+
+export const mainDocsChemistryData = [
+  {
+    title: 'Đề tổng hợp',
+    amount: 3,
+    total: 30,
+  },
+  {
+    title: 'Ôn tập theo chuyên đề',
+    amount: 7,
+    total: 30,
+  },
+  {
+    title: 'Đề thi đại học',
+    amount: 8,
+    total: 30,
+  },
+];
+
+export const renderBoxMathGroupData = [
+  {
+    title: 'Đang làm',
+    content: 3,
+    color: '#A3A3F2',
+  },
+  {
+    title: 'Đã làm',
+    content: 12,
+    color: '#D2FD7C',
+  },
+];
+
+export const renderBoxChemistryGroupData = [
+  {
+    title: 'Đang làm',
+    content: 3,
+    color: '#A3A3F2',
+  },
+  {
+    title: 'Đã làm',
+    content: 10,
+    color: '#D2FD7C',
+  },
+];
