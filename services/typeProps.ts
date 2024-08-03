@@ -86,3 +86,14 @@ export type InputInforStackParamList = {
     };
   };
 };
+
+export type SwitchButtonProps = {
+  isMath: boolean;
+  setIsMath: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export interface BoxDataProps {
+  title: string;
+  content: number;
+  color: string;
+}

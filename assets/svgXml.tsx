@@ -11,6 +11,28 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const finishDocsIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.5 10L7.29996 14.2L5.50004 12.4M11.5 2.27928V1H5.5V2.27928M11.5 2.27928V4H5.5V2.27928M11.5 2.27928C14.8745 3.0462 16 5.5037 16 11C16 17.8824 14.2353 20 8.5 20C2.76471 20 1 17.8824 1 11C1 5.5037 2.12549 3.0462 5.5 2.27928" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const pendingDocsIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 11H10M6 15H12M12 2.27928V1H6V2.27928M12 2.27928V4H6V2.27928M12 2.27928C15.3745 3.0462 16.5 5.5037 16.5 11C16.5 17.8824 14.7353 20 9 20C3.26471 20 1.5 17.8824 1.5 11C1.5 5.5037 2.62549 3.0462 6 2.27928" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const cameraIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.66667 2.99996L13 1.66663V8.33329L9.66667 6.99996M1.66667 0.666626H9C9.36819 0.666626 9.66667 0.965103 9.66667 1.33329V8.66663C9.66667 9.03481 9.36819 9.33329 9 9.33329H1.66667C1.29848 9.33329 1 9.03481 1 8.66663V1.33329C1 0.965103 1.29848 0.666626 1.66667 0.666626Z" stroke=${

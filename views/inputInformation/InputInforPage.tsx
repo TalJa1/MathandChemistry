@@ -51,7 +51,6 @@ type InputInforRouteProp = RouteProp<InputInforStackParamList, 'InputInfor'>;
 const InputInforPage: React.FC = () => {
   useStatusBar('black');
   const route = useRoute<InputInforRouteProp>();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {email, password} = route.params.userAccount;
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
