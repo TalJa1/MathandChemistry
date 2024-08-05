@@ -195,30 +195,28 @@ const BoxData: React.FC<BoxDataProps> = ({color, content, title}) => {
         justifyContent: 'space-between',
         borderRadius: vw(5),
       }}>
-      <Text
-        style={[
-          {color: '#0D0D0D', fontSize: 16, fontWeight: '600'},
-          title === 'Ôn tập dạng bài tuơng tự'
-            ? {justifyContent: 'center', alignItems: 'center'}
-            : {},
-        ]}>
+      <Text style={{color: '#0D0D0D', fontSize: 16, fontWeight: '600'}}>
         {title}
       </Text>
-      <View
-        style={{flexDirection: 'row', alignItems: 'center', columnGap: vw(2)}}>
-        {title === 'Đang làm' ? (
-          <View>{pendingDocsIcon(vw(6), vw(6))}</View>
-        ) : title === 'Đã lưu' ? (
-          <View>{reCheckIcon(vw(5), vw(5), 'black')}</View>
-        ) : title === 'Ôn tập dạng bài tuơng tự' ? (
-          <></>
-        ) : (
-          <View>{finishDocsIcon(vw(6), vw(6))}</View>
-        )}
-        <Text style={{color: '#464646', fontSize: 16, fontWeight: '500'}}>
-          {title === 'Ôn tập dạng bài tuơng tự' ? <></> : content}
-        </Text>
-      </View>
+      {title === 'Ôn tập dạng bài tuơng tự' ? null : (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            columnGap: vw(2),
+          }}>
+          {title === 'Đang làm' ? (
+            <View>{pendingDocsIcon(vw(6), vw(6))}</View>
+          ) : title === 'Đã lưu' ? (
+            <View>{reCheckIcon(vw(5), vw(5), 'black')}</View>
+          ) : (
+            <View>{finishDocsIcon(vw(6), vw(6))}</View>
+          )}
+          <Text style={{color: '#464646', fontSize: 16, fontWeight: '500'}}>
+            {content}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
