@@ -14,11 +14,20 @@ import {centerAll, vh, vw} from '../../../services/styleSheets';
 import Header from '../../../components/docs/Header';
 import {useRoute} from '@react-navigation/native';
 import SearchBar from '../../../components/docs/SearchBar';
-import {tabTimeData} from '../../../services/renderData';
+import {tabTimeData, tabTimeDataDetail} from '../../../services/renderData';
+import {
+  docsIconSVG,
+  finishDocsIcon,
+  pendingDocsIcon,
+  reCheckIcon,
+  timeIcon,
+} from '../../../assets/svgXml';
+import {BoxDataProps, MainTimeTabDataProps} from '../../../services/typeProps';
 
 const TopicDetail = () => {
   useStatusBar('black');
-  //get data from navigation
+  const [timeTabIndex, setTimeTabIndex] = useState(0);
+
   const route = useRoute();
   const {title, isMath} = route.params as {title: string; isMath: boolean};
   return (
@@ -39,15 +48,185 @@ const TopicDetail = () => {
             padding: vw(3),
             borderRadius: vw(5),
           }}>
-          <TimeTabs />
+          <TimeTabs
+            timeTabIndex={timeTabIndex}
+            setTimeTabIndex={setTimeTabIndex}
+          />
+        </View>
+        <View>
+          <StatusTabs
+            pending={tabTimeDataDetail[timeTabIndex].pending}
+            finish={tabTimeDataDetail[timeTabIndex].finish}
+            type={timeTabIndex}
+          />
+          <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
+            {tabTimeDataDetail[timeTabIndex].data.map((item, index) => (
+              <TouchableOpacity key={index}>
+                <MainDataRender data={item} type={timeTabIndex} />
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-const TimeTabs: React.FC = () => {
-  const [timeTabIndex, setTimeTabIndex] = useState(0);
+const MainDataRender: React.FC<MainTimeTabDataProps & {type: number}> = ({
+  data,
+  type,
+}) => {
+  return (
+    <View
+      style={{
+        backgroundColor: '#A3A3F21A',
+        padding: vw(3),
+        borderRadius: 16,
+        rowGap: vh(2),
+      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          columnGap: vw(2),
+          alignItems: 'center',
+        }}>
+        <Text style={{fontSize: 18, fontWeight: '600', flex: 1}}>
+          {data.title}
+        </Text>
+        {type === 3 ? (
+          <></>
+        ) : (
+          <Text
+            style={[
+              data.status === 'Chưa làm'
+                ? styles.stillnotStyle
+                : data.status === 'Đang làm'
+                ? styles.pendingStyle
+                : styles.pointStyle,
+            ]}>
+            {data.status === 'Chưa làm'
+              ? 'Chưa làm'
+              : data.status === 'Đang làm'
+              ? `Đang làm: ${data.amount}/${data.total}`
+              : `${data.point}`}
+          </Text>
+        )}
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          columnGap: vw(2),
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            columnGap: vw(1),
+          }}>
+          {type === 3 ? (
+            <>{reCheckIcon(vw(5), vw(5))}</>
+          ) : (
+            <>{timeIcon(vw(5), vw(5))}</>
+          )}
+          <Text>
+            {type === 3 ? (
+              <>{data.amount} câu</>
+            ) : (
+              <>{type === 0 ? '15 phút' : type === 1 ? '60 phút' : '90 phút'}</>
+            )}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            columnGap: vw(1),
+          }}>
+          {docsIconSVG(vw(5), vw(5), '#A7A7A7')}
+          <Text>{data.id}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const StatusTabs: React.FC<{pending: number; finish: number; type: number}> = ({
+  pending,
+  finish,
+  type,
+}) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: vh(2),
+      }}>
+      {type === 3 ? (
+        <>
+          <BoxData color="#A3A3F2" title="Đã lưu" content={pending} />
+          <BoxData
+            color="#D2FD7C"
+            title="Ôn tập dạng bài tuơng tự"
+            content={finish}
+          />
+        </>
+      ) : (
+        <>
+          <BoxData color="#A3A3F2" title="Đang làm" content={pending} />
+          <BoxData color="#D2FD7C" title="Đã làm" content={finish} />
+        </>
+      )}
+    </View>
+  );
+};
+
+const BoxData: React.FC<BoxDataProps> = ({color, content, title}) => {
+  return (
+    <View
+      style={{
+        backgroundColor: color,
+        width: vw(40),
+        height: vh(12),
+        padding: vw(4),
+        justifyContent: 'space-between',
+        borderRadius: vw(5),
+      }}>
+      <Text
+        style={[
+          {color: '#0D0D0D', fontSize: 16, fontWeight: '600'},
+          title === 'Ôn tập dạng bài tuơng tự'
+            ? {justifyContent: 'center', alignItems: 'center'}
+            : {},
+        ]}>
+        {title}
+      </Text>
+      <View
+        style={{flexDirection: 'row', alignItems: 'center', columnGap: vw(2)}}>
+        {title === 'Đang làm' ? (
+          <View>{pendingDocsIcon(vw(6), vw(6))}</View>
+        ) : title === 'Đã lưu' ? (
+          <View>{reCheckIcon(vw(5), vw(5), 'black')}</View>
+        ) : title === 'Ôn tập dạng bài tuơng tự' ? (
+          <></>
+        ) : (
+          <View>{finishDocsIcon(vw(6), vw(6))}</View>
+        )}
+        <Text style={{color: '#464646', fontSize: 16, fontWeight: '500'}}>
+          {title === 'Ôn tập dạng bài tuơng tự' ? <></> : content}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+const TimeTabs: React.FC<{
+  timeTabIndex: number;
+  setTimeTabIndex: React.Dispatch<React.SetStateAction<number>>;
+}> = ({setTimeTabIndex, timeTabIndex}) => {
   return (
     <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
       {tabTimeData.map((item, index) => (
@@ -117,4 +296,20 @@ export default TopicDetail;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'black'},
+  pointStyle: {
+    color: 'red',
+    fontSize: 16,
+  },
+  pendingStyle: {
+    backgroundColor: '#A3A3F2',
+    padding: vw(2),
+    borderRadius: vw(10),
+    color: 'black',
+  },
+  stillnotStyle: {
+    backgroundColor: '#7C7C7C',
+    padding: vw(2),
+    color: 'black',
+    borderRadius: vw(10),
+  },
 });

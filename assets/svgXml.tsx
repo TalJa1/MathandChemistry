@@ -12,6 +12,28 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const reCheckIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 9V15M6 12H12M12 2.27928V1H6V2.27928M12 2.27928V4H6V2.27928M12 2.27928C15.3745 3.0462 16.5 5.5037 16.5 11C16.5 17.8824 14.7353 20 9 20C3.26471 20 1.5 17.8824 1.5 11C1.5 5.5037 2.62549 3.0462 6 2.27928" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const timeIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 6V10L12 12M19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1C14.9706 1 19 5.02944 19 10Z" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const finishDocsIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.5 10L7.29996 14.2L5.50004 12.4M11.5 2.27928V1H5.5V2.27928M11.5 2.27928V4H5.5V2.27928M11.5 2.27928C14.8745 3.0462 16 5.5037 16 11C16 17.8824 14.2353 20 8.5 20C2.76471 20 1 17.8824 1 11C1 5.5037 2.12549 3.0462 5.5 2.27928" stroke=${

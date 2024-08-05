@@ -245,3 +245,123 @@ export const docsChemistryTopicData = [
 ];
 
 export const tabTimeData = ['15 phút', '60 phút', '90 phút', 'Xem lại'];
+
+export const tabTimeDataDetail = [
+  {
+    type: '15 phút',
+    pending: 1,
+    finish: 1,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 8.5,
+        status: 'Đã làm',
+        total: 10,
+        amount: 10,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Đang làm',
+        total: 10,
+        amount: 5,
+      },
+    ],
+  },
+  {
+    type: '60 phút',
+    pending: 0,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+    ],
+  },
+  {
+    type: '90 phút',
+    pending: 0,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+    ],
+  },
+  // Xem lại
+  {
+    type: 'Xem lại',
+    pending: 9,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 5,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 4,
+      },
+    ],
+  },
+];

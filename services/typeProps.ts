@@ -132,3 +132,14 @@ export interface TopicProps {
 export interface DocsChosenTopicProps {
   data: TopicProps[];
 }
+
+export interface MainTimeTabDataProps {
+  data: {
+    id: string;
+    title: string;
+    point: number;
+    status: string;
+    total: number;
+    amount: number;
+  };
+}
