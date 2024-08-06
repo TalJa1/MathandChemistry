@@ -53,3 +53,8 @@ export const scrollContainernotCenter: TextStyle = {
   flexGrow: 1,
   paddingVertical: vh(0),
 };
+
+export const containerStyle: TextStyle = {
+  flex: 1,
+  backgroundColor: 'black',
+};

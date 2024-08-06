@@ -29,8 +29,14 @@ import {DataDetail, TabTimeDataDetail} from '../../../services/typeProps';
 
 const NoteBeforeTest = () => {
   useStatusBar('#A3A3F2');
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [step, setStep] = useState(0);
   const route = useRoute();
+  const {title, time, isMath} = route.params as {
+    title: string;
+    time: number;
+    isMath: boolean;
+  };
   const [mainData, setMainData] = useState<DataDetail>({
     id: '',
     title: '',
@@ -42,11 +48,6 @@ const NoteBeforeTest = () => {
     wrongamount: 0,
     test: [],
   });
-  const {title, time, isMath} = route.params as {
-    title: string;
-    time: number;
-    isMath: boolean;
-  };
 
   useEffect(() => {
     const initData = isMath
@@ -105,7 +106,14 @@ const NoteBeforeTest = () => {
       )}
       <TouchableOpacity
         onPress={() =>
-          step < 1 ? setStep(step + 1) : console.log('Start test')
+          step < 1
+            ? setStep(step + 1)
+            : navigation.navigate('Exam', {
+                time: time,
+                title: title,
+                isMath: isMath,
+                data: mainData,
+              })
         }
         style={{
           backgroundColor: '#D2FD7C',
