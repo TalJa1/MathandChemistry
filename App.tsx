@@ -24,6 +24,7 @@ import NetWork from './views/tabNavigator/NetWork';
 import Profile from './views/tabNavigator/Profile';
 import DocsChosenTopic from './views/tabNavigator/docsNavigation/DocsChosenTopic';
 import TopicDetail from './views/tabNavigator/docsNavigation/TopicDetail';
+import NoteBeforeTest from './views/tabNavigator/docsNavigation/NoteBeforeTest';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -152,6 +153,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Navigation page */}
+        <Stack.Screen
+          name="NoteBeforeTest"
+          component={NoteBeforeTest}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="TopicDetail"
           component={TopicDetail}

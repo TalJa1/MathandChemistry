@@ -365,3 +365,37 @@ export const tabTimeDataDetail = [
     ],
   },
 ];
+
+export const noteBeforeStart = [
+  {
+    title: 'Đọc Thật Kĩ Đề Bài',
+    data: [
+      'Đọc từng câu chữ, suy ngẩm về câu hỏi và câu trả lời.',
+      'Chú ý cụm từ phủ định, các câu đúng/sai, và đọc kỹ từng từ trong câu hỏi lý thuyết để tránh chọn phương án sai.',
+    ],
+  },
+  {
+    title: 'Tính toán và bấm máy cẩn thận',
+    data: [
+      'Kiểm tra lại mỗi phép tính để đảm bảo độ chính xác.',
+      'Sử dụng máy tính bỏ túi hợp lý và đúng chức năng.',
+    ],
+  },
+  {
+    title: 'Phân bổ thời gian hợp lý',
+    subTitle: 'Tránh dành quá nhiều thời gian cho một câu hỏi.',
+    data: [
+      'Câu dễ: Tối đa 1 phút.',
+      'Câu trung bình: Tối đa 2 phút.',
+      'Câu khó: Tối đa 3 phút.',
+      'Câu rất khó: Tối đa 5 phút.',
+    ],
+  },
+  {
+    title: 'Phương châm làm bài',
+    data: [
+      'Làm đúng và đạt điểm cao cho các câu làm được.',
+      'Kiểm tra lại các câu nhận biết, thông hiểu vận dụng nếu không làm được',
+    ],
+  },
+];
