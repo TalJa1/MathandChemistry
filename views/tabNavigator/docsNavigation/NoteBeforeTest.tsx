@@ -38,6 +38,8 @@ const NoteBeforeTest = () => {
     status: '',
     total: 10,
     amount: 10,
+    rightamount: 0,
+    wrongamount: 0,
     test: [],
   });
   const {title, time, isMath} = route.params as {
@@ -85,20 +87,22 @@ const NoteBeforeTest = () => {
           <NoteRenderLast data={mainData} isMath={isMath} time={time} />
         )}
       </ScrollView>
-      <View
-        style={{
-          width: '100%',
-          padding: vw(5),
-        }}>
-        <Text style={{fontSize: 14, color: '#ED7234', fontWeight: '700'}}>
-          Lưu ý:
-        </Text>
-        <Text style={{fontStyle: 'italic', color: '#A7A7A7'}}>
-          Chuẩn bị sẵn giấy, bút, nháp, máy tính cầm tay. Giữ ý thức tự giác như
-          trong 1 kỳ thi chính thức, không mở tài liệu trong thời gian làm bài
-          để đánh giá đúng khả năng học tập.
-        </Text>
-      </View>
+      {step === 1 && (
+        <View
+          style={{
+            width: '100%',
+            padding: vw(5),
+          }}>
+          <Text style={{fontSize: 14, color: '#ED7234', fontWeight: '700'}}>
+            Lưu ý:
+          </Text>
+          <Text style={{fontStyle: 'italic', color: '#A7A7A7'}}>
+            Chuẩn bị sẵn giấy, bút, nháp, máy tính cầm tay. Giữ ý thức tự giác
+            như trong 1 kỳ thi chính thức, không mở tài liệu trong thời gian làm
+            bài để đánh giá đúng khả năng học tập.
+          </Text>
+        </View>
+      )}
       <TouchableOpacity
         onPress={() =>
           step < 1 ? setStep(step + 1) : console.log('Start test')
@@ -145,15 +149,12 @@ const NoteRenderLast: React.FC<{
           title="Tổng số câu: "
           data={`${data.total} câu`}
         />
+        <NoteRenderLastdetail title="Câu đúng: " data={`${data.rightamount}`} />
+        <NoteRenderLastdetail title="Câu sai: " data={`${data.wrongamount}`} />
         <NoteRenderLastdetail
-          title="Câu đúng: "
-          data={`${data.amount}/${data.total}`}
+          title="Điểm: "
+          data={`${data.status === 'Đã làm' ? data.point : data.status}`}
         />
-        <NoteRenderLastdetail
-          title="Câu sai: "
-          data={`${data.amount}/${data.total}`}
-        />
-        <NoteRenderLastdetail title="Điểm: " data={`${data.status}`} />
       </View>
     </View>
   );

@@ -158,6 +158,8 @@ export interface DataDetail {
   status: string;
   total: number;
   amount: number;
+  rightamount: number;
+  wrongamount: number;
   test: Test[];
   time?: number; // Optional property for 'Xem lại' type
 }
