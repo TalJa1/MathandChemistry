@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import {vh, vw} from '../../services/styleSheets';
@@ -18,21 +18,48 @@ import {
   DocsMainDataProps,
   RenderBoxGroupProps,
   RenderDocsMainDataProps,
+  TabTimeDataDetail,
 } from '../../services/typeProps';
 import {
   mainDocsChemistryData,
   mainDocsMathData,
   renderBoxChemistryGroupData,
   renderBoxMathGroupData,
+  tabTimeChemistryDataDetail,
+  tabTimeMathDataDetail,
 } from '../../services/renderData';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import SearchBar from '../../components/docs/SearchBar';
 import Header from '../../components/docs/Header';
+import {loadData, saveData} from '../../services/storage';
+import {
+  docsMainDataChemistryStorage,
+  docsMainDataMathStorage,
+} from '../../data/rootStorage';
 
 const Docs = () => {
   useStatusBar('black');
   const [isMath, setIsMath] = useState(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadDataFromStorage = async () => {
+        await loadData<TabTimeDataDetail[]>(docsMainDataMathStorage)
+          .then(() => {})
+          .catch(() => {
+            saveData(docsMainDataMathStorage, tabTimeMathDataDetail);
+          });
+        await loadData<TabTimeDataDetail[]>(docsMainDataChemistryStorage)
+          .then(() => {})
+          .catch(() => {
+            saveData(docsMainDataChemistryStorage, tabTimeChemistryDataDetail);
+          });
+      };
+      loadDataFromStorage();
+    }, []),
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -94,6 +121,9 @@ const MainDataBox: React.FC<DocsMainDataProps & {isMath: boolean}> = ({
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <TouchableOpacity
+      disabled={
+        title === 'Đề tổng hợp' || title === 'Đề thi đại học' ? true : false
+      }
       onPress={() => {
         navigation.navigate('DocsChosenTopic', {title: title, isMath: isMath});
       }}

@@ -66,6 +66,7 @@ const TopicNavigation: React.FC<DocsChosenTopicProps & {isMath: boolean}> = ({
       {data.map((item, index) => (
         <View key={index} style={styles.itemContainer}>
           <TouchableOpacity
+            disabled={index < 2 ? true : false}
             style={[centerAll, {rowGap: vh(1)}]}
             onPress={() =>
               navigation.navigate('TopicDetail', {

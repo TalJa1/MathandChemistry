@@ -144,3 +144,29 @@ export interface MainTimeTabDataProps {
     time?: number;
   };
 }
+
+interface Test {
+  question: string;
+  answers: string[];
+  correctAnswer: string[];
+}
+
+interface DataDetail {
+  id: string;
+  title: string;
+  point: number;
+  status: string;
+  total: number;
+  amount: number;
+  test: Test[];
+  time?: number; // Optional property for 'Xem lại' type
+}
+
+export interface TabTimeDataDetail {
+  type: string;
+  desscription: number;
+  time: number;
+  pending: number;
+  finish: number;
+  data: DataDetail[];
+}

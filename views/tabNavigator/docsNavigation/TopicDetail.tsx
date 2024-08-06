@@ -12,7 +12,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {centerAll, vh, vw} from '../../../services/styleSheets';
 import Header from '../../../components/docs/Header';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import SearchBar from '../../../components/docs/SearchBar';
 import {
   tabTimeChemistryDataDetail,
@@ -27,9 +27,12 @@ import {
   timeIcon,
 } from '../../../assets/svgXml';
 import {BoxDataProps, MainTimeTabDataProps} from '../../../services/typeProps';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const TopicDetail = () => {
   useStatusBar('black');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [timeTabIndex, setTimeTabIndex] = useState(0);
 
   const route = useRoute();
