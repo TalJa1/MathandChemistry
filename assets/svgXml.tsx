@@ -12,6 +12,39 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const examNext = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.5 18L9.5 10L1.5 2" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const examBack = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.5 2L1.5 10L9.5 18" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const saveIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="22" height="29" viewBox="0 0 22 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 7.83341C1 3.14235 4.33333 1.16675 11 1.16675C17.6667 1.16675 21 3.14236 21 7.83342V26.3097C21 27.7946 19.2048 28.5382 18.1548 27.4882L12.1785 21.5119C11.5276 20.8611 10.4724 20.8611 9.82149 21.5119L3.84518 27.4882C2.79524 28.5382 1 27.7946 1 26.3097V7.83341Z" stroke=${
+    color ?? '#565CE7'
+  } style="stroke:#565CE7;stroke:color(display-p3 0.3373 0.3608 0.9059);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const reCheckIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9 9V15M6 12H12M12 2.27928V1H6V2.27928M12 2.27928V4H6V2.27928M12 2.27928C15.3745 3.0462 16.5 5.5037 16.5 11C16.5 17.8824 14.7353 20 9 20C3.26471 20 1.5 17.8824 1.5 11C1.5 5.5037 2.62549 3.0462 6 2.27928" stroke=${
