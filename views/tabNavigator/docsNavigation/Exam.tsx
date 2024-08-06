@@ -4,6 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -45,9 +46,7 @@ const Exam = () => {
         total={data.total}
       />
       <ScrollView>
-        <View>
-          <Text>Exam</Text>
-        </View>
+        <ExamGroup data={data} index={step} />
       </ScrollView>
 
       <Shadow
@@ -60,16 +59,90 @@ const Exam = () => {
           backgroundColor: 'black',
           width: '100%',
         }}>
-        <ExamNavigator step={step} setStep={setStep} />
+        <ExamNavigator step={step} setStep={setStep} last={data.total} />
       </Shadow>
     </SafeAreaView>
+  );
+};
+
+const ExamGroup: React.FC<{data: DataDetail; index: number}> = ({
+  data,
+  index,
+}) => {
+  return (
+    <View>
+      <View
+        style={{
+          paddingHorizontal: vw(5),
+          paddingVertical: vh(2),
+          backgroundColor: '#1B1B1B',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View>
+            <Text
+              style={[styles.textQuestion, {fontWeight: '700', fontSize: 16}]}>
+              Câu {index + 1}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: '#A3A3F2',
+              padding: vw(2),
+              borderRadius: vw(10),
+            }}>
+            <Text style={styles.textQuestion}>Xem lại</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={{color: '#FFFFFF'}}>{data.test[index].question}</Text>
+      </View>
+      <View style={{paddingHorizontal: vw(5)}}>
+        {data.test[index].answers.length > 0 ? (
+          <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
+            <Text style={styles.answerStyle}>Chọn đáp án</Text>
+            <View>
+              {data.test[index].answers.map((answer, i) => (
+                <TouchableOpacity key={i}>
+                  <Text style={{color: '#FFFFFF', fontSize: 18}}>
+                    {String.fromCharCode(65 + i)}.  {answer}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        ) : (
+          <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
+            <Text style={styles.answerStyle}>Ghi đáp án</Text>
+            <TextInput
+              placeholder="Đáp án"
+              multiline
+              style={{
+                borderWidth: 2,
+                borderColor: '#7C7C7C',
+                paddingHorizontal: vw(4),
+                paddingVertical: vh(2),
+                height: vh(15),
+                textAlignVertical: 'top',
+                borderRadius: vw(5),
+              }}
+            />
+          </View>
+        )}
+      </View>
+    </View>
   );
 };
 
 const ExamNavigator: React.FC<{
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-}> = () => {
+  last: number;
+}> = ({step, setStep, last}) => {
   return (
     <View
       style={{
@@ -79,6 +152,8 @@ const ExamNavigator: React.FC<{
         paddingVertical: vh(2),
       }}>
       <TouchableOpacity
+        disabled={step === 0 ? true : false}
+        onPress={() => setStep(step - 1)}
         style={[
           {
             backgroundColor: '#D2FD7C',
@@ -86,6 +161,7 @@ const ExamNavigator: React.FC<{
             padding: vw(5),
           },
           centerAll,
+          step === 0 && {backgroundColor: '#464646'},
         ]}>
         {examBack(vw(7), vw(7), 'black')}
       </TouchableOpacity>
@@ -94,6 +170,8 @@ const ExamNavigator: React.FC<{
         <Text style={{color: 'white', fontWeight: '500'}}>Xem lại</Text>
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={() => setStep(step + 1)}
+        disabled={step === last - 1 ? true : false}
         style={[
           {
             backgroundColor: '#D2FD7C',
@@ -101,6 +179,7 @@ const ExamNavigator: React.FC<{
             padding: vw(5),
           },
           centerAll,
+          step === last - 1 && {backgroundColor: '#464646'},
         ]}>
         {examNext(vw(7), vw(7), 'black')}
       </TouchableOpacity>
@@ -195,4 +274,12 @@ export default Exam;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  textQuestion: {
+    color: '#A3A3F2',
+  },
+  answerStyle: {
+    color: '#A3A3F2',
+    fontSize: 16,
+    fontWeight: '700',
+  },
 });

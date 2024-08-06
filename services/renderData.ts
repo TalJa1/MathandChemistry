@@ -322,16 +322,6 @@ export const mathTestExample = [
     correctAnswer: ['1'],
   },
   {
-    question: 'Tích phân của hàm số f(x) = e^x từ 0 đến 1 là bao nhiêu?',
-    answers: ['e - 1', 'e', '1', 'e + 1'],
-    correctAnswer: ['e - 1'],
-  },
-  {
-    question: 'Giải phương trình log(x) = 2',
-    answers: ['x = 10', 'x = 100', 'x = 1000', 'x = 1'],
-    correctAnswer: ['x = 100'],
-  },
-  {
     question:
       'Viết phương trình tiếp tuyến của đồ thị hàm số y = x^2 tại điểm x = 1.',
     answers: [],
@@ -389,16 +379,6 @@ export const chemistryTestExample = [
       'NaCl + AgNO3 -> NaNO3 + AgCl',
     ],
     correctAnswer: ['HCl + NaOH -> NaCl + H2O'],
-  },
-  {
-    question: 'Tính số mol của 22.4 lít khí O2 ở điều kiện tiêu chuẩn.',
-    answers: ['1 mol', '2 mol', '0.5 mol', '1.5 mol'],
-    correctAnswer: ['1 mol'],
-  },
-  {
-    question: 'Công thức hóa học của khí metan là gì?',
-    answers: ['CH4', 'C2H6', 'C3H8', 'C4H10'],
-    correctAnswer: ['CH4'],
   },
   {
     question:
