@@ -424,7 +424,7 @@ export const tabTimeMathDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 8.5,
         status: 'Đã làm',
         total: 10,
@@ -433,7 +433,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -442,7 +442,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Đang làm',
         total: 10,
@@ -460,7 +460,7 @@ export const tabTimeMathDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -469,7 +469,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -478,7 +478,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -496,7 +496,7 @@ export const tabTimeMathDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -505,7 +505,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -514,7 +514,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -531,7 +531,7 @@ export const tabTimeMathDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         time: 15,
         point: 0,
         status: 'Chưa làm',
@@ -541,7 +541,7 @@ export const tabTimeMathDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         time: 15,
         point: 0,
         status: 'Chưa làm',
@@ -563,7 +563,7 @@ export const tabTimeChemistryDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 8.5,
         status: 'Đã làm',
         total: 10,
@@ -572,7 +572,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -581,7 +581,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Đang làm',
         total: 10,
@@ -599,7 +599,7 @@ export const tabTimeChemistryDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -608,7 +608,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -617,7 +617,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -635,7 +635,7 @@ export const tabTimeChemistryDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -644,7 +644,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -653,7 +653,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH03',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        title: 'HHKG11 số 03',
         point: 0,
         status: 'Chưa làm',
         total: 10,
@@ -670,7 +670,7 @@ export const tabTimeChemistryDataDetail = [
     data: [
       {
         id: 'T11.CD.HH01',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        title: 'HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
         time: 15,
@@ -680,7 +680,7 @@ export const tabTimeChemistryDataDetail = [
       },
       {
         id: 'T11.CD.HH02',
-        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        title: 'HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
         time: 15,

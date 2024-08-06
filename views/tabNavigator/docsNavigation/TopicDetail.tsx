@@ -134,7 +134,7 @@ const MainDataRender: React.FC<MainTimeTabDataProps & {type: number}> = ({
           alignItems: 'center',
         }}>
         <Text style={{fontSize: 18, fontWeight: '600', flex: 1}}>
-          {data.title}
+          Đề ôn tập chuyên đề {data.title}
         </Text>
         {type === 3 ? (
           <></>
