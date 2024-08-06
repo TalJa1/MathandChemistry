@@ -83,6 +83,7 @@ const TopicDetail = () => {
                     navigation.navigate('NoteBeforeTest', {
                       time: tabTimeMathDataDetail[timeTabIndex].time,
                       title: item.title,
+                      isMath: true,
                     })
                   }>
                   <MainDataRender data={item} type={timeTabIndex} />
@@ -100,6 +101,7 @@ const TopicDetail = () => {
                       navigation.navigate('NoteBeforeTest', {
                         time: tabTimeChemistryDataDetail[timeTabIndex].time,
                         title: item.title,
+                        isMath: false,
                       })
                     }>
                     <MainDataRender data={item} type={timeTabIndex} />

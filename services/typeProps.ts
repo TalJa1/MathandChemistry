@@ -151,7 +151,7 @@ interface Test {
   correctAnswer: string[];
 }
 
-interface DataDetail {
+export interface DataDetail {
   id: string;
   title: string;
   point: number;

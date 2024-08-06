@@ -523,7 +523,6 @@ export const tabTimeMathDataDetail = [
       },
     ],
   },
-  // Xem lại
   {
     type: 'Xem lại',
     pending: 9,
