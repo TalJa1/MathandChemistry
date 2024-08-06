@@ -141,5 +141,6 @@ export interface MainTimeTabDataProps {
     status: string;
     total: number;
     amount: number;
+    time?: number;
   };
 }

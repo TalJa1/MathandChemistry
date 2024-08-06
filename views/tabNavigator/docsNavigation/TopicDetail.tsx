@@ -14,7 +14,11 @@ import {centerAll, vh, vw} from '../../../services/styleSheets';
 import Header from '../../../components/docs/Header';
 import {useRoute} from '@react-navigation/native';
 import SearchBar from '../../../components/docs/SearchBar';
-import {tabTimeData, tabTimeDataDetail} from '../../../services/renderData';
+import {
+  tabTimeChemistryDataDetail,
+  tabTimeData,
+  tabTimeMathDataDetail,
+} from '../../../services/renderData';
 import {
   docsIconSVG,
   finishDocsIcon,
@@ -54,18 +58,38 @@ const TopicDetail = () => {
           />
         </View>
         <View>
-          <StatusTabs
-            pending={tabTimeDataDetail[timeTabIndex].pending}
-            finish={tabTimeDataDetail[timeTabIndex].finish}
-            type={timeTabIndex}
-          />
-          <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
-            {tabTimeDataDetail[timeTabIndex].data.map((item, index) => (
-              <TouchableOpacity key={index}>
-                <MainDataRender data={item} type={timeTabIndex} />
-              </TouchableOpacity>
-            ))}
-          </View>
+          {isMath ? (
+            <StatusTabs
+              pending={tabTimeMathDataDetail[timeTabIndex].pending}
+              finish={tabTimeMathDataDetail[timeTabIndex].finish}
+              type={timeTabIndex}
+            />
+          ) : (
+            <StatusTabs
+              pending={tabTimeChemistryDataDetail[timeTabIndex].pending}
+              finish={tabTimeChemistryDataDetail[timeTabIndex].finish}
+              type={timeTabIndex}
+            />
+          )}
+          {isMath ? (
+            <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
+              {tabTimeMathDataDetail[timeTabIndex].data.map((item, index) => (
+                <TouchableOpacity key={index}>
+                  <MainDataRender data={item} type={timeTabIndex} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          ) : (
+            <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
+              {tabTimeChemistryDataDetail[timeTabIndex].data.map(
+                (item, index) => (
+                  <TouchableOpacity key={index}>
+                    <MainDataRender data={item} type={timeTabIndex} />
+                  </TouchableOpacity>
+                ),
+              )}
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

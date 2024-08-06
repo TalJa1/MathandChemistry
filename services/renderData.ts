@@ -246,9 +246,10 @@ export const docsChemistryTopicData = [
 
 export const tabTimeData = ['15 phút', '60 phút', '90 phút', 'Xem lại'];
 
-export const tabTimeDataDetail = [
+export const tabTimeMathDataDetail = [
   {
     type: '15 phút',
+    time: 15,
     pending: 1,
     finish: 1,
     data: [
@@ -280,6 +281,7 @@ export const tabTimeDataDetail = [
   },
   {
     type: '60 phút',
+    time: 60,
     pending: 0,
     finish: 0,
     data: [
@@ -311,6 +313,132 @@ export const tabTimeDataDetail = [
   },
   {
     type: '90 phút',
+    time: 90,
+    pending: 0,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+    ],
+  },
+  // Xem lại
+  {
+    type: 'Xem lại',
+    pending: 9,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        time: 15,
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 5,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        time: 15,
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 4,
+      },
+    ],
+  },
+];
+
+export const tabTimeChemistryDataDetail = [
+  {
+    type: '15 phút',
+    time: 15,
+    pending: 1,
+    finish: 1,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 8.5,
+        status: 'Đã làm',
+        total: 10,
+        amount: 10,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Đang làm',
+        total: 10,
+        amount: 5,
+      },
+    ],
+  },
+  {
+    type: '60 phút',
+    time: 60,
+    pending: 0,
+    finish: 0,
+    data: [
+      {
+        id: 'T11.CD.HH01',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 01',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH02',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 02',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+      {
+        id: 'T11.CD.HH03',
+        title: 'Đề ôn tập chuyên đề HHKG11 số 03',
+        point: 0,
+        status: 'Chưa làm',
+        total: 10,
+        amount: 0,
+      },
+    ],
+  },
+  {
+    type: '90 phút',
+    time: 90,
     pending: 0,
     finish: 0,
     data: [
@@ -351,6 +479,7 @@ export const tabTimeDataDetail = [
         title: 'Đề ôn tập chuyên đề HHKG11 số 01',
         point: 0,
         status: 'Chưa làm',
+        time: 15,
         total: 10,
         amount: 5,
       },
@@ -359,6 +488,7 @@ export const tabTimeDataDetail = [
         title: 'Đề ôn tập chuyên đề HHKG11 số 02',
         point: 0,
         status: 'Chưa làm',
+        time: 15,
         total: 10,
         amount: 4,
       },
@@ -397,5 +527,11 @@ export const noteBeforeStart = [
       'Làm đúng và đạt điểm cao cho các câu làm được.',
       'Kiểm tra lại các câu nhận biết, thông hiểu vận dụng nếu không làm được',
     ],
+  },
+];
+
+export const mathTest = [
+  {
+    time: 15,
   },
 ];
