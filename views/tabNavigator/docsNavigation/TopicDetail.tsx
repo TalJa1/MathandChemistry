@@ -31,7 +31,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const TopicDetail = () => {
   useStatusBar('black');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [timeTabIndex, setTimeTabIndex] = useState(0);
 
@@ -77,7 +76,15 @@ const TopicDetail = () => {
           {isMath ? (
             <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
               {tabTimeMathDataDetail[timeTabIndex].data.map((item, index) => (
-                <TouchableOpacity key={index}>
+                <TouchableOpacity
+                  disabled={timeTabIndex === 3}
+                  key={index}
+                  onPress={() =>
+                    navigation.navigate('NoteBeforeTest', {
+                      time: tabTimeMathDataDetail[timeTabIndex].time,
+                      title: item.title,
+                    })
+                  }>
                   <MainDataRender data={item} type={timeTabIndex} />
                 </TouchableOpacity>
               ))}
@@ -86,7 +93,15 @@ const TopicDetail = () => {
             <View style={{rowGap: vh(1), marginHorizontal: vw(5)}}>
               {tabTimeChemistryDataDetail[timeTabIndex].data.map(
                 (item, index) => (
-                  <TouchableOpacity key={index}>
+                  <TouchableOpacity
+                    disabled={timeTabIndex === 3}
+                    key={index}
+                    onPress={() =>
+                      navigation.navigate('NoteBeforeTest', {
+                        time: tabTimeChemistryDataDetail[timeTabIndex].time,
+                        title: item.title,
+                      })
+                    }>
                     <MainDataRender data={item} type={timeTabIndex} />
                   </TouchableOpacity>
                 ),
