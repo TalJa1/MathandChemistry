@@ -26,11 +26,12 @@ import {
 import {DataDetail} from '../../../services/typeProps';
 import {Shadow} from 'react-native-shadow-2';
 
+let globalData: any = {};
+
 const Exam = () => {
   useStatusBar('#A3A3F2');
   const [step, setStep] = useState(0);
   const route = useRoute();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {title, time, isMath, data} = route.params as {
     time: number;
     title: string;
@@ -38,6 +39,11 @@ const Exam = () => {
     data: DataDetail;
   };
   const [reviewIndex, setReviewIndex] = useState([] as number[]);
+
+  globalData.title = title;
+  globalData.time = time;
+  globalData.isMath = isMath;
+  globalData.data = data;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,6 +88,10 @@ const ExamGroup: React.FC<{
   const [userAnswers, setUserAnswers] = useState<string[]>(
     Array(data.test.length).fill(''),
   );
+
+  useEffect(() => {
+    globalData.userAnswers = userAnswers;
+  }, [userAnswers]);
 
   const handleAnswerChange = (
     answer: string,
@@ -259,7 +269,7 @@ const ExamNavigator: React.FC<{
               <Text style={{color: '#D2FD7C'}}>Xem lại bài trước khi nộp</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('Nộp bài')}
+              onPress={() => console.log('globalData', globalData)}
               style={[
                 {
                   backgroundColor: '#D2FD7C',
@@ -419,6 +429,8 @@ const Header: React.FC<{
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [countdown, setCountdown] = useState(time * 60);
 
+  globalData.timeLeft = countdown;
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCountdown(prevCountdown => {
@@ -440,6 +452,7 @@ const Header: React.FC<{
       remainingSeconds,
     ).padStart(2, '0')}`;
   };
+
   return (
     <View
       style={{
