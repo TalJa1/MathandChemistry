@@ -43,7 +43,6 @@ const Exam = () => {
   globalData.title = title;
   globalData.time = time;
   globalData.isMath = isMath;
-  globalData.data = data;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -238,10 +237,63 @@ const ExamNavigator: React.FC<{
   data: DataDetail;
 }> = ({step, setStep, last, reviewIndex, data}) => {
   const [popUpVisible, setPopUpVisible] = useState(false);
-
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const togglePopUp = () => {
     setPopUpVisible(!popUpVisible);
   };
+  const {time, timeLeft, userAnswers, isMath, title} = globalData;
+
+  const calculateScore = (
+    UA: any[],
+    correctAnswers: any[],
+  ): {score: number; correct: number; wrong: number} => {
+    let correct = 0;
+    let wrong = 0;
+
+    UA.forEach((answer, index) => {
+      if (answer === correctAnswers[index]) {
+        correct++;
+      } else {
+        wrong++;
+      }
+    });
+
+    const score = (correct / correctAnswers.length) * 10;
+
+    return {score, correct, wrong};
+  };
+
+  const calculateTimeUsed = (
+    timeParam: number,
+    timeLeftParam: number,
+  ): number => {
+    const timeInSeconds = timeParam * 60;
+    const timeUsed = timeInSeconds - timeLeftParam;
+    return timeUsed;
+  };
+
+  const handleNavigate = () => {
+    const {score, correct, wrong} = calculateScore(
+      userAnswers,
+      data.test.map(test => test.correctAnswer),
+    );
+
+    const timeUsed = calculateTimeUsed(time, timeLeft);
+    navigation.navigate('Result', {
+      score: score,
+      correct: correct,
+      wrong: wrong,
+      timeUsed: timeUsed,
+      isMath: isMath,
+      title: title,
+      data: data,
+      listAnswer:
+        userAnswers === undefined
+          ? new Array(data.test.length).fill('')
+          : userAnswers,
+    });
+  };
+
   return (
     <View>
       <View
@@ -269,7 +321,7 @@ const ExamNavigator: React.FC<{
               <Text style={{color: '#D2FD7C'}}>Xem lại bài trước khi nộp</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('globalData', globalData)}
+              onPress={handleNavigate}
               style={[
                 {
                   backgroundColor: '#D2FD7C',

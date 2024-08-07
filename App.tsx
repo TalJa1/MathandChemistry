@@ -26,6 +26,7 @@ import DocsChosenTopic from './views/tabNavigator/docsNavigation/DocsChosenTopic
 import TopicDetail from './views/tabNavigator/docsNavigation/TopicDetail';
 import NoteBeforeTest from './views/tabNavigator/docsNavigation/NoteBeforeTest';
 import Exam from './views/tabNavigator/docsNavigation/Exam';
+import Result from './views/tabNavigator/docsNavigation/Result';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -154,6 +155,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Navigation page */}
+        <Stack.Screen
+          name="Result"
+          component={Result}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Exam"
           component={Exam}
