@@ -36,6 +36,7 @@ const TopicDetail = () => {
 
   const route = useRoute();
   const {title, isMath} = route.params as {title: string; isMath: boolean};
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

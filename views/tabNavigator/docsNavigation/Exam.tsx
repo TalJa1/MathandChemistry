@@ -76,6 +76,7 @@ const ExamGroup: React.FC<{data: DataDetail; index: number}> = ({
           paddingHorizontal: vw(5),
           paddingVertical: vh(2),
           backgroundColor: '#1B1B1B',
+          rowGap: vh(2),
         }}>
         <View
           style={{
@@ -109,7 +110,7 @@ const ExamGroup: React.FC<{data: DataDetail; index: number}> = ({
               {data.test[index].answers.map((answer, i) => (
                 <TouchableOpacity key={i}>
                   <Text style={{color: '#FFFFFF', fontSize: 18}}>
-                    {String.fromCharCode(65 + i)}.  {answer}
+                    {String.fromCharCode(65 + i)}. {answer}
                   </Text>
                 </TouchableOpacity>
               ))}

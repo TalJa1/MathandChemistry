@@ -160,8 +160,9 @@ export interface DataDetail {
   amount: number;
   rightamount: number;
   wrongamount: number;
+  review: [];
   test: Test[];
-  time?: number; // Optional property for 'Xem lại' type
+  time?: number;
 }
 
 export interface TabTimeDataDetail {
