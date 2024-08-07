@@ -241,38 +241,72 @@ const ExamNavigator: React.FC<{
           paddingHorizontal: vw(10),
           paddingVertical: vh(2),
         }}>
-        <TouchableOpacity
-          disabled={step === 0 ? true : false}
-          onPress={() => setStep(step - 1)}
-          style={[
-            {
-              backgroundColor: '#D2FD7C',
-              borderRadius: vw(20),
-              padding: vw(5),
-            },
-            centerAll,
-            step === 0 && {backgroundColor: '#464646'},
-          ]}>
-          {examBack(vw(7), vw(7), 'black')}
-        </TouchableOpacity>
-        <TouchableOpacity style={centerAll} onPress={() => togglePopUp()}>
-          {docsIconSVG(vw(7), vw(7), '#FFFFFF')}
-          <Text style={{color: 'white', fontWeight: '500'}}>Xem lại</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setStep(step + 1)}
-          disabled={step === last - 1 ? true : false}
-          style={[
-            {
-              backgroundColor: '#D2FD7C',
-              borderRadius: vw(20),
-              padding: vw(5),
-            },
-            centerAll,
-            step === last - 1 && {backgroundColor: '#464646'},
-          ]}>
-          {examNext(vw(7), vw(7), 'black')}
-        </TouchableOpacity>
+        {step === last - 1 ? (
+          <>
+            <TouchableOpacity
+              disabled={step === 0 ? true : false}
+              onPress={() => setStep(step - 1)}
+              style={[
+                {
+                  borderColor: '#D2FD7C',
+                  borderWidth: 1,
+                  borderRadius: 15,
+                  padding: vw(5),
+                },
+                centerAll,
+                step === 0 && {backgroundColor: '#464646'},
+              ]}>
+              <Text style={{color: '#D2FD7C'}}>Xem lại bài trước khi nộp</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => console.log('Nộp bài')}
+              style={[
+                {
+                  backgroundColor: '#D2FD7C',
+                  borderRadius: 15,
+                  padding: vw(5),
+                },
+                centerAll,
+              ]}>
+              <Text style={{color: 'black'}}>Nộp bài</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              disabled={step === 0 ? true : false}
+              onPress={() => setStep(step - 1)}
+              style={[
+                {
+                  backgroundColor: '#D2FD7C',
+                  borderRadius: vw(20),
+                  padding: vw(5),
+                },
+                centerAll,
+                step === 0 && {backgroundColor: '#464646'},
+              ]}>
+              {examBack(vw(7), vw(7), 'black')}
+            </TouchableOpacity>
+            <TouchableOpacity style={centerAll} onPress={() => togglePopUp()}>
+              {docsIconSVG(vw(7), vw(7), '#FFFFFF')}
+              <Text style={{color: 'white', fontWeight: '500'}}>Xem lại</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setStep(step + 1)}
+              disabled={step === last - 1 ? true : false}
+              style={[
+                {
+                  backgroundColor: '#D2FD7C',
+                  borderRadius: vw(20),
+                  padding: vw(5),
+                },
+                centerAll,
+                step === last - 1 && {backgroundColor: '#464646'},
+              ]}>
+              {examNext(vw(7), vw(7), 'black')}
+            </TouchableOpacity>
+          </>
+        )}
       </View>
       <PopUp
         visible={popUpVisible}
