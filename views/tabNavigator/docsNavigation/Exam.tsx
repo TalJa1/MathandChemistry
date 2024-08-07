@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Animated,
+  Dimensions,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
@@ -35,6 +37,7 @@ const Exam = () => {
     isMath: boolean;
     data: DataDetail;
   };
+  const [reviewIndex, setReviewIndex] = useState([] as number[]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +49,7 @@ const Exam = () => {
         total={data.total}
       />
       <ScrollView>
-        <ExamGroup data={data} index={step} />
+        <ExamGroup data={data} index={step} setReview={setReviewIndex} />
       </ScrollView>
 
       <Shadow
@@ -59,16 +62,23 @@ const Exam = () => {
           backgroundColor: 'black',
           width: '100%',
         }}>
-        <ExamNavigator step={step} setStep={setStep} last={data.total} />
+        <ExamNavigator
+          step={step}
+          setStep={setStep}
+          last={data.total}
+          reviewIndex={reviewIndex}
+          data={data}
+        />
       </Shadow>
     </SafeAreaView>
   );
 };
 
-const ExamGroup: React.FC<{data: DataDetail; index: number}> = ({
-  data,
-  index,
-}) => {
+const ExamGroup: React.FC<{
+  data: DataDetail;
+  index: number;
+  setReview: React.Dispatch<React.SetStateAction<number[]>>;
+}> = ({data, index, setReview}) => {
   return (
     <View>
       <View
@@ -91,6 +101,9 @@ const ExamGroup: React.FC<{data: DataDetail; index: number}> = ({
             </Text>
           </View>
           <TouchableOpacity
+            onPress={() => {
+              setReview(prev => [...prev, index]);
+            }}
             style={{
               borderWidth: 1,
               borderColor: '#A3A3F2',
@@ -143,48 +156,154 @@ const ExamNavigator: React.FC<{
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   last: number;
-}> = ({step, setStep, last}) => {
+  reviewIndex: number[];
+  data: DataDetail;
+}> = ({step, setStep, last, reviewIndex, data}) => {
+  const [popUpVisible, setPopUpVisible] = useState(false);
+
+  const togglePopUp = () => {
+    setPopUpVisible(!popUpVisible);
+  };
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: vw(10),
-        paddingVertical: vh(2),
-      }}>
-      <TouchableOpacity
-        disabled={step === 0 ? true : false}
-        onPress={() => setStep(step - 1)}
-        style={[
-          {
-            backgroundColor: '#D2FD7C',
-            borderRadius: vw(20),
-            padding: vw(5),
-          },
-          centerAll,
-          step === 0 && {backgroundColor: '#464646'},
-        ]}>
-        {examBack(vw(7), vw(7), 'black')}
-      </TouchableOpacity>
-      <TouchableOpacity style={centerAll}>
-        {docsIconSVG(vw(7), vw(7), '#FFFFFF')}
-        <Text style={{color: 'white', fontWeight: '500'}}>Xem lại</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => setStep(step + 1)}
-        disabled={step === last - 1 ? true : false}
-        style={[
-          {
-            backgroundColor: '#D2FD7C',
-            borderRadius: vw(20),
-            padding: vw(5),
-          },
-          centerAll,
-          step === last - 1 && {backgroundColor: '#464646'},
-        ]}>
-        {examNext(vw(7), vw(7), 'black')}
-      </TouchableOpacity>
+    <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingHorizontal: vw(10),
+          paddingVertical: vh(2),
+        }}>
+        <TouchableOpacity
+          disabled={step === 0 ? true : false}
+          onPress={() => setStep(step - 1)}
+          style={[
+            {
+              backgroundColor: '#D2FD7C',
+              borderRadius: vw(20),
+              padding: vw(5),
+            },
+            centerAll,
+            step === 0 && {backgroundColor: '#464646'},
+          ]}>
+          {examBack(vw(7), vw(7), 'black')}
+        </TouchableOpacity>
+        <TouchableOpacity style={centerAll} onPress={() => togglePopUp()}>
+          {docsIconSVG(vw(7), vw(7), '#FFFFFF')}
+          <Text style={{color: 'white', fontWeight: '500'}}>Xem lại</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setStep(step + 1)}
+          disabled={step === last - 1 ? true : false}
+          style={[
+            {
+              backgroundColor: '#D2FD7C',
+              borderRadius: vw(20),
+              padding: vw(5),
+            },
+            centerAll,
+            step === last - 1 && {backgroundColor: '#464646'},
+          ]}>
+          {examNext(vw(7), vw(7), 'black')}
+        </TouchableOpacity>
+      </View>
+      <PopUp
+        visible={popUpVisible}
+        onClose={togglePopUp}
+        data={data}
+        saveIndex={reviewIndex}
+      />
     </View>
+  );
+};
+
+const {height: screenHeight} = Dimensions.get('window');
+
+const PopUp: React.FC<{
+  visible: boolean;
+  onClose: () => void;
+  data: DataDetail;
+  saveIndex: number[];
+}> = ({visible, onClose, data, saveIndex}) => {
+  const slideAnim = useRef(new Animated.Value(screenHeight)).current;
+  useEffect(() => {
+    if (visible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true, // Set to true
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: screenHeight,
+        duration: 300,
+        useNativeDriver: true, // Set to true
+      }).start();
+    }
+  }, [visible, slideAnim]);
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <Animated.View
+      style={[styles.popUp, {transform: [{translateY: slideAnim}]}]}>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          flex: 1,
+        }}>
+        <View
+          style={[
+            {backgroundColor: '#7EA8CA', width: vw(100), height: vh(10)},
+            centerAll,
+          ]}>
+          <Text style={styles.popUpText}>Các câu cần xem lại</Text>
+        </View>
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: vw(5), paddingVertical: vh(2)}}>
+          {data.test.map((item, i) => (
+            <View key={i}>
+              {saveIndex.includes(i) && (
+                <View
+                  style={[
+                    {
+                      flexDirection: 'row',
+                      columnGap: vw(3),
+                      alignItems: 'flex-start',
+                      marginBottom: vh(2),
+                    },
+                  ]}>
+                  <Text
+                    style={{color: '#A3A3F2', fontSize: 16, fontWeight: '700'}}>
+                    Câu {i + 1}
+                  </Text>
+                  <Text style={{color: 'white'}}>{data.test[i].question}</Text>
+                </View>
+              )}
+            </View>
+          ))}
+        </ScrollView>
+        <View
+          style={{width: vw(100), alignItems: 'center', marginVertical: vh(2)}}>
+          <TouchableOpacity
+            onPress={onClose}
+            style={[
+              {
+                width: vw(70),
+                backgroundColor: '#D2FD7C',
+                height: vh(6),
+                borderRadius: 16,
+              },
+              centerAll,
+            ]}>
+            <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>
+              Xem lại lần lượt
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Animated.View>
   );
 };
 
@@ -282,5 +401,27 @@ const styles = StyleSheet.create({
     color: '#A3A3F2',
     fontSize: 16,
     fontWeight: '700',
+  },
+  popUp: {
+    position: 'absolute',
+    bottom: 0,
+    width: vw(100),
+    height: vh(100),
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    overflow: 'hidden',
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  popUpText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0D0D0D',
   },
 });
