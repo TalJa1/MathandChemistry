@@ -166,16 +166,25 @@ const ExamGroup: React.FC<{
                     borderBottomColor: '#46464680',
                     marginBottom: 10,
                     paddingVertical: vh(1),
-                    backgroundColor: userAnswers[index].includes(answer)
-                      ? '#A3A3F2'
-                      : 'transparent',
+                    backgroundColor:
+                      data.test[index].correctAnswer.length > 1
+                        ? userAnswers[index].includes(answer)
+                          ? '#A3A3F2'
+                          : 'transparent'
+                        : userAnswers[index] === answer
+                        ? '#A3A3F2'
+                        : 'transparent',
                     paddingHorizontal: vw(2),
                     borderRadius: 10,
                   }}>
                   <Text
                     style={[
                       {fontSize: 18},
-                      userAnswers[index].includes(answer)
+                      data.test[index].correctAnswer.length > 1
+                        ? userAnswers[index].includes(answer)
+                          ? {color: 'black'}
+                          : {color: 'white'}
+                        : userAnswers[index] === answer
                         ? {color: 'black'}
                         : {color: 'white'},
                     ]}>
