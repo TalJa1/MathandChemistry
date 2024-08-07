@@ -79,6 +79,33 @@ const ExamGroup: React.FC<{
   index: number;
   setReview: React.Dispatch<React.SetStateAction<number[]>>;
 }> = ({data, index, setReview}) => {
+  const [userAnswers, setUserAnswers] = useState<string[]>(
+    Array(data.test.length).fill(''),
+  );
+
+  const handleAnswerChange = (
+    answer: string,
+    questionIndex: number,
+    isMultipleChoice: boolean,
+  ) => {
+    const newAnswers = [...userAnswers];
+    if (isMultipleChoice) {
+      if (newAnswers[questionIndex].includes(answer)) {
+        newAnswers[questionIndex] = newAnswers[questionIndex]
+          .split('|')
+          .filter(a => a !== answer)
+          .join('|');
+      } else {
+        newAnswers[questionIndex] = newAnswers[questionIndex]
+          ? `${newAnswers[questionIndex]}|${answer}`
+          : answer;
+      }
+    } else {
+      newAnswers[questionIndex] = answer;
+    }
+    setUserAnswers(newAnswers);
+  };
+
   return (
     <View>
       <View
@@ -118,11 +145,40 @@ const ExamGroup: React.FC<{
       <View style={{paddingHorizontal: vw(5)}}>
         {data.test[index].answers.length > 0 ? (
           <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
-            <Text style={styles.answerStyle}>Chọn đáp án</Text>
+            <Text style={styles.answerStyle}>
+              Chọn đáp án{' '}
+              {data.test[index].correctAnswer.length > 1 ? '(MC)' : '(SC)'}
+            </Text>
             <View style={{rowGap: vh(1)}}>
               {data.test[index].answers.map((answer, i) => (
-                <TouchableOpacity key={i}>
-                  <Text style={{color: '#FFFFFF', fontSize: 18}}>
+                <TouchableOpacity
+                  key={i}
+                  onPress={() =>
+                    handleAnswerChange(
+                      answer,
+                      index,
+                      data.test[index].correctAnswer.length > 1,
+                    )
+                  }
+                  style={{
+                    borderBottomWidth:
+                      i !== data.test[index].answers.length - 1 ? 1 : 0,
+                    borderBottomColor: '#46464680',
+                    marginBottom: 10,
+                    paddingVertical: vh(1),
+                    backgroundColor: userAnswers[index].includes(answer)
+                      ? '#A3A3F2'
+                      : 'transparent',
+                    paddingHorizontal: vw(2),
+                    borderRadius: 10,
+                  }}>
+                  <Text
+                    style={[
+                      {fontSize: 18},
+                      userAnswers[index].includes(answer)
+                        ? {color: 'black'}
+                        : {color: 'white'},
+                    ]}>
                     {String.fromCharCode(65 + i)}. {'  '}
                     {answer}
                   </Text>
@@ -136,6 +192,8 @@ const ExamGroup: React.FC<{
             <TextInput
               placeholder="Đáp án"
               multiline
+              value={userAnswers[index]}
+              onChangeText={text => handleAnswerChange(text, index, false)}
               style={{
                 borderWidth: 2,
                 borderColor: '#7C7C7C',
