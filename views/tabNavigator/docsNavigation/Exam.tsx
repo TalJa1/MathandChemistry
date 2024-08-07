@@ -119,11 +119,12 @@ const ExamGroup: React.FC<{
         {data.test[index].answers.length > 0 ? (
           <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
             <Text style={styles.answerStyle}>Chọn đáp án</Text>
-            <View>
+            <View style={{rowGap: vh(1)}}>
               {data.test[index].answers.map((answer, i) => (
                 <TouchableOpacity key={i}>
                   <Text style={{color: '#FFFFFF', fontSize: 18}}>
-                    {String.fromCharCode(65 + i)}. {answer}
+                    {String.fromCharCode(65 + i)}. {'  '}
+                    {answer}
                   </Text>
                 </TouchableOpacity>
               ))}
