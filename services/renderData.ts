@@ -298,8 +298,8 @@ export const mathTestExample = [
   },
   {
     question: 'Tích phân của hàm số f(x) = x^2 từ 0 đến 2 là bao nhiêu?',
-    answers: ['4', '6', '8', '10'],
-    correctAnswer: ['8'],
+    answers: ['4', '6', '8/3', '10'],
+    correctAnswer: ['8/3'],
   },
   {
     question: 'Giá trị gần đúng của số e (Euler) là bao nhiêu?',

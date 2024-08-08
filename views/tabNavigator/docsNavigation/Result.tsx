@@ -10,28 +10,15 @@ import {DataDetail} from '../../../services/typeProps';
 const Result = () => {
   useStatusBar('black');
   const route = useRoute();
-  const {score, correct, wrong, timeUsed, isMath, title, data, listAnswer} =
-    route.params as {
-      score: number;
-      correct: number;
-      wrong: number;
-      timeUsed: number;
-      isMath: boolean;
-      title: string;
-      data: DataDetail;
-      listAnswer: string[];
-    };
-  //Log  all params one by one in 1 console.log
-  console.log({
-    score,
-    correct,
-    wrong,
-    timeUsed,
-    isMath,
-    title,
-    data,
-    listAnswer,
-  });
+  const {time, timeLeft, isMath, title, data, listAnswer} = route.params as {
+    time: number;
+    timeLeft: number;
+    isMath: boolean;
+    title: string;
+    data: DataDetail;
+    listAnswer: string[];
+  };
+  console.log('result', time, timeLeft, isMath, title, data, listAnswer);
 
   return (
     <SafeAreaView style={styles.container}>
