@@ -1,11 +1,20 @@
 /* eslint-disable prettier/prettier */
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {containerStyle} from '../../../services/styleSheets';
+import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {DataDetail} from '../../../services/typeProps';
+import {Shadow} from 'react-native-shadow-2';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const Result = () => {
   useStatusBar('black');
@@ -59,7 +68,64 @@ const Result = () => {
           <Text>{data.test.length}</Text>
         </View>
       </ScrollView>
+      <Shadow
+        distance={15}
+        startColor={'#FEFAAD33'}
+        endColor={'black'}
+        offset={[3, 4]}
+        style={{
+          marginTop: vh(1),
+          backgroundColor: 'black',
+          width: '100%',
+        }}>
+        <BottomNavigator />
+      </Shadow>
     </SafeAreaView>
+  );
+};
+
+const BottomNavigator: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: vw(10),
+        columnGap: vw(2),
+        paddingVertical: vh(2),
+      }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Main')}
+        style={[
+          {
+            borderColor: '#D2FD7C',
+            borderWidth: 1,
+            borderRadius: 15,
+            padding: vw(5),
+            flex: 0.5,
+          },
+          centerAll,
+        ]}>
+        <Text style={{color: '#D2FD7C'}}>Trở về</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          console.log('Xem lại kết quả');
+        }}
+        style={[
+          {
+            backgroundColor: '#D2FD7C',
+            borderRadius: 15,
+            padding: vw(5),
+            flex: 1,
+          },
+          centerAll,
+        ]}>
+        <Text style={{color: 'black'}}>Xem lại kết quả</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
