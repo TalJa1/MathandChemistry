@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,7 +20,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 const Result = () => {
   useStatusBar('black');
   const route = useRoute();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {time, timeLeft, isMath, title, data, listAnswer} = route.params as {
     time: number;
     timeLeft: number;
@@ -57,17 +57,112 @@ const Result = () => {
     setCorrectCount(correct);
     setWrongCount(wrong);
   }, [listAnswer, data.test]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <Text>{formattedTime}</Text>
-          <Text>{score}</Text>
-          <Text>{correctCount}</Text>
-          <Text>{wrongCount}</Text>
-          <Text>{data.test.length}</Text>
+      <ScrollView style={{paddingHorizontal: vw(5), paddingVertical: vh(2)}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            columnGap: vw(2),
+            alignItems: 'center',
+            marginTop: vh(4),
+          }}>
+          <Image
+            style={{height: vw(13), width: vw(13), resizeMode: 'contain'}}
+            source={require('../../../assets/docs/img3.png')}
+          />
+          <Text style={{color: 'white', fontWeight: '500'}}>
+            {isMath ? 'Hình học không gian' : 'Vật lý'}
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: '#A3A3F266',
+            marginVertical: vh(5),
+            padding: vw(5),
+            alignItems: 'center',
+            borderRadius: 30,
+          }}>
+          <Image
+            style={{
+              position: 'absolute',
+              width: vw(20),
+              height: vw(20),
+              resizeMode: 'contain',
+              top: -vw(10),
+            }}
+            source={require('../../../assets/docs/result.png')}
+          />
+          <View style={{marginTop: vh(3), width: '100%'}}>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.timeStyle}>Thời gian hoàn thành</Text>
+              <Text style={styles.timeStyle}>{formattedTime}</Text>
+            </View>
+            <View style={{alignItems: 'center'}}>
+              <Text style={{color: '#FFFFFF', fontSize: 24, fontWeight: '700'}}>
+                Điểm của bạn
+              </Text>
+              <Text style={{color: '#D2FD7C', fontWeight: '700', fontSize: 90}}>
+                {score}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={[
+                  styles.dataGroup,
+                  centerAll,
+                  {backgroundColor: '#464646'},
+                ]}>
+                <Text style={styles.upperText}>{data.test.length}</Text>
+                <Text style={styles.lowerText}>câu hỏi</Text>
+              </View>
+              <View
+                style={[
+                  styles.dataGroup,
+                  centerAll,
+                  {backgroundColor: '#D2FD7C'},
+                ]}>
+                <Text style={styles.upperText}>{correctCount}</Text>
+                <Text style={styles.lowerText}>đúng</Text>
+              </View>
+              <View
+                style={[
+                  styles.dataGroup,
+                  centerAll,
+                  {backgroundColor: '#B65A46'},
+                ]}>
+                <Text style={styles.upperText}>{wrongCount}</Text>
+                <Text style={styles.lowerText}>sai</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={{rowGap: vh(2)}}>
+          <View style={styles.bottomContainer}>
+            <Text style={styles.bottomTitlebtn}>
+              Dạng đề có những câu hỏi tương tự
+            </Text>
+            <TouchableOpacity style={styles.btnStyle}>
+              <Text style={styles.btnTextStyle}>Làm thử</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.bottomContainer}>
+            <Text style={styles.bottomTitlebtn}>
+              Lưu toàn bộ cách giải bộ đề{' '}
+              <Text style={{textDecorationLine: 'underline'}}>{title}</Text>
+            </Text>
+            <TouchableOpacity style={styles.btnStyle}>
+              <Text style={styles.btnTextStyle}>Lưu</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
+
       <Shadow
         distance={15}
         startColor={'#FEFAAD33'}
@@ -133,4 +228,50 @@ export default Result;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  timeStyle: {
+    color: '#1B1B1B',
+    fontSize: 16,
+    fontWeight: '400',
+  },
+  dataGroup: {
+    height: vw(20),
+    width: vw(20),
+    borderRadius: 12,
+  },
+  upperText: {
+    color: '#000000',
+    fontSize: 24,
+    fontWeight: '700',
+  },
+  lowerText: {
+    color: '#000000',
+    fontSize: 14,
+    fontWeight: '400',
+  },
+  btnStyle: {
+    backgroundColor: '#A3A3F2',
+    height: 44,
+    width: 72,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnTextStyle: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: vw(4),
+  },
+  bottomTitlebtn: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '500',
+    flex: 1,
+    flexWrap: 'wrap',
+  },
 });
