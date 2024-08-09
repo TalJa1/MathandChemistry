@@ -173,13 +173,16 @@ const Result = () => {
           backgroundColor: 'black',
           width: '100%',
         }}>
-        <BottomNavigator />
+        <BottomNavigator data={data} userAnswer={listAnswer} />
       </Shadow>
     </SafeAreaView>
   );
 };
 
-const BottomNavigator: React.FC = () => {
+const BottomNavigator: React.FC<{
+  data: DataDetail;
+  userAnswer: string[];
+}> = ({data, userAnswer}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
@@ -207,7 +210,10 @@ const BottomNavigator: React.FC = () => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          console.log('Xem lại kết quả');
+          navigation.navigate('ReviewResult', {
+            data: data,
+            userAnswer: userAnswer,
+          });
         }}
         style={[
           {
