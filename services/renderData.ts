@@ -285,52 +285,72 @@ export const mathTestExample = [
     question: 'Giải phương trình bậc hai: x^2 - 4x + 4 = 0',
     answers: ['x = 2', 'x = -2', 'x = 4', 'x = -4'],
     correctAnswer: ['x = 2'],
+    solution:
+      'Phương trình bậc hai x^2 - 4x + 4 = 0 có thể được giải bằng cách sử dụng công thức nghiệm kép. Ta có: (x - 2)^2 = 0, do đó nghiệm kép là x = 2.',
   },
   {
     question: 'Tìm giá trị lớn nhất của hàm số y = -x^2 + 4x - 3',
     answers: ['1', '3', '5', '7'],
     correctAnswer: ['1'],
+    solution:
+      "Để tìm giá trị lớn nhất của hàm số y = -x^2 + 4x - 3, ta tính đạo hàm y' = -2x + 4. Đặt y' = 0, ta có x = 2. Thay x = 2 vào hàm số ban đầu, ta được y = 1. Do đó, giá trị lớn nhất của hàm số là 1.",
   },
   {
     question: 'Tìm nghiệm của phương trình: 2cos(x) - 1 = 0',
     answers: ['x = π/3', 'x = π/4', 'x = π/6', 'x = π/2'],
     correctAnswer: ['x = π/3'],
+    solution:
+      'Phương trình 2cos(x) - 1 = 0 có thể được giải bằng cách đặt 2cos(x) = 1, do đó cos(x) = 1/2. Nghiệm của phương trình là x = π/3.',
   },
   {
     question: 'Tích phân của hàm số f(x) = x^2 từ 0 đến 2 là bao nhiêu?',
     answers: ['4', '6', '8/3', '10'],
     correctAnswer: ['8/3'],
+    solution:
+      'Để tính tích phân của hàm số f(x) = x^2 từ 0 đến 2, ta sử dụng công thức tích phân: ∫(x^2)dx từ 0 đến 2 = (x^3)/3 từ 0 đến 2. Thay giá trị vào, ta được (2^3)/3 - (0^3)/3 = 8/3.',
   },
   {
     question: 'Giá trị gần đúng của số e (Euler) là bao nhiêu?',
     answers: ['2.71', '3.14', '1.61', '1.41'],
     correctAnswer: ['2.71'],
+    solution:
+      'Số e (Euler) là một hằng số toán học quan trọng, giá trị gần đúng của nó là 2.71.',
   },
   {
     question: 'Tìm đạo hàm của hàm số y = ln(x)',
     answers: ['1/x', 'x', 'ln(x)', 'e^x'],
     correctAnswer: ['1/x'],
+    solution:
+      "Đạo hàm của hàm số y = ln(x) được tính bằng công thức: (ln(x))' = 1/x.",
   },
   {
     question: 'Tìm nghiệm của phương trình: x^3 - 3x + 2 = 0',
     answers: ['x = 1', 'x = -1', 'x = 2', 'x = -2'],
     correctAnswer: ['x = 1', 'x = -2'],
+    solution:
+      'Phương trình x^3 - 3x + 2 = 0 có thể được giải bằng cách thử các giá trị của x. Ta thấy rằng x = 1 và x = -2 là các nghiệm của phương trình.',
   },
   {
     question: 'Tìm giá trị nhỏ nhất của hàm số y = x^2 - 4x + 5',
     answers: ['1', '2', '3', '4'],
     correctAnswer: ['1'],
+    solution:
+      "Để tìm giá trị nhỏ nhất của hàm số y = x^2 - 4x + 5, ta tính đạo hàm y' = 2x - 4. Đặt y' = 0, ta có x = 2. Thay x = 2 vào hàm số ban đầu, ta được y = 1. Do đó, giá trị nhỏ nhất của hàm số là 1.",
   },
   {
     question:
       'Viết phương trình tiếp tuyến của đồ thị hàm số y = x^2 tại điểm x = 1.',
     answers: [],
     correctAnswer: ['y = 2x - 1'],
+    solution:
+      "Để viết phương trình tiếp tuyến của đồ thị hàm số y = x^2 tại điểm x = 1, ta tính đạo hàm y' = 2x. Tại x = 1, y' = 2. Phương trình tiếp tuyến có dạng y = 2(x - 1) + 1 = 2x - 1.",
   },
   {
     question: 'Tính thể tích của hình cầu có bán kính 3.',
     answers: [],
     correctAnswer: ['113.1'],
+    solution:
+      'Thể tích của hình cầu có bán kính 3 được tính bằng công thức: V = 4/3 * π * r^3. Thay r = 3 vào, ta được V = 4/3 * π * 3^3 ≈ 113.1.',
   },
 ];
 
@@ -339,11 +359,15 @@ export const chemistryTestExample = [
     question: 'Công thức hóa học của nước là gì?',
     answers: ['H2O', 'CO2', 'O2', 'H2'],
     correctAnswer: ['H2O'],
+    solution:
+      'Công thức hóa học của nước là H2O. Nước bao gồm hai nguyên tử hydro (H) và một nguyên tử oxy (O). Công thức này được xác định dựa trên thành phần phân tử của nước.',
   },
   {
     question: 'Nguyên tố nào có số hiệu nguyên tử là 6?',
     answers: ['Carbon', 'Oxygen', 'Nitrogen', 'Hydrogen'],
     correctAnswer: ['Carbon'],
+    solution:
+      'Nguyên tố có số hiệu nguyên tử là 6 là Carbon (C). Số hiệu nguyên tử là số proton trong hạt nhân của nguyên tử, và Carbon có 6 proton.',
   },
   {
     question: 'Phản ứng nào sau đây là phản ứng oxi hóa khử?',
@@ -354,21 +378,29 @@ export const chemistryTestExample = [
       'CaCO3 -> CaO + CO2',
     ],
     correctAnswer: ['2H2 + O2 -> 2H2O'],
+    solution:
+      'Phản ứng oxi hóa khử là phản ứng trong đó có sự thay đổi số oxi hóa của các nguyên tố. Trong phản ứng 2H2 + O2 -> 2H2O, hydro bị oxi hóa từ số oxi hóa 0 lên +1 và oxy bị khử từ số oxi hóa 0 xuống -2. Do đó, đây là phản ứng oxi hóa khử.',
   },
   {
     question: 'Tính khối lượng mol của NaCl.',
     answers: ['58.44 g/mol', '60.00 g/mol', '50.00 g/mol', '55.00 g/mol'],
     correctAnswer: ['58.44 g/mol'],
+    solution:
+      'Khối lượng mol của NaCl được tính bằng tổng khối lượng mol của các nguyên tố cấu thành. Khối lượng mol của Na (Natri) là 23 g/mol và của Cl (Clo) là 35.45 g/mol. Do đó, khối lượng mol của NaCl là 23 + 35.45 = 58.44 g/mol.',
   },
   {
     question: 'Nguyên tố nào có độ âm điện lớn nhất?',
     answers: ['Fluorine', 'Oxygen', 'Nitrogen', 'Chlorine'],
     correctAnswer: ['Fluorine'],
+    solution:
+      'Nguyên tố có độ âm điện lớn nhất là Fluorine (F). Độ âm điện là khả năng của một nguyên tử trong phân tử hút electron về phía mình. Fluorine có độ âm điện là 3.98, cao nhất trong tất cả các nguyên tố.',
   },
   {
     question: 'Công thức phân tử của axit sulfuric là gì?',
     answers: ['H2SO4', 'HCl', 'HNO3', 'H2CO3'],
     correctAnswer: ['H2SO4'],
+    solution:
+      'Công thức phân tử của axit sulfuric là H2SO4. Axit sulfuric bao gồm hai nguyên tử hydro (H), một nguyên tử lưu huỳnh (S) và bốn nguyên tử oxy (O).',
   },
   {
     question: 'Phản ứng nào sau đây là phản ứng trung hòa?',
@@ -379,18 +411,31 @@ export const chemistryTestExample = [
       'NaCl + AgNO3 -> NaNO3 + AgCl',
     ],
     correctAnswer: ['HCl + NaOH -> NaCl + H2O'],
+    solution:
+      'Phản ứng trung hòa là phản ứng giữa axit và bazơ tạo thành muối và nước. Trong phản ứng HCl + NaOH -> NaCl + H2O, HCl là axit và NaOH là bazơ, tạo thành muối NaCl và nước H2O.',
   },
   {
     question:
       'Viết phương trình hóa học của phản ứng giữa axit clohidric và natri hidroxit.',
     answers: [],
     correctAnswer: ['HCl + NaOH -> NaCl + H2O'],
+    solution:
+      'Phương trình hóa học của phản ứng giữa axit clohidric (HCl) và natri hidroxit (NaOH) là: HCl + NaOH -> NaCl + H2O. Đây là phản ứng trung hòa, trong đó axit HCl phản ứng với bazơ NaOH để tạo thành muối NaCl và nước H2O.',
   },
   {
     question:
       'Tính nồng độ mol của dung dịch chứa 5 mol NaCl trong 2 lít dung dịch.',
     answers: [],
     correctAnswer: ['2.5 M'],
+    solution:
+      'Nồng độ mol của dung dịch được tính bằng số mol chất tan chia cho thể tích dung dịch (tính bằng lít). Do đó, nồng độ mol của dung dịch chứa 5 mol NaCl trong 2 lít dung dịch là 5 mol / 2 lít = 2.5 M.',
+  },
+  {
+    question: 'Công thức hóa học của khí metan là gì?',
+    answers: ['CH4', 'C2H6', 'C3H8', 'C4H10'],
+    correctAnswer: ['CH4'],
+    solution:
+      'Công thức hóa học của khí metan là CH4. Metan là hợp chất đơn giản nhất của hydrocarbon, bao gồm một nguyên tử carbon (C) và bốn nguyên tử hydro (H).',
   },
 ];
 

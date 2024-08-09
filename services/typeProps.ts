@@ -149,6 +149,7 @@ interface Test {
   question: string;
   answers: string[];
   correctAnswer: string[];
+  solution: string;
 }
 
 export interface DataDetail {
