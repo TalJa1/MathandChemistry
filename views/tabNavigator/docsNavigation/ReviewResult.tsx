@@ -22,6 +22,7 @@ import {
   examNext,
   saveIcon,
   solutionIcon,
+  xIcon,
 } from '../../../assets/svgXml';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Shadow} from 'react-native-shadow-2';
@@ -55,9 +56,6 @@ const ReviewResult = () => {
           step={step}
           setStep={setStep}
           last={data.test.length}
-          reviewIndex={userAnswer.map((item, i) =>
-            item === data.test[i].correctAnswer[0] ? -1 : i,
-          )}
           data={data}
         />
       </Shadow>
@@ -187,9 +185,8 @@ const ExamNavigator: React.FC<{
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   last: number;
-  reviewIndex: number[];
   data: DataDetail;
-}> = ({step, setStep, last, reviewIndex, data}) => {
+}> = ({step, setStep, last, data}) => {
   const [popUpVisible, setPopUpVisible] = useState(false);
   const togglePopUp = () => {
     setPopUpVisible(!popUpVisible);
@@ -241,7 +238,7 @@ const ExamNavigator: React.FC<{
         visible={popUpVisible}
         onClose={togglePopUp}
         data={data}
-        saveIndex={reviewIndex}
+        questionIndex={step}
       />
     </View>
   );
@@ -253,8 +250,8 @@ const PopUp: React.FC<{
   visible: boolean;
   onClose: () => void;
   data: DataDetail;
-  saveIndex: number[];
-}> = ({visible, onClose, data, saveIndex}) => {
+  questionIndex: number;
+}> = ({visible, onClose, data, questionIndex}) => {
   const slideAnim = useRef(new Animated.Value(screenHeight)).current;
   useEffect(() => {
     if (visible) {
@@ -276,6 +273,8 @@ const PopUp: React.FC<{
     return null;
   }
 
+  const questionData = data.test[questionIndex];
+  const answerLetters = ['A', 'B', 'C', 'D'];
   return (
     <Animated.View
       style={[styles.popUp, {transform: [{translateY: slideAnim}]}]}>
@@ -285,35 +284,72 @@ const PopUp: React.FC<{
           flex: 1,
         }}>
         <View
-          style={[
-            {backgroundColor: '#7EA8CA', width: vw(100), height: vh(10)},
-            centerAll,
-          ]}>
-          <Text style={styles.popUpText}>Các câu cần xem lại</Text>
+          style={{
+            backgroundColor: '#1B1B1B',
+            padding: vw(5),
+          }}>
+          <View
+            style={{
+              width: '100%',
+              marginVertical: vh(1),
+              alignItems: 'flex-end',
+            }}>
+            <TouchableOpacity onPress={onClose}>
+              {xIcon(vw(5), vw(5), 'white')}
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              rowGap: vh(1),
+            }}>
+            <Text style={{color: '#A3A3F2', fontSize: 16, fontWeight: '700'}}>
+              Câu {questionIndex + 1}
+            </Text>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontSize: 14,
+                fontWeight: '400',
+              }}>
+              {questionData.question}
+            </Text>
+          </View>
         </View>
         <ScrollView
           style={{flex: 1, paddingHorizontal: vw(5), paddingVertical: vh(2)}}>
-          {data.test.map((item, i) => (
-            <View key={i}>
-              {saveIndex.includes(i) && (
-                <View
-                  style={[
-                    {
-                      flexDirection: 'row',
-                      columnGap: vw(3),
-                      alignItems: 'flex-start',
-                      marginBottom: vh(2),
-                    },
-                  ]}>
-                  <Text
-                    style={{color: '#A3A3F2', fontSize: 16, fontWeight: '700'}}>
-                    Câu {i + 1}
-                  </Text>
-                  <Text style={{color: 'white'}}>{data.test[i].question}</Text>
-                </View>
-              )}
+          <View style={{rowGap: vh(2)}}>
+            <Text style={{color: '#A3A3F2', fontSize: 14, fontWeight: '700'}}>
+              Lời giải
+            </Text>
+            <Text style={{color: '#FFFFFF', marginBottom: vh(2)}}>
+              {questionData.solution}
+            </Text>
+            <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: 'bold'}}>
+              Chọn
+            </Text>
+            <View style={{flexDirection: 'column', width: '100%'}}>
+              {questionData.correctAnswer.map((answer, index) => {
+                const answerIndex = questionData.answers.indexOf(answer);
+                const answerLetter = answerLetters[answerIndex];
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      backgroundColor: '#D2FD7C',
+                      borderRadius: 8,
+                      padding: 10,
+                      marginVertical: 5,
+                      width: '100%',
+                    }}>
+                    <Text
+                      style={{color: 'black', fontSize: 16, fontWeight: '500'}}>
+                      {answerLetter}. {answer}
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
-          ))}
+          </View>
         </ScrollView>
         <View
           style={{width: vw(100), alignItems: 'center', marginVertical: vh(2)}}>
