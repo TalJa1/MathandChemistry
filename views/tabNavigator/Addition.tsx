@@ -12,11 +12,11 @@ import {
   tradeIcon,
 } from '../../assets/svgXml';
 import {vh, vw} from '../../services/styleSheets';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const Addition = () => {
   useStatusBar('black');
-
   const translateY = useRef(new Animated.Value(vh(100))).current;
 
   useFocusEffect(
@@ -40,35 +40,49 @@ const Addition = () => {
         <NavigationTab
           icon={groupIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo đề"
+          handleNavigate="SetofQuestionCreation"
         />
         <NavigationTab
           icon={questionIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo câu hỏi lẻ"
+          handleNavigate=""
         />
         <NavigationTab
           icon={groupIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo nhóm"
+          handleNavigate=""
         />
         <NavigationTab
           icon={createContentIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo bài viết"
+          handleNavigate=""
         />
         <NavigationTab
           icon={livestreamIcon(vw(6), vw(6), '#D2FD7C')}
           label="Phát trực tiếp"
+          handleNavigate=""
         />
         <NavigationTab
           icon={tradeIcon(vw(6), vw(6), '#D2FD7C')}
           label="Trao đổi"
+          handleNavigate=""
         />
       </Animated.View>
     </SafeAreaView>
   );
 };
 
-const NavigationTab: React.FC<{icon: any; label: string}> = ({icon, label}) => {
+const NavigationTab: React.FC<{
+  icon: any;
+  label: string;
+  handleNavigate: string;
+}> = ({icon, label, handleNavigate}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
   return (
     <TouchableOpacity
+      disabled={handleNavigate === '' ? true : false}
+      onPress={() => navigation.navigate(handleNavigate)}
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -94,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 1,
-    marginBottom: vh(4),
+    marginBottom: vh(6),
     rowGap: vh(1),
   },
 });
