@@ -85,6 +85,8 @@ const ExamGroup: React.FC<{
     }
   };
 
+  const isMultipleChoice = data.test[index].correctAnswer.length > 1;
+
   return (
     <View>
       <View
@@ -117,41 +119,22 @@ const ExamGroup: React.FC<{
               {data.test[index].correctAnswer.length > 1 ? '(MC)' : '(SC)'}
             </Text>
             <View style={{rowGap: vh(1)}}>
-              {data.test[index].answers.map((answer, i) => (
-                <View
-                  key={i}
-                  style={{
-                    borderBottomWidth:
-                      i !== data.test[index].answers.length - 1 ? 1 : 0,
-                    borderBottomColor: '#46464680',
-                    marginBottom: 10,
-                    paddingVertical: vh(1),
-                    backgroundColor: isCorrectAnswer(answer)
-                      ? '#D2FD7C'
-                      : userAnswer &&
-                        userAnswer.includes(answer) &&
-                        !isUserAnswerCorrect()
-                      ? 'red'
-                      : 'transparent',
-                    paddingHorizontal: vw(2),
-                    borderRadius: 10,
-                  }}>
-                  <Text
-                    style={[
-                      {fontSize: 18},
-                      isCorrectAnswer(answer)
-                        ? {color: 'black'}
-                        : userAnswer &&
-                          userAnswer.includes(answer) &&
-                          !isUserAnswerCorrect()
-                        ? {color: 'black'}
-                        : {color: 'white'},
-                    ]}>
-                    {String.fromCharCode(65 + i)}. {'  '}
-                    {answer}
-                  </Text>
-                </View>
-              ))}
+              {isMultipleChoice ? (
+                <MultipleChoiceQuestion
+                  answers={data.test[index].answers}
+                  userAnswer={userAnswer}
+                  isCorrectAnswer={isCorrectAnswer}
+                  isUserAnswerCorrect={isUserAnswerCorrect}
+                  questionIndex={index}
+                />
+              ) : (
+                <SingleChoiceQuestion
+                  answers={data.test[index].answers}
+                  userAnswer={userAnswer}
+                  isCorrectAnswer={isCorrectAnswer}
+                  isUserAnswerCorrect={isUserAnswerCorrect}
+                />
+              )}
             </View>
           </View>
         ) : (
@@ -177,6 +160,102 @@ const ExamGroup: React.FC<{
         )}
       </View>
     </View>
+  );
+};
+
+const SingleChoiceQuestion: React.FC<{
+  answers: string[];
+  userAnswer?: string[];
+  isCorrectAnswer: (answer: string) => boolean;
+  isUserAnswerCorrect: () => boolean;
+}> = ({answers, userAnswer, isCorrectAnswer, isUserAnswerCorrect}) => (
+  <>
+    {answers.map((answer, i) => (
+      <View
+        key={i}
+        style={{
+          borderBottomWidth: i !== answers.length - 1 ? 1 : 0,
+          borderBottomColor: '#46464680',
+          marginBottom: 10,
+          paddingVertical: vh(1),
+          backgroundColor: isCorrectAnswer(answer)
+            ? '#D2FD7C'
+            : userAnswer &&
+              userAnswer.includes(answer) &&
+              !isUserAnswerCorrect()
+            ? 'red'
+            : 'transparent',
+          paddingHorizontal: vw(2),
+          borderRadius: 10,
+        }}>
+        <Text
+          style={[
+            {fontSize: 18},
+            isCorrectAnswer(answer)
+              ? {color: 'black'}
+              : userAnswer &&
+                userAnswer.includes(answer) &&
+                !isUserAnswerCorrect()
+              ? {color: 'black'}
+              : {color: 'white'},
+          ]}>
+          {String.fromCharCode(65 + i)}. {'  '}
+          {answer}
+        </Text>
+      </View>
+    ))}
+  </>
+);
+
+const MultipleChoiceQuestion: React.FC<{
+  answers: string[];
+  userAnswer?: string[];
+  isCorrectAnswer: (answer: string) => boolean;
+  isUserAnswerCorrect: () => boolean;
+  questionIndex: number;
+}> = ({
+  answers,
+  userAnswer,
+  isCorrectAnswer,
+  isUserAnswerCorrect,
+  questionIndex,
+}) => {
+  const userAnswersArray = userAnswer
+    ? userAnswer[questionIndex].split('|')
+    : [];
+  return (
+    <>
+      {answers.map((answer, i) => (
+        <View
+          key={i}
+          style={{
+            borderBottomWidth: i !== answers.length - 1 ? 1 : 0,
+            borderBottomColor: '#46464680',
+            marginBottom: 10,
+            paddingVertical: vh(1),
+            backgroundColor: isCorrectAnswer(answer)
+              ? '#D2FD7C'
+              : userAnswersArray.includes(answer) && !isUserAnswerCorrect()
+              ? 'red'
+              : 'transparent',
+            paddingHorizontal: vw(2),
+            borderRadius: 10,
+          }}>
+          <Text
+            style={[
+              {fontSize: 18},
+              isCorrectAnswer(answer)
+                ? {color: 'black'}
+                : userAnswersArray.includes(answer) && !isUserAnswerCorrect()
+                ? {color: 'black'}
+                : {color: 'white'},
+            ]}>
+            {String.fromCharCode(65 + i)}. {'  '}
+            {answer}
+          </Text>
+        </View>
+      ))}
+    </>
   );
 };
 
