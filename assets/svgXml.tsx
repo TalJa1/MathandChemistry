@@ -12,6 +12,61 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const tradeIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.49994 11L9.77275 16.3032C10.0856 17.0331 11.0585 17.1103 11.4486 16.4185C12.2182 15.0535 13.3591 12.8522 14.4999 10C16.4999 5 17.4999 1 17.4999 1C17.4999 1 13.4999 2 8.49994 4C5.64778 5.14086 3.4464 6.28173 2.08143 7.05136C1.38969 7.4414 1.4668 8.41437 2.19672 8.72719L7.49994 11Z" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const livestreamIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.8772 11L19 13C19 13 19.5 11 19.5 8C19.5 5 19 3 19 3L14.8772 5M14.8772 11C14.9538 10.0994 15 9.07282 15 8C15 6.92718 14.9538 5.9006 14.8772 5M14.8772 11C14.7318 12.7111 14.477 13.9674 14.2222 14.2222C13.8333 14.6111 11.1111 15 8 15C4.88889 15 2.16667 14.6111 1.77778 14.2222C1.38889 13.8333 1 11.1111 1 8C1 4.88889 1.38889 2.16667 1.77778 1.77778C2.16667 1.38889 4.88889 1 8 1C11.1111 1 13.8333 1.38889 14.2222 1.77778C14.477 2.03256 14.7318 3.28891 14.8772 5" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const createContentIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.9445 7.1875L12.9445 3.1875M16.9445 7.1875L11.946 12.1859C11.2873 12.8446 10.4878 13.3646 9.56993 13.5229C8.64311 13.6828 7.49294 13.736 6.94444 13.1875C6.39595 12.639 6.44915 11.4888 6.609 10.562C6.76731 9.6441 7.28735 8.8446 7.946 8.18595L12.9445 3.1875M16.9445 7.1875C16.9445 7.1875 19.9444 4.1875 17.9444 2.1875C15.9444 0.1875 12.9445 3.1875 12.9445 3.1875M18.5 10C18.5 16.5 16.5 18.5 10 18.5C3.5 18.5 1.5 16.5 1.5 10C1.5 3.5 3.5 1.5 10 1.5" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const questionIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.49988 11V10.9929M4.49987 8.85714C4.49987 5.64286 7.49987 6.35714 7.49987 3.85714C7.49987 2.27919 6.15672 1 4.49987 1C3.15657 1 2.01949 1.84083 1.63721 3" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const groupIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19 10C21.2091 10 23 12 23 13.5C23 14.3284 22.3284 15 21.5 15H21M17 7C18.6569 7 20 5.65685 20 4C20 2.34315 18.6569 1 17 1M5 10C2.79086 10 1 12 1 13.5C1 14.3284 1.67157 15 2.5 15H3M7 7C5.34315 7 4 5.65685 4 4C4 2.34315 5.34315 1 7 1M16.5 15H7.5C6.67157 15 6 14.3284 6 13.5C6 11 9 10 12 10C15 10 18 11 18 13.5C18 14.3284 17.3284 15 16.5 15ZM15 4C15 5.65685 13.6569 7 12 7C10.3431 7 9 5.65685 9 4C9 2.34315 10.3431 1 12 1C13.6569 1 15 2.34315 15 4Z" stroke=${
+    color ?? '#D2FD7C'
+  } style="stroke:#D2FD7C;stroke:color(display-p3 0.8235 0.9922 0.4863);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const xIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15 1L1 15M1.00003 1L15 15" stroke=${
