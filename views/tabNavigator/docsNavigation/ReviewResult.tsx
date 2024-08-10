@@ -78,7 +78,7 @@ const ExamGroup: React.FC<{
     }
     if (data.test[index].correctAnswer.length > 1) {
       return data.test[index].correctAnswer.every(ans =>
-        userAnswer[index]?.includes(ans),
+        userAnswer.includes(ans),
       );
     } else {
       return userAnswer[index] === data.test[index].correctAnswer[0];
@@ -129,7 +129,7 @@ const ExamGroup: React.FC<{
                     backgroundColor: isCorrectAnswer(answer)
                       ? '#D2FD7C'
                       : userAnswer &&
-                        userAnswer[index] === answer &&
+                        userAnswer.includes(answer) &&
                         !isUserAnswerCorrect()
                       ? 'red'
                       : 'transparent',
@@ -142,7 +142,7 @@ const ExamGroup: React.FC<{
                       isCorrectAnswer(answer)
                         ? {color: 'black'}
                         : userAnswer &&
-                          userAnswer[index] === answer &&
+                          userAnswer.includes(answer) &&
                           !isUserAnswerCorrect()
                         ? {color: 'black'}
                         : {color: 'white'},
@@ -170,7 +170,6 @@ const ExamGroup: React.FC<{
                 height: vh(15),
                 textAlignVertical: 'top',
                 borderRadius: vw(5),
-                // backgroundColor: isUserAnswerCorrect() ? '#D2FD7C' : 'red',
                 color: 'white',
               }}
             />
@@ -343,7 +342,8 @@ const PopUp: React.FC<{
                     }}>
                     <Text
                       style={{color: 'black', fontSize: 16, fontWeight: '500'}}>
-                      {answerLetter}. {answer}
+                      {answerLetter !== undefined ? `${answerLetter}. ` : ''}{' '}
+                      {answer}
                     </Text>
                   </View>
                 );
@@ -352,20 +352,41 @@ const PopUp: React.FC<{
           </View>
         </ScrollView>
         <View
-          style={{width: vw(100), alignItems: 'center', marginVertical: vh(2)}}>
+          style={{
+            width: vw(100),
+            alignItems: 'center',
+            marginVertical: vh(2),
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: vw(5),
+          }}>
           <TouchableOpacity
-            onPress={onClose}
             style={[
               {
-                width: vw(70),
-                backgroundColor: '#D2FD7C',
-                height: vh(6),
+                borderColor: '#D2FD7C',
+                borderWidth: 1,
+                height: vh(7),
                 borderRadius: 16,
+                width: '60%',
+              },
+              centerAll,
+            ]}>
+            <Text style={{color: '#D2FD7C', fontSize: 16, fontWeight: '500'}}>
+              Lưu lời giải toàn bộ đề
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              {
+                backgroundColor: '#D2FD7C',
+                height: vh(7),
+                borderRadius: 16,
+                width: '35%',
               },
               centerAll,
             ]}>
             <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>
-              Xem lại lần lượt
+              Lưu
             </Text>
           </TouchableOpacity>
         </View>
