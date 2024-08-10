@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -36,11 +37,9 @@ const ReviewResult = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Review Result" step={step} total={data.test.length} />
+      <Header title={data.title} step={step} total={data.test.length} />
       <ScrollView>
-        <View>
-          <Text>ReviewResult</Text>
-        </View>
+        <ExamGroup data={data} index={step} userAnswer={userAnswer} />
       </ScrollView>
       <Shadow
         distance={15}
@@ -63,6 +62,108 @@ const ReviewResult = () => {
         />
       </Shadow>
     </SafeAreaView>
+  );
+};
+
+const ExamGroup: React.FC<{
+  data: DataDetail;
+  index: number;
+  userAnswer?: string[];
+}> = ({data, index, userAnswer}) => {
+  return (
+    <View>
+      <View
+        style={{
+          paddingHorizontal: vw(5),
+          paddingVertical: vh(2),
+          backgroundColor: '#1B1B1B',
+          rowGap: vh(2),
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View>
+            <Text
+              style={[styles.textQuestion, {fontWeight: '700', fontSize: 16}]}>
+              Câu {index + 1}
+            </Text>
+          </View>
+        </View>
+        <Text style={{color: '#FFFFFF'}}>{data.test[index].question}</Text>
+      </View>
+      <View style={{paddingHorizontal: vw(5)}}>
+        {data.test[index].answers.length > 0 ? (
+          <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
+            <Text style={styles.answerStyle}>
+              Chọn đáp án{' '}
+              {data.test[index].correctAnswer.length > 1 ? '(MC)' : '(SC)'}
+            </Text>
+            <View style={{rowGap: vh(1)}}>
+              {data.test[index].answers.map((answer, i) => (
+                <View
+                  key={i}
+                  style={{
+                    borderBottomWidth:
+                      i !== data.test[index].answers.length - 1 ? 1 : 0,
+                    borderBottomColor: '#46464680',
+                    marginBottom: 10,
+                    paddingVertical: vh(1),
+                    backgroundColor:
+                      data.test[index].correctAnswer.length > 1
+                        ? userAnswer && userAnswer[index]?.includes(answer)
+                          ? '#A3A3F2'
+                          : 'transparent'
+                        : userAnswer && userAnswer[index] === answer
+                        ? '#A3A3F2'
+                        : 'transparent',
+                    paddingHorizontal: vw(2),
+                    borderRadius: 10,
+                  }}>
+                  <Text
+                    style={[
+                      {fontSize: 18},
+                      data.test[index].correctAnswer.length > 1
+                        ? userAnswer && userAnswer[index]?.includes(answer)
+                          ? {color: 'black'}
+                          : {color: 'white'}
+                        : userAnswer && userAnswer[index] === answer
+                        ? {color: 'black'}
+                        : {color: 'white'},
+                    ]}>
+                    {String.fromCharCode(65 + i)}. {'  '}
+                    {answer}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        ) : (
+          <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
+            <Text style={styles.answerStyle}>Ghi đáp án</Text>
+            <TextInput
+              placeholder="Đáp án"
+              multiline
+              value={userAnswer ? userAnswer[index] : ''}
+              editable={false}
+              style={{
+                borderWidth: 2,
+                borderColor: '#7C7C7C',
+                paddingHorizontal: vw(4),
+                paddingVertical: vh(2),
+                height: vh(15),
+                textAlignVertical: 'top',
+                borderRadius: vw(5),
+                backgroundColor: '#A3A3F2',
+                color: 'black',
+              }}
+            />
+          </View>
+        )}
+      </View>
+    </View>
   );
 };
 
@@ -301,5 +402,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#0D0D0D',
+  },
+  textQuestion: {
+    color: '#A3A3F2',
+  },
+  answerStyle: {
+    color: '#A3A3F2',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
