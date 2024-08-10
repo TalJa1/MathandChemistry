@@ -70,6 +70,23 @@ const ExamGroup: React.FC<{
   index: number;
   userAnswer?: string[];
 }> = ({data, index, userAnswer}) => {
+  const isCorrectAnswer = (answer: string) => {
+    return data.test[index].correctAnswer.includes(answer);
+  };
+
+  const isUserAnswerCorrect = () => {
+    if (!userAnswer) {
+      return false;
+    }
+    if (data.test[index].correctAnswer.length > 1) {
+      return data.test[index].correctAnswer.every(ans =>
+        userAnswer[index]?.includes(ans),
+      );
+    } else {
+      return userAnswer[index] === data.test[index].correctAnswer[0];
+    }
+  };
+
   return (
     <View>
       <View
@@ -111,25 +128,24 @@ const ExamGroup: React.FC<{
                     borderBottomColor: '#46464680',
                     marginBottom: 10,
                     paddingVertical: vh(1),
-                    backgroundColor:
-                      data.test[index].correctAnswer.length > 1
-                        ? userAnswer && userAnswer[index]?.includes(answer)
-                          ? '#A3A3F2'
-                          : 'transparent'
-                        : userAnswer && userAnswer[index] === answer
-                        ? '#A3A3F2'
-                        : 'transparent',
+                    backgroundColor: isCorrectAnswer(answer)
+                      ? '#D2FD7C'
+                      : userAnswer &&
+                        userAnswer[index] === answer &&
+                        !isUserAnswerCorrect()
+                      ? 'red'
+                      : 'transparent',
                     paddingHorizontal: vw(2),
                     borderRadius: 10,
                   }}>
                   <Text
                     style={[
                       {fontSize: 18},
-                      data.test[index].correctAnswer.length > 1
-                        ? userAnswer && userAnswer[index]?.includes(answer)
-                          ? {color: 'black'}
-                          : {color: 'white'}
-                        : userAnswer && userAnswer[index] === answer
+                      isCorrectAnswer(answer)
+                        ? {color: 'black'}
+                        : userAnswer &&
+                          userAnswer[index] === answer &&
+                          !isUserAnswerCorrect()
                         ? {color: 'black'}
                         : {color: 'white'},
                     ]}>
@@ -150,14 +166,14 @@ const ExamGroup: React.FC<{
               editable={false}
               style={{
                 borderWidth: 2,
-                borderColor: '#7C7C7C',
+                borderColor: isUserAnswerCorrect() ? '#D2FD7C' : 'red',
                 paddingHorizontal: vw(4),
                 paddingVertical: vh(2),
                 height: vh(15),
                 textAlignVertical: 'top',
                 borderRadius: vw(5),
-                backgroundColor: '#A3A3F2',
-                color: 'black',
+                // backgroundColor: isUserAnswerCorrect() ? '#D2FD7C' : 'red',
+                color: 'white',
               }}
             />
           </View>
