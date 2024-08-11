@@ -133,11 +133,11 @@ const MainDataBox: React.FC<DocsMainDataProps & {isMath: boolean}> = ({
           ? {backgroundColor: '#A7A7A726'}
           : {backgroundColor: '#A3A3F21A'},
       ]}>
-      <Text>{title}</Text>
+      <Text style={{color: 'white'}}>{title}</Text>
       <View
         style={{flexDirection: 'row', columnGap: vw(2), alignItems: 'center'}}>
         {finishDocsIcon(vw(6), vw(6), '#D2FD7C')}
-        <Text>
+        <Text style={{color: '#A7A7A7'}}>
           {amount}/{total}
         </Text>
       </View>

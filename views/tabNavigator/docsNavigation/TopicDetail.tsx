@@ -136,7 +136,8 @@ const MainDataRender: React.FC<MainTimeTabDataProps & {type: number}> = ({
           columnGap: vw(2),
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 18, fontWeight: '600', flex: 1}}>
+        <Text
+          style={{fontSize: 18, fontWeight: '600', flex: 1, color: 'white'}}>
           Đề ôn tập chuyên đề {data.title}
         </Text>
         {type === 3 ? (
@@ -176,7 +177,7 @@ const MainDataRender: React.FC<MainTimeTabDataProps & {type: number}> = ({
           ) : (
             <>{timeIcon(vw(5), vw(5))}</>
           )}
-          <Text>
+          <Text style={{color: '#A7A7A7'}}>
             {type === 3 ? (
               <>{data.amount} câu</>
             ) : (
@@ -191,7 +192,7 @@ const MainDataRender: React.FC<MainTimeTabDataProps & {type: number}> = ({
             columnGap: vw(1),
           }}>
           {docsIconSVG(vw(5), vw(5), '#A7A7A7')}
-          <Text>{data.id}</Text>
+          <Text style={{color: '#A7A7A7'}}>{data.id}</Text>
         </View>
       </View>
     </View>

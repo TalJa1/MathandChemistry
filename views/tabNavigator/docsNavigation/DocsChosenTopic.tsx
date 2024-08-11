@@ -146,5 +146,6 @@ const styles = StyleSheet.create({
   label: {
     textAlign: 'center', // Center text horizontally
     flexWrap: 'wrap', // Wrap text if it overflows
+    color: 'white',
   },
 });
