@@ -209,6 +209,7 @@ const ExamGroup: React.FC<{
             <Text style={styles.answerStyle}>Ghi đáp án</Text>
             <TextInput
               placeholder="Đáp án"
+              placeholderTextColor={'#7C7C7C'}
               multiline
               value={userAnswers[index]}
               onChangeText={text => handleAnswerChange(text, index, false)}
@@ -220,6 +221,7 @@ const ExamGroup: React.FC<{
                 height: vh(15),
                 textAlignVertical: 'top',
                 borderRadius: vw(5),
+                color: 'white',
               }}
             />
           </View>
