@@ -174,3 +174,17 @@ export interface TabTimeDataDetail {
   finish: number;
   data: DataDetail[];
 }
+
+export interface FormDataQuestion {
+  subject: string;
+  setName: string;
+  setDescription: string;
+  time: string;
+  target: string;
+  dropdownValue: string;
+}
+
+export interface MainContentProps {
+  formData: FormDataQuestion;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataQuestion>>;
+}

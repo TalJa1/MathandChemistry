@@ -221,7 +221,7 @@ export const docsMathTopicData = [
   },
   {
     img: require('../assets/docs/img2.png'),
-    label: 'Hình học không gian',
+    label: 'Hình học',
   },
   {
     img: require('../assets/docs/img3.png'),
