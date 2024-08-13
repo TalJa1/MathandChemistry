@@ -145,7 +145,7 @@ export interface MainTimeTabDataProps {
   };
 }
 
-interface Test {
+export interface Test {
   question: string;
   answers: string[];
   correctAnswer: string[];
