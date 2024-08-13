@@ -240,7 +240,7 @@ const MainContent: React.FC<{
                 <Text
                   style={[
                     styles.text,
-                    selectedOptions.includes(letter) && { color: '' },
+                    selectedOptions.includes(letter) && { color: '#D2FD7C' },
                   ]}
                 >
                   {letter}
