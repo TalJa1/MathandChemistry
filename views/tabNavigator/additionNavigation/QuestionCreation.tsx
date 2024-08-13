@@ -157,6 +157,20 @@ const MainContent: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+  const handleOptionSelect = (letter: string) => {
+    if (formData.dropdownValue === 1) {
+      setSelectedOptions([letter]);
+    } else if (formData.dropdownValue === 2) {
+      setSelectedOptions(prev =>
+        prev.includes(letter)
+          ? prev.filter(opt => opt !== letter)
+          : [...prev, letter],
+      );
+    }
+  };
+
   return (
     <View style={{rowGap: vh(3)}}>
       <View style={{rowGap: vh(1)}}>
@@ -203,8 +217,24 @@ const MainContent: React.FC<{
         {formData.dropdownValue < 3 ? (
           <View style={styles.row}>
             {['A', 'B', 'C', 'D'].map(letter => (
-              <TouchableOpacity key={letter} style={styles.box}>
-                <Text style={styles.text}>{letter}</Text>
+              <TouchableOpacity
+                key={letter}
+                style={[
+                  styles.box,
+                  selectedOptions.includes(letter)
+                    ? {borderColor: '#D2FD7C'}
+                    : {
+                        borderColor: '#A3A3F2',
+                      },
+                ]}
+                onPress={() => handleOptionSelect(letter)}>
+                <Text
+                  style={[
+                    styles.text,
+                    selectedOptions.includes(letter) && {color: '#D2FD7C'},
+                  ]}>
+                  {letter}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -400,7 +430,6 @@ const styles = StyleSheet.create({
   box: {
     borderRadius: vw(20),
     borderWidth: 1,
-    borderColor: '#A3A3F2',
     width: vw(10),
     height: vw(10),
     justifyContent: 'center',
