@@ -120,7 +120,7 @@ const MainContent: React.FC<{
   };
 
   return (
-    <View style={{rowGap: vh(2)}}>
+    <View style={{rowGap: vh(3)}}>
       <View style={{rowGap: vh(1)}}>
         <Text style={{color: 'white'}}>Đề bài</Text>
         <TextInput
