@@ -103,15 +103,15 @@ const MainContent: React.FC<{
     updatedQuestions[currentQuestion - 1].question = text;
     setQuestionGroup(updatedQuestions);
   };
-  const [formData, setFormData] = useState({dropdownValue: ''});
+  const [formData, setFormData] = useState({dropdownValue: 0});
   const handleInputChange = (field: string, value: string) => {
     setFormData({...formData, [field]: value});
   };
 
   const dropdownData = [
-    {label: 'Một lựa chọn', value: '1'},
-    {label: 'Điền câu trả lời', value: '2'},
-    {label: 'Nhiều lựa chọn', value: '3'},
+    {label: 'Một lựa chọn', value: 1},
+    {label: 'Nhiều lựa chọn', value: 2},
+    {label: 'Điền câu trả lời', value: 3},
   ];
   const [isFocus, setIsFocus] = useState(false);
 
@@ -135,7 +135,11 @@ const MainContent: React.FC<{
         mediaType: 'photo',
       },
       (result1: any) => {
-        setImage(result1.assets[0].uri);
+        if (result1 === undefined || result1.assets === undefined) {
+          console.log('No image selected');
+        } else {
+          setImage(result1.assets[0].uri);
+        }
       },
     );
   };
@@ -150,7 +154,7 @@ const MainContent: React.FC<{
       }
     };
     recognizeText();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
   return (
@@ -196,21 +200,38 @@ const MainContent: React.FC<{
       </View>
       <View style={{rowGap: vh(1)}}>
         <Text style={{color: 'white'}}>Đáp án chính xác</Text>
-        <View style={styles.row}>
-          {['A', 'B', 'C', 'D'].map(letter => (
-            <TouchableOpacity key={letter} style={styles.box}>
-              <Text style={styles.text}>{letter}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        {formData.dropdownValue < 3 ? (
+          <View style={styles.row}>
+            {['A', 'B', 'C', 'D'].map(letter => (
+              <TouchableOpacity key={letter} style={styles.box}>
+                <Text style={styles.text}>{letter}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        ) : (
+          <TextInput
+            style={styles.input}
+            placeholder="Nhập Đáp án"
+            value={questionGroup[currentQuestion - 1].answers[0]}
+            onChangeText={text => {
+              const updatedQuestions = [...questionGroup];
+              updatedQuestions[currentQuestion - 1].answers[0] = text;
+              setQuestionGroup(updatedQuestions);
+            }}
+          />
+        )}
       </View>
       <View style={{rowGap: vh(1)}}>
         <Text style={{color: 'white'}}>Lời giải</Text>
         <TextInput
           style={styles.input}
           placeholder="Nhập lời giải"
-          value={questionGroup[currentQuestion - 1].question}
-          onChangeText={handleQuestionChange}
+          value={questionGroup[currentQuestion - 1].solution}
+          onChangeText={text => {
+            const updatedQuestions = [...questionGroup];
+            updatedQuestions[currentQuestion - 1].solution = text;
+            setQuestionGroup(updatedQuestions);
+          }}
         />
       </View>
     </View>
