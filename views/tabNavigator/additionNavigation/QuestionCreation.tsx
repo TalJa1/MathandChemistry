@@ -20,7 +20,12 @@ import {
 } from '../../../services/typeProps';
 import {Shadow} from 'react-native-shadow-2';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {examBack, examNext, saveDraftIcon} from '../../../assets/svgXml';
+import {
+  cameraIcon1,
+  examBack,
+  examNext,
+  saveDraftIcon,
+} from '../../../assets/svgXml';
 import {Dropdown} from 'react-native-element-dropdown';
 
 const QuestionCreation = () => {
@@ -123,12 +128,16 @@ const MainContent: React.FC<{
     <View style={{rowGap: vh(3)}}>
       <View style={{rowGap: vh(1)}}>
         <Text style={{color: 'white'}}>Đề bài</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập đề bài"
-          value={questionGroup[currentQuestion - 1].question}
-          onChangeText={handleQuestionChange}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nhập đề bài"
+            value={questionGroup[currentQuestion - 1].question}
+            onChangeText={handleQuestionChange}
+            multiline={true}
+          />
+          <View style={styles.iconContainer}>{cameraIcon1(vw(6), vw(6))}</View>
+        </View>
       </View>
       <View style={{rowGap: vh(1)}}>
         <Text style={{color: 'white'}}>Loại câu trả lời</Text>
@@ -291,10 +300,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 0.5,
   },
   input: {
-    height: 62,
+    height: 'auto',
+    textAlignVertical: 'center',
     borderWidth: 1,
     padding: 16,
     borderRadius: 20,
+    paddingRight: vw(15),
     borderColor: '#7C7C7C',
   },
   dropdown: {
@@ -347,5 +358,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#A3A3F2',
     fontWeight: '500',
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: vw(4),
+    top: '50%',
+    transform: [{translateY: -vw(3)}], // Center the icon vertically
+  },
+  inputContainer: {
+    position: 'relative',
   },
 });
