@@ -136,7 +136,9 @@ const MainContent: React.FC<{
             onChangeText={handleQuestionChange}
             multiline={true}
           />
-          <View style={styles.iconContainer}>{cameraIcon1(vw(6), vw(6))}</View>
+          <TouchableOpacity style={styles.iconContainer}>
+            {cameraIcon1(vw(6), vw(6))}
+          </TouchableOpacity>
         </View>
       </View>
       <View style={{rowGap: vh(1)}}>
