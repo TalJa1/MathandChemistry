@@ -267,11 +267,11 @@ const MainContent: React.FC<{
           <TextInput
             style={styles.input}
             placeholder="Nhập Đáp án"
-            value={questionGroup[currentQuestion - 1].answers[0]}
+            value={questionGroup[currentQuestion - 1].correctAnswer[0]}
             onChangeText={text => {
               const updatedQuestions = questionGroup.map((question, index) =>
                 index === currentQuestion - 1
-                  ? {...question, answers: [text]}
+                  ? {...question, correctAnswer: [text]}
                   : question,
               );
               setQuestionGroup(updatedQuestions);
