@@ -29,6 +29,7 @@ import Exam from './views/tabNavigator/docsNavigation/Exam';
 import Result from './views/tabNavigator/docsNavigation/Result';
 import ReviewResult from './views/tabNavigator/docsNavigation/ReviewResult';
 import SetofQuestionCreation from './views/tabNavigator/additionNavigation/SetofQuestionCreation';
+import QuestionCreation from './views/tabNavigator/additionNavigation/QuestionCreation';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -157,6 +158,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Addition page */}
+        <Stack.Screen
+          name="QuestionCreation"
+          component={QuestionCreation}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="SetofQuestionCreation"
           component={SetofQuestionCreation}

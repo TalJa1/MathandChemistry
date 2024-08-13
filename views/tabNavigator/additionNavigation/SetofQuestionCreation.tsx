@@ -15,7 +15,11 @@ import {Shadow} from 'react-native-shadow-2';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Dropdown} from 'react-native-element-dropdown';
-import {FormDataProps, FormDataQuestion, MainContentProps} from '../../../services/typeProps';
+import {
+  FormDataProps,
+  FormDataQuestion,
+  MainContentProps,
+} from '../../../services/typeProps';
 
 const SetofQuestionCreation = () => {
   const [formData, setFormData] = useState<FormDataProps>({
@@ -276,7 +280,7 @@ const Footer: React.FC<{formData: FormDataQuestion}> = ({formData}) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          console.log(formData);
+          navigation.navigate('QuestionCreation', {data: formData});
         }}
         disabled={isEnable ? false : true}
         style={{
