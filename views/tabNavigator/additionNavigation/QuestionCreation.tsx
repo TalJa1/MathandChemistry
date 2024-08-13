@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
@@ -27,6 +27,8 @@ import {
   saveDraftIcon,
 } from '../../../assets/svgXml';
 import {Dropdown} from 'react-native-element-dropdown';
+import TextRecognition from '@react-native-ml-kit/text-recognition';
+import {launchCamera} from 'react-native-image-picker';
 
 const QuestionCreation = () => {
   useStatusBar('black');
@@ -124,6 +126,33 @@ const MainContent: React.FC<{
     );
   };
 
+  const [image, setImage] = useState('');
+
+  const openCamera = async () => {
+    launchCamera(
+      {
+        cameraType: 'back',
+        mediaType: 'photo',
+      },
+      (result1: any) => {
+        setImage(result1.assets[0].uri);
+      },
+    );
+  };
+
+  useEffect(() => {
+    const recognizeText = async () => {
+      if (image !== '') {
+        const result = await TextRecognition.recognize(image);
+        if (result !== undefined) {
+          handleQuestionChange(result.text);
+        }
+      }
+    };
+    recognizeText();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image]);
+
   return (
     <View style={{rowGap: vh(3)}}>
       <View style={{rowGap: vh(1)}}>
@@ -136,7 +165,7 @@ const MainContent: React.FC<{
             onChangeText={handleQuestionChange}
             multiline={true}
           />
-          <TouchableOpacity style={styles.iconContainer}>
+          <TouchableOpacity style={styles.iconContainer} onPress={openCamera}>
             {cameraIcon1(vw(6), vw(6))}
           </TouchableOpacity>
         </View>

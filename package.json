@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/slider": "^4.5.2",
+    "@react-native-ml-kit/text-recognition": "^1.5.2",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
