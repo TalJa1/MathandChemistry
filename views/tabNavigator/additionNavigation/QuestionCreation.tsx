@@ -97,26 +97,34 @@ const MainContent: React.FC<{
   questionGroup: Test[];
   setQuestionGroup: React.Dispatch<React.SetStateAction<Test[]>>;
   currentQuestion: number;
-}> = ({questionGroup, setQuestionGroup, currentQuestion}) => {
+}> = ({ questionGroup, setQuestionGroup, currentQuestion }) => {
   const handleQuestionChange = (text: string) => {
-    const updatedQuestions = [...questionGroup];
-    updatedQuestions[currentQuestion - 1].question = text;
+    const updatedQuestions = questionGroup.map((question, index) =>
+      index === currentQuestion - 1 ? { ...question, question: text } : question
+    );
     setQuestionGroup(updatedQuestions);
   };
-  const [formData, setFormData] = useState({dropdownValue: 0});
-  const handleInputChange = (field: string, value: string) => {
-    setFormData({...formData, [field]: value});
+
+  const [formData, setFormData] = useState<{ dropdownValue: number }[]>(
+    Array(10).fill({ dropdownValue: 0 })
+  );
+
+  const handleInputChange = (index: number, field: string, value: number) => {
+    const updatedFormData = [...formData];
+    updatedFormData[index] = { ...updatedFormData[index], [field]: value };
+    setFormData(updatedFormData);
   };
 
   const dropdownData = [
-    {label: 'Một lựa chọn', value: 1},
-    {label: 'Nhiều lựa chọn', value: 2},
-    {label: 'Điền câu trả lời', value: 3},
+    { label: 'Một lựa chọn', value: 1 },
+    { label: 'Nhiều lựa chọn', value: 2 },
+    { label: 'Điền câu trả lời', value: 3 },
   ];
   const [isFocus, setIsFocus] = useState(false);
 
   const renderItem = (item: any) => {
-    const isSelected = item.value === formData.dropdownValue;
+    const isSelected =
+      item.value === formData[currentQuestion - 1].dropdownValue;
     return (
       <View style={[styles.item, isSelected && styles.selectedItem]}>
         <Text style={[styles.itemText, isSelected && styles.selectedItemText]}>
@@ -140,7 +148,7 @@ const MainContent: React.FC<{
         } else {
           setImage(result1.assets[0].uri);
         }
-      },
+      }
     );
   };
 
@@ -160,21 +168,21 @@ const MainContent: React.FC<{
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleOptionSelect = (letter: string) => {
-    if (formData.dropdownValue === 1) {
+    if (formData[currentQuestion - 1].dropdownValue === 1) {
       setSelectedOptions([letter]);
-    } else if (formData.dropdownValue === 2) {
-      setSelectedOptions(prev =>
+    } else if (formData[currentQuestion - 1].dropdownValue === 2) {
+      setSelectedOptions((prev) =>
         prev.includes(letter)
-          ? prev.filter(opt => opt !== letter)
-          : [...prev, letter],
+          ? prev.filter((opt) => opt !== letter)
+          : [...prev, letter]
       );
     }
   };
 
   return (
-    <View style={{rowGap: vh(3)}}>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Đề bài</Text>
+    <View style={{ rowGap: vh(3) }}>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Đề bài</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -188,51 +196,53 @@ const MainContent: React.FC<{
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Loại câu trả lời</Text>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Loại câu trả lời</Text>
         <Dropdown
-          style={[styles.dropdown, isFocus && {borderColor: 'yellowgreen'}]}
+          style={[styles.dropdown, isFocus && { borderColor: 'yellowgreen' }]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           iconStyle={styles.iconStyle}
-          containerStyle={{backgroundColor: 'black'}}
-          itemTextStyle={{color: 'white'}}
+          containerStyle={{ backgroundColor: 'black' }}
+          itemTextStyle={{ color: 'white' }}
           data={dropdownData}
           search
           labelField="label"
           valueField="value"
           placeholder={!isFocus ? 'Chọn' : '...'}
           onFocus={() => setIsFocus(true)}
-          value={formData.dropdownValue}
+          value={formData[currentQuestion - 1].dropdownValue}
           onBlur={() => setIsFocus(false)}
           onChange={(item: any) => {
-            handleInputChange('dropdownValue', item.value);
+            handleInputChange(currentQuestion - 1, 'dropdownValue', item.value);
             setIsFocus(false);
           }}
           renderItem={renderItem}
         />
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Đáp án chính xác</Text>
-        {formData.dropdownValue < 3 ? (
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Đáp án chính xác</Text>
+        {formData[currentQuestion - 1].dropdownValue < 3 ? (
           <View style={styles.row}>
-            {['A', 'B', 'C', 'D'].map(letter => (
+            {['A', 'B', 'C', 'D'].map((letter) => (
               <TouchableOpacity
                 key={letter}
                 style={[
                   styles.box,
                   selectedOptions.includes(letter)
-                    ? {borderColor: '#D2FD7C'}
+                    ? { borderColor: '#D2FD7C' }
                     : {
                         borderColor: '#A3A3F2',
                       },
                 ]}
-                onPress={() => handleOptionSelect(letter)}>
+                onPress={() => handleOptionSelect(letter)}
+              >
                 <Text
                   style={[
                     styles.text,
-                    selectedOptions.includes(letter) && {color: '#D2FD7C'},
-                  ]}>
+                    selectedOptions.includes(letter) && { color: '' },
+                  ]}
+                >
                   {letter}
                 </Text>
               </TouchableOpacity>
@@ -243,23 +253,29 @@ const MainContent: React.FC<{
             style={styles.input}
             placeholder="Nhập Đáp án"
             value={questionGroup[currentQuestion - 1].answers[0]}
-            onChangeText={text => {
-              const updatedQuestions = [...questionGroup];
-              updatedQuestions[currentQuestion - 1].answers[0] = text;
+            onChangeText={(text) => {
+              const updatedQuestions = questionGroup.map((question, index) =>
+                index === currentQuestion - 1
+                  ? { ...question, answers: [text] }
+                  : question
+              );
               setQuestionGroup(updatedQuestions);
             }}
           />
         )}
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Lời giải</Text>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Lời giải</Text>
         <TextInput
           style={styles.input}
           placeholder="Nhập lời giải"
           value={questionGroup[currentQuestion - 1].solution}
-          onChangeText={text => {
-            const updatedQuestions = [...questionGroup];
-            updatedQuestions[currentQuestion - 1].solution = text;
+          onChangeText={(text) => {
+            const updatedQuestions = questionGroup.map((question, index) =>
+              index === currentQuestion - 1
+                ? { ...question, solution: text }
+                : question
+            );
             setQuestionGroup(updatedQuestions);
           }}
         />
