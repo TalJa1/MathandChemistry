@@ -188,3 +188,12 @@ export interface MainContentProps {
   formData: FormDataQuestion;
   setFormData: React.Dispatch<React.SetStateAction<FormDataQuestion>>;
 }
+
+export interface FormDataProps {
+  subject: string;
+  setName: string;
+  setDescription: string;
+  time: string;
+  target: string;
+  dropdownValue: string;
+}

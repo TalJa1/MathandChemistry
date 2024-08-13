@@ -15,10 +15,10 @@ import {Shadow} from 'react-native-shadow-2';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Dropdown} from 'react-native-element-dropdown';
-import {FormDataQuestion, MainContentProps} from '../../../services/typeProps';
+import {FormDataProps, FormDataQuestion, MainContentProps} from '../../../services/typeProps';
 
 const SetofQuestionCreation = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataProps>({
     subject: '',
     setName: '',
     setDescription: '',
@@ -106,6 +106,7 @@ const MainContent: React.FC<MainContentProps> = ({formData, setFormData}) => {
         label="Thuộc môn"
         data={['Hóa', 'Toán']}
         onChange={value => handleInputChange('subject', value)}
+        selectedValue={formData.subject}
       />
       <RenderTextInput
         label="Tên bộ đề"
@@ -121,11 +122,13 @@ const MainContent: React.FC<MainContentProps> = ({formData, setFormData}) => {
         label="Thời gian làm đề"
         data={['15 phút', '60 phút', '90 phút']}
         onChange={value => handleInputChange('time', value)}
+        selectedValue={formData.time}
       />
       <RenderRadioGroup
         label="Dành cho"
         data={['Lớp 10', 'Lớp 11', 'Lớp 12', 'Ôn thi ĐH']}
         onChange={value => handleInputChange('target', value)}
+        selectedValue={formData.target}
       />
       <View style={{rowGap: vh(2)}}>
         <Text style={{color: '#F7F9FA'}}>Loại đề</Text>
@@ -185,7 +188,8 @@ const RenderRadioGroup: React.FC<{
   label: string;
   data: string[];
   onChange: (value: any) => void;
-}> = ({label, data, onChange}) => {
+  selectedValue: string;
+}> = ({label, data, onChange, selectedValue}) => {
   return (
     <View>
       <Text style={{color: '#F7F9FA'}}>{label}</Text>
@@ -202,7 +206,7 @@ const RenderRadioGroup: React.FC<{
             key={index}
             style={{
               borderWidth: 1,
-              borderColor: '#A3A3F2',
+              borderColor: selectedValue === item ? '#D2FD7C' : '#A3A3F2',
               height: vh(5),
               justifyContent: 'center',
               paddingHorizontal: vw(4),
@@ -210,7 +214,13 @@ const RenderRadioGroup: React.FC<{
               borderRadius: vw(15),
               marginVertical: vh(1),
             }}>
-            <Text style={{color: '#A3A3F2', fontWeight: '500'}}>{item}</Text>
+            <Text
+              style={{
+                color: selectedValue === item ? '#D2FD7C' : '#A3A3F2',
+                fontWeight: '500',
+              }}>
+              {item}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -228,7 +238,9 @@ const Footer: React.FC<{formData: FormDataQuestion}> = ({formData}) => {
       formData.subject &&
       formData.setName &&
       formData.time &&
-      formData.dropdownValue
+      formData.dropdownValue &&
+      formData.target &&
+      formData.setDescription
     ) {
       setIsEnable(true);
     } else {
@@ -263,6 +275,9 @@ const Footer: React.FC<{formData: FormDataQuestion}> = ({formData}) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={() => {
+          console.log(formData);
+        }}
         disabled={isEnable ? false : true}
         style={{
           backgroundColor: isEnable ? '#D2FD7C' : '#464646',
