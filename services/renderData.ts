@@ -755,3 +755,49 @@ export const tabTimeChemistryDataDetail = [
     ],
   },
 ];
+
+export const recomendationPersonData = [
+  {
+    name: 'Nguyễn Văn A',
+    image: require('../assets/groupCreation/per1.png'),
+  },
+  {
+    name: 'Trần Bình B',
+    image: require('../assets/groupCreation/per2.png'),
+  },
+  {
+    name: 'Phạm Công C',
+    image: require('../assets/groupCreation/per3.png'),
+  },
+  {
+    name: 'Nguyễn Minh D',
+    image: require('../assets/groupCreation/per4.png'),
+  },
+  {
+    name: 'Trần Đại E',
+    image: require('../assets/groupCreation/per5.png'),
+  },
+];
+
+export const recomendationAdminData = [
+  {
+    name: 'Lê Thị Hồng',
+    image: require('../assets/groupCreation/per6.png'),
+  },
+  {
+    name: 'Đỗ Văn Hùng',
+    image: require('../assets/groupCreation/per4.png'),
+  },
+  {
+    name: 'Ngô Thị Lan',
+    image: require('../assets/groupCreation/per1.png'),
+  },
+  {
+    name: 'Vũ Minh Hoàng',
+    image: require('../assets/groupCreation/per2.png'),
+  },
+  {
+    name: 'Bùi Thị Mai',
+    image: require('../assets/groupCreation/per5.png'),
+  },
+];

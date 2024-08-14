@@ -4,6 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,6 +15,7 @@ import useStatusBar from '../../../services/useStatusBarCustom';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {Shadow} from 'react-native-shadow-2';
+import {searchIcon} from '../../../assets/svgXml';
 
 const GroupCreation = () => {
   useStatusBar('black');
@@ -32,10 +34,10 @@ const GroupCreation = () => {
         }}>
         <Header />
       </Shadow>
-      <ScrollView>
-        <View>
-          <Text>GroupCreation</Text>
-        </View>
+      <ScrollView
+        style={{paddingHorizontal: vw(5)}}
+        contentContainerStyle={{paddingVertical: vh(2)}}>
+        <MainContent />
       </ScrollView>
       <Shadow
         distance={10}
@@ -49,6 +51,73 @@ const GroupCreation = () => {
         <Footer />
       </Shadow>
     </SafeAreaView>
+  );
+};
+
+const MainContent: React.FC = () => {
+  return (
+    <View style={{rowGap: vh(2)}}>
+      <TextInputGroup label="Tên nhóm" placeholder="Nhập tên nhóm" />
+      <TextInputGroup
+        label="Giới thiệu nhóm"
+        placeholder="Nhập vài thông tin về nhóm học tập để thu hút thêm thành viên nào!"
+      />
+      <TextInputGroup
+        label="Quy tắc chung"
+        placeholder="Nhập quy tắc hoạt động cho các thành viên để tạo nên một cộng đồng lành mạnh."
+      />
+      <View>
+        <Text style={{color: '#F7F9FA'}}>Mời thành viên</Text>
+        <View
+          style={{
+            position: 'relative',
+            marginTop: vh(1),
+          }}>
+          <TextInput
+            multiline={true}
+            placeholder="Tìm kiếm thành viên"
+            style={{
+              borderRadius: 20,
+              paddingHorizontal: vw(3),
+              paddingVertical: vh(1.5),
+              paddingLeft: vw(10), // Add padding to the left to make space for the icon
+              borderWidth: 1,
+              borderColor: '#7C7C7C',
+            }}
+          />
+          <View style={{position: 'absolute', left: vw(3), top: vh(1.7)}}>
+            {searchIcon(vw(6), vw(6))}
+          </View>
+        </View>
+      </View>
+
+      <View>
+        <Text style={{color: '#7C7C7C'}}>Gợi ý</Text>
+      </View>
+    </View>
+  );
+};
+
+const TextInputGroup: React.FC<{label: string; placeholder: string}> = ({
+  label,
+  placeholder,
+}) => {
+  return (
+    <View>
+      <Text style={{color: '#F7F9FA'}}>{label}</Text>
+      <TextInput
+        multiline={true}
+        placeholder={placeholder}
+        style={{
+          borderRadius: 20,
+          paddingHorizontal: vw(3),
+          paddingVertical: vh(1.5),
+          marginTop: vh(1),
+          borderWidth: 1,
+          borderColor: '#7C7C7C',
+        }}
+      />
+    </View>
   );
 };
 
