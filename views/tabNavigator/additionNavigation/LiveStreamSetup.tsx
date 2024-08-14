@@ -39,6 +39,8 @@ const LiveStreamSetup = () => {
     },
   });
 
+  console.log('form', form);
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -59,7 +61,7 @@ const LiveStreamSetup = () => {
 const MainContentBottom: React.FC<{
   form: LiveStreamFormProps;
   setForm: React.Dispatch<React.SetStateAction<LiveStreamFormProps>>;
-}> = (form, setForm) => {
+}> = ({form, setForm}) => {
   const [liveAtOpen, setLiveAtOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -145,6 +147,20 @@ const MainContentBottom: React.FC<{
           ))}
           <TouchableOpacity
             disabled={selectedIndex === null ? true : false}
+            onPress={() => {
+              setLiveAtOpen(false);
+              if (selectedIndex !== null) {
+                setForm({
+                  ...form,
+                  liveAt: {
+                    active: liveAtData[selectedIndex].active,
+                    image: liveAtData[selectedIndex].image,
+                    name: liveAtData[selectedIndex].name,
+                    numberofPeople: liveAtData[selectedIndex].numberofPeople,
+                  },
+                });
+              }
+            }}
             style={[
               centerAll,
               {
@@ -170,27 +186,77 @@ const MainContentBottom: React.FC<{
               style={styles.inputStyle}
             />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
+          {selectedIndex !== null ? (
             <View
               style={{
                 flexDirection: 'row',
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 columnGap: vw(2),
               }}>
-              {optionIcon(vw(7), vw(7), '#7C7C7C')}
-              <Text style={{color: '#7C7C7C', fontSize: 16}}>
-                Phát trực tiếp tại
-              </Text>
+              <Image source={liveAtData[selectedIndex].image} />
+              <View style={{flex: 1, paddingHorizontal: vw(3)}}>
+                <Text>{liveAtData[selectedIndex].name}</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      columnGap: vw(2),
+                    }}>
+                    {groupIcon(vw(5), vw(5), '#A7A7A7')}
+                    <Text>{liveAtData[selectedIndex].numberofPeople}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View
+                      style={[
+                        styles.dotStyle,
+                        {
+                          backgroundColor: liveAtData[selectedIndex].active
+                            ? '#D2FD7C'
+                            : '#7C7C7C',
+                        },
+                      ]}
+                    />
+                    <Text style={{color: '#D2FD7C'}}>
+                      Đang hoạt động: {liveAtData[selectedIndex].active}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <TouchableOpacity onPress={() => setLiveAtOpen(true)}>
+                {examNext(vw(7), vw(7), '#7C7C7C')}
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => setLiveAtOpen(true)}>
-              {examNext(vw(7), vw(7), '#7C7C7C')}
-            </TouchableOpacity>
-          </View>
+          ) : (
+            <>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    columnGap: vw(2),
+                  }}>
+                  {optionIcon(vw(7), vw(7), '#7C7C7C')}
+                  <Text style={{color: '#7C7C7C', fontSize: 16}}>
+                    Phát trực tiếp tại
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={() => setLiveAtOpen(true)}>
+                  {examNext(vw(7), vw(7), '#7C7C7C')}
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
           <View style={{rowGap: vh(1)}}>
             <Text style={{color: 'white'}}>Mời bạn bè phát trực tiếp</Text>
             <TextInput
