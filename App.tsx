@@ -31,6 +31,7 @@ import ReviewResult from './views/tabNavigator/docsNavigation/ReviewResult';
 import SetofQuestionCreation from './views/tabNavigator/additionNavigation/SetofQuestionCreation';
 import QuestionCreation from './views/tabNavigator/additionNavigation/QuestionCreation';
 import OneQuestionCreation from './views/tabNavigator/additionNavigation/OneQuestionCreation';
+import GroupCreation from './views/tabNavigator/additionNavigation/GroupCreation';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -159,6 +160,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Addition page */}
+        <Stack.Screen
+          name="GroupCreation"
+          component={GroupCreation}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="OneQuestionCreation"
           component={OneQuestionCreation}

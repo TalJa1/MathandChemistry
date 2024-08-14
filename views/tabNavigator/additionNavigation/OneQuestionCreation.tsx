@@ -19,8 +19,10 @@ import {Dropdown} from 'react-native-element-dropdown';
 import {cameraIcon1} from '../../../assets/svgXml';
 import {launchCamera} from 'react-native-image-picker';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
+import useStatusBar from '../../../services/useStatusBarCustom';
 
 const OneQuestionCreation = () => {
+  useStatusBar('black');
   const [formData, setFormData] = useState<OneQuestionPageProps>({
     subject: '',
     title: '',

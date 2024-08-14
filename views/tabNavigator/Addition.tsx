@@ -50,7 +50,7 @@ const Addition = () => {
         <NavigationTab
           icon={groupIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo nhóm"
-          handleNavigate=""
+          handleNavigate="GroupCreation"
         />
         <NavigationTab
           icon={createContentIcon(vw(6), vw(6), '#D2FD7C')}
