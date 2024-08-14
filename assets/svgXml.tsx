@@ -12,6 +12,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const optionIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.18439 8.65781L13.8124 5.34378M13.8156 14.6578L7.19379 11.3469M19.5 4C19.5 5.65685 18.1569 7 16.5 7C14.8431 7 13.5 5.65685 13.5 4C13.5 2.34315 14.8431 1 16.5 1C18.1569 1 19.5 2.34315 19.5 4ZM7.5 10C7.5 11.6569 6.15685 13 4.5 13C2.84315 13 1.5 11.6569 1.5 10C1.5 8.34315 2.84315 7 4.5 7C6.15685 7 7.5 8.34315 7.5 10ZM19.5 16C19.5 17.6569 18.1569 19 16.5 19C14.8431 19 13.5 17.6569 13.5 16C13.5 14.3431 14.8431 13 16.5 13C18.1569 13 19.5 14.3431 19.5 16Z" stroke=${
+    color ?? '#7C7C7C'
+  } style="stroke:#7C7C7C;stroke:color(display-p3 0.4863 0.4863 0.4863);stroke-opacity:1;" stroke-width="1.5"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const smallStarIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.5 1C13.5 7.62742 18.8726 13 25.5 13C18.8726 13 13.5 18.3726 13.5 25C13.5 18.3726 8.12742 13 1.5 13C8.12742 13 13.5 7.62742 13.5 1Z" stroke=${

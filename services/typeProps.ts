@@ -212,3 +212,16 @@ export interface RecommendationDataProps {
   name: string;
   image: any; // You can replace `any` with the specific type if you know it, e.g., `ImageSourcePropType` for React Native
 }
+
+export interface LiveAtProps {
+  name: string;
+  image: any;
+  numberofPeople: number;
+  active: number;
+}
+
+export interface LiveStreamFormProps {
+  description: string;
+  liveAt: LiveAtProps;
+  invite: string[];
+}

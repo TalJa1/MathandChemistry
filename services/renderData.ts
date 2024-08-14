@@ -801,3 +801,36 @@ export const recomendationAdminData = [
     image: require('../assets/groupCreation/per5.png'),
   },
 ];
+
+export const liveAtData = [
+  {
+    name: 'HaovsDanny',
+    image: require('../assets/liveStream/acc1.png'),
+    numberofPeople: 150,
+    active: 10,
+  },
+  {
+    name: '2k7 Chinh phục điểm 10',
+    image: require('../assets/liveStream/acc2.png'),
+    numberofPeople: 80,
+    active: 20,
+  },
+  {
+    name: '2k7 THPT Kim Liên',
+    image: require('../assets/liveStream/acc3.png'),
+    numberofPeople: 70,
+    active: 17,
+  },
+  {
+    name: '2k7 Toán thầy Trinh',
+    image: require('../assets/liveStream/acc4.png'),
+    numberofPeople: 55,
+    active: 12,
+  },
+  {
+    name: '2k7 Hóa thầy Cường',
+    image: require('../assets/liveStream/acc5.png'),
+    numberofPeople: 90,
+    active: 40,
+  },
+];
