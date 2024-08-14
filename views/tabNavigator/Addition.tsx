@@ -60,7 +60,7 @@ const Addition = () => {
         <NavigationTab
           icon={livestreamIcon(vw(6), vw(6), '#D2FD7C')}
           label="Phát trực tiếp"
-          handleNavigate=""
+          handleNavigate="LiveStreamSetup"
         />
         <NavigationTab
           icon={tradeIcon(vw(6), vw(6), '#D2FD7C')}
