@@ -12,6 +12,50 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const smallStarIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.5 1C13.5 7.62742 18.8726 13 25.5 13C18.8726 13 13.5 18.3726 13.5 25C13.5 18.3726 8.12742 13 1.5 13C8.12742 13 13.5 7.62742 13.5 1Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const frontBackCameraIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.1665 1V9M1.1665 9H9.1665M1.1665 9C4.26976 6.21521 7.14367 3.06235 11.4936 2.45038C14.0701 2.08791 16.6946 2.57254 18.9717 3.83125C21.2488 5.08995 23.0551 7.05455 24.1184 9.42902M25.1665 25V17M25.1665 17H17.1665M25.1665 17C22.0632 19.7848 19.1893 22.9376 14.8394 23.5496C12.2629 23.9121 9.63839 23.4274 7.36131 22.1687C5.08422 20.91 3.27792 18.9454 2.21456 16.571" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const filmingIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="27" height="22" viewBox="0 0 27 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.3365 15.0003L24.8335 17.667C24.8335 17.667 25.5002 15.0003 25.5002 11.0003C25.5002 7.00033 24.8335 4.33366 24.8335 4.33366L19.3365 7.00032M19.3365 15.0003C19.4385 13.7995 19.5002 12.4308 19.5002 11.0003C19.5002 9.5699 19.4385 8.20113 19.3365 7.00032M19.3365 15.0003C19.1426 17.2818 18.8028 18.9569 18.4631 19.2966C17.9446 19.8151 14.315 20.3337 10.1668 20.3337C6.01868 20.3337 2.38905 19.8151 1.87053 19.2966C1.35201 18.7781 0.833496 15.1485 0.833496 11.0003C0.833496 6.85218 1.35201 3.22255 1.87053 2.70403C2.38905 2.18551 6.01868 1.66699 10.1668 1.66699C14.315 1.66699 17.9446 2.18551 18.4631 2.70403C18.8028 3.04374 19.1426 4.71887 19.3365 7.00032" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const micIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.50016 25H13.5002M9.50016 25H5.50016M9.50016 25V21M9.50016 21C14.8335 21 18.1668 17.4183 18.1668 13M9.50016 21C4.16683 21 0.833496 17.4183 0.833496 13M9.50016 17C13.7292 17 14.1668 11.6667 14.1668 9C14.1668 6.33333 13.7292 1 9.50016 1C5.27116 1 4.8335 6.33333 4.8335 9C4.8335 11.6667 5.27116 17 9.50016 17Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const cameraIcon1 = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M23.25 11.25C23.25 7.91667 22.625 5 22 4.58333C21.5994 4.31629 19.6585 4.04925 17 3.8919C15.5104 3.80373 18.25 1.25 12 1.25C5.75 1.25 8.4896 3.80373 7 3.8919C4.34145 4.04925 2.40056 4.31629 2 4.58333C1.375 5 0.75 7.91667 0.75 11.25C0.75 14.5833 1.375 17.5 2 17.9167C2.625 18.3333 7 18.75 12 18.75C17 18.75 21.375 18.3333 22 17.9167C22.625 17.5 23.25 14.5833 23.25 11.25Z" stroke="#A3A3F2" style="stroke:#A3A3F2;stroke:color(display-p3 0.6392 0.6392 0.9490);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
