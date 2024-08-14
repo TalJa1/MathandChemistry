@@ -207,3 +207,8 @@ export interface OneQuestionPageProps {
   correctAnswer: string;
   answerType: string;
 }
+
+export interface RecommendationDataProps {
+  name: string;
+  image: any; // You can replace `any` with the specific type if you know it, e.g., `ImageSourcePropType` for React Native
+}
