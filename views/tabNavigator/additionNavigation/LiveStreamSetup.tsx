@@ -39,8 +39,6 @@ const LiveStreamSetup = () => {
     },
   });
 
-  console.log('form', form);
-
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -183,6 +181,10 @@ const MainContentBottom: React.FC<{
               multiline={true}
               placeholderTextColor={'#7C7C7C'}
               placeholder="Nhập mô tả"
+              value={form.description}
+              onChange={e =>
+                setForm({...form, description: e.nativeEvent.text})
+              }
               style={styles.inputStyle}
             />
           </View>
@@ -261,8 +263,15 @@ const MainContentBottom: React.FC<{
             <Text style={{color: 'white'}}>Mời bạn bè phát trực tiếp</Text>
             <TextInput
               multiline={true}
+              value={form.invite.join(',')}
               placeholderTextColor={'#7C7C7C'}
               placeholder="Nhập tên"
+              onChange={e =>
+                setForm({
+                  ...form,
+                  invite: e.nativeEvent.text.split(',').map(item => item),
+                })
+              }
               style={styles.inputStyle}
             />
           </View>
