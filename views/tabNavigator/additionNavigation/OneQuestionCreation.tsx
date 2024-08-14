@@ -398,7 +398,7 @@ const Header: React.FC = () => {
     <View
       style={{alignItems: 'center', justifyContent: 'center', height: vh(8)}}>
       <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-        Tạo đề
+        Tạo bài tập
       </Text>
     </View>
   );
