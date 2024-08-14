@@ -197,3 +197,13 @@ export interface FormDataProps {
   target: string;
   dropdownValue: string;
 }
+
+export interface OneQuestionPageProps {
+  subject: string;
+  title: string;
+  target: string;
+  dropdownValue: string;
+  solution: string;
+  correctAnswer: string;
+  answerType: string;
+}
