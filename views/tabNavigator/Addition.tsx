@@ -45,7 +45,7 @@ const Addition = () => {
         <NavigationTab
           icon={questionIcon(vw(6), vw(6), '#D2FD7C')}
           label="Tạo câu hỏi lẻ"
-          handleNavigate=""
+          handleNavigate="OneQuestionCreation"
         />
         <NavigationTab
           icon={groupIcon(vw(6), vw(6), '#D2FD7C')}
