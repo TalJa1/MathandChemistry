@@ -15,6 +15,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {
+  cancelIcon,
   examNext,
   filmingIcon,
   frontBackCameraIcon,
@@ -25,6 +26,7 @@ import {
 } from '../../../assets/svgXml';
 import {LiveStreamFormProps} from '../../../services/typeProps';
 import {liveAtData} from '../../../services/renderData';
+import {MultiSelect} from 'react-native-element-dropdown';
 
 const LiveStreamSetup = () => {
   useStatusBar('black');
@@ -62,6 +64,31 @@ const MainContentBottom: React.FC<{
 }> = ({form, setForm}) => {
   const [liveAtOpen, setLiveAtOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const dropDItemData = [
+    {label: 'Nguyễn Văn A', value: 'nguyenvana'},
+    {label: 'Trần Thị B', value: 'tranthib'},
+    {label: 'Lê Văn C', value: 'levanc'},
+  ];
+
+  const renderItem = (item: any) => {
+    const isSelected = item.value === form.invite;
+    return (
+      <View style={[styles.item, isSelected && styles.selectedItem]}>
+        <Text style={[styles.itemText, isSelected && styles.selectedItemText]}>
+          {item.label}
+        </Text>
+      </View>
+    );
+  };
+
+  const handleInputChange = (value: string[]) => {
+    setForm({
+      ...form,
+      invite: value,
+    });
+  };
 
   return (
     <View style={{rowGap: vh(4), marginBottom: vh(3)}}>
@@ -261,18 +288,47 @@ const MainContentBottom: React.FC<{
           )}
           <View style={{rowGap: vh(1)}}>
             <Text style={{color: 'white'}}>Mời bạn bè phát trực tiếp</Text>
-            <TextInput
-              multiline={true}
-              value={form.invite.join(',')}
-              placeholderTextColor={'#7C7C7C'}
-              placeholder="Nhập tên"
-              onChange={e =>
-                setForm({
-                  ...form,
-                  invite: e.nativeEvent.text.split(',').map(item => item),
-                })
-              }
-              style={styles.inputStyle}
+            <MultiSelect
+              style={[styles.dropdown, isFocus && {borderColor: 'yellowgreen'}]}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              iconStyle={styles.iconStyle}
+              containerStyle={{backgroundColor: 'black'}}
+              itemTextStyle={{color: 'white'}}
+              data={dropDItemData}
+              search
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? 'Nhập tên' : '...'}
+              onFocus={() => setIsFocus(true)}
+              value={form.invite}
+              onBlur={() => setIsFocus(false)}
+              mode="modal"
+              onChange={(item: any) => {
+                handleInputChange(item);
+                setIsFocus(false);
+              }}
+              renderItem={renderItem}
+              selectedStyle={{borderRadius: 20}}
+              renderSelectedItem={(item, unSelect) => (
+                <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
+                  <View style={styles.selectedStyle}>
+                    <Text style={styles.textSelectedStyle}>{item.label}</Text>
+                    <View
+                      style={[
+                        {
+                          width: vw(6),
+                          height: vw(6),
+                          backgroundColor: 'black',
+                          borderRadius: vw(20),
+                        },
+                        centerAll,
+                      ]}>
+                      {cancelIcon(vw(3), vw(3), '#7C7C7C')}
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              )}
             />
           </View>
           <TouchableOpacity
@@ -343,5 +399,62 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     margin: 5,
+  },
+  dropdown: {
+    height: vh(7),
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: 16,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: 'white',
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  item: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  selectedItem: {
+    backgroundColor: 'white',
+  },
+  itemText: {
+    fontSize: 16,
+    color: 'white',
+  },
+  selectedItemText: {
+    color: 'black',
+  },
+  selectedStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: vw(20),
+    backgroundColor: '#69CB84',
+    shadowColor: '#000',
+    marginTop: 8,
+    marginRight: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  textSelectedStyle: {
+    marginRight: 5,
+    fontSize: 16,
+    color: 'black',
   },
 });
