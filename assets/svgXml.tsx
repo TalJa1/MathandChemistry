@@ -12,6 +12,40 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const liveStreamBackIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.6667 1.33301L20.3333 1.33301C24.4103 1.33301 24.3333 6.66634 24.3333 11.9997C24.3333 17.333 24.4103 22.6663 20.3333 22.6663H15.6667M1 11.9997L17 11.9997M1 11.9997L6.33333 6.66634M1 11.9997L6.33333 17.333" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const menuIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.3335 14.6663H22.6668M1.3335 7.99967H22.6668M1.3335 1.33301H22.6668" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const viewIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 1.66699C7.99015 1.66699 4.24803 4.92086 2.02316 7.58612C0.353608 9.58614 0.353608 12.4145 2.02316 14.4145C4.24803 17.0798 7.99015 20.3337 13 20.3337C18.0099 20.3337 21.752 17.0798 23.9769 14.4145C25.6464 12.4145 25.6464 9.58614 23.9769 7.58612C21.752 4.92086 18.0099 1.66699 13 1.66699Z" stroke="white" style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13 15.0003C15.2091 15.0003 17 13.2095 17 11.0003C17 8.79119 15.2091 7.00033 13 7.00033C10.7909 7.00033 9 8.79119 9 11.0003C9 13.2095 10.7909 15.0003 13 15.0003Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const cancelIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.33317 1.66699L1.6665 6.33366M1.66651 1.66699L6.33317 6.33366" stroke=${
