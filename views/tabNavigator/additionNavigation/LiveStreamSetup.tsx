@@ -90,6 +90,13 @@ const MainContentBottom: React.FC<{
     });
   };
 
+  const isDisabled =
+    form.description === '' ||
+    form.invite.length === 0 ||
+    form.liveAt.name === ''
+      ? true
+      : false;
+
   return (
     <View style={{rowGap: vh(4), marginBottom: vh(3)}}>
       {liveAtOpen ? (
@@ -332,12 +339,13 @@ const MainContentBottom: React.FC<{
             />
           </View>
           <TouchableOpacity
-            disabled={true}
+            disabled={isDisabled}
+            onPress={() => console.log('live now')}
             style={[
               centerAll,
               {
                 borderRadius: 16,
-                backgroundColor: '#464646',
+                backgroundColor: isDisabled ? '#464646' : '#B65A46',
                 paddingVertical: vh(2),
                 marginVertical: vh(1),
               },
