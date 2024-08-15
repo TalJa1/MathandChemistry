@@ -70,9 +70,8 @@ const MainContentBottom: React.FC<{
   const [isFocus, setIsFocus] = useState(false);
 
   const dropDItemData = [
-    {label: 'Nguyễn Văn A', value: 'nguyenvana'},
-    {label: 'Trần Thị B', value: 'tranthib'},
-    {label: 'Lê Văn C', value: 'levanc'},
+    {label: 'Nguyễn Văn C', value: 'Nguyễn Văn C'},
+    {label: 'Trần Thị B', value: 'Trần Thị B'},
   ];
 
   const renderItem = (item: any) => {
@@ -344,7 +343,7 @@ const MainContentBottom: React.FC<{
           <TouchableOpacity
             disabled={isDisabled}
             onPress={() => {
-              navigation.navigate('LiveStream');
+              navigation.navigate('LiveStream', {data: form.invite});
             }}
             style={[
               centerAll,

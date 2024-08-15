@@ -1,13 +1,24 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 // style import
 import {SvgXml} from 'react-native-svg';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const test = (w?: any, h?: any, color?: any) => {
   const xml = ``;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const pinIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.96667 9.16699V12.0003M1 9.16699H8.93333V8.16966C8.93322 7.95881 8.87429 7.75218 8.76317 7.57298C8.65206 7.39379 8.49315 7.24915 8.30433 7.15533L7.29567 6.64533C7.10685 6.5515 6.94794 6.40686 6.83683 6.22767C6.72571 6.04848 6.66678 5.84184 6.66667 5.63099V2.93366H7.23333C7.53391 2.93366 7.82218 2.81425 8.03472 2.60171C8.24726 2.38917 8.36667 2.1009 8.36667 1.80033C8.36667 1.49975 8.24726 1.21148 8.03472 0.998938C7.82218 0.786397 7.53391 0.666992 7.23333 0.666992H2.7C2.39942 0.666992 2.11115 0.786397 1.89861 0.998938C1.68607 1.21148 1.56667 1.49975 1.56667 1.80033C1.56667 2.1009 1.68607 2.38917 1.89861 2.60171C2.11115 2.81425 2.39942 2.93366 2.7 2.93366H3.26667V5.63099C3.26655 5.84184 3.20763 6.04848 3.09651 6.22767C2.98539 6.40686 2.82649 6.5515 2.63767 6.64533L1.629 7.15533C1.44018 7.24915 1.28128 7.39379 1.17016 7.57298C1.05904 7.75218 1.00011 7.95881 1 8.16966V9.16699Z" stroke=${
+    color ?? '#C5C6D0'
+  } style="stroke:#C5C6D0;stroke:color(display-p3 0.7725 0.7765 0.8157);stroke-opacity:1;" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
 
   return <SvgXml xml={xml} width={w} height={h} />;
 };
