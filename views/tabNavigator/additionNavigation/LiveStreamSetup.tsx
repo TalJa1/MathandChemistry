@@ -27,6 +27,8 @@ import {
 import {LiveStreamFormProps} from '../../../services/typeProps';
 import {liveAtData} from '../../../services/renderData';
 import {MultiSelect} from 'react-native-element-dropdown';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const LiveStreamSetup = () => {
   useStatusBar('black');
@@ -62,6 +64,7 @@ const MainContentBottom: React.FC<{
   form: LiveStreamFormProps;
   setForm: React.Dispatch<React.SetStateAction<LiveStreamFormProps>>;
 }> = ({form, setForm}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [liveAtOpen, setLiveAtOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -340,7 +343,9 @@ const MainContentBottom: React.FC<{
           </View>
           <TouchableOpacity
             disabled={isDisabled}
-            onPress={() => console.log('live now')}
+            onPress={() => {
+              navigation.navigate('LiveStream');
+            }}
             style={[
               centerAll,
               {

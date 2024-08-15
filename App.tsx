@@ -33,6 +33,7 @@ import QuestionCreation from './views/tabNavigator/additionNavigation/QuestionCr
 import OneQuestionCreation from './views/tabNavigator/additionNavigation/OneQuestionCreation';
 import GroupCreation from './views/tabNavigator/additionNavigation/GroupCreation';
 import LiveStreamSetup from './views/tabNavigator/additionNavigation/LiveStreamSetup';
+import LiveStream from './views/tabNavigator/additionNavigation/LiveStream';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -161,6 +162,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Addition page */}
+        <Stack.Screen
+          name="LiveStream"
+          component={LiveStream}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="LiveStreamSetup"
           component={LiveStreamSetup}
