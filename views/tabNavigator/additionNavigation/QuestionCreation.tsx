@@ -29,6 +29,10 @@ import {
 import {Dropdown} from 'react-native-element-dropdown';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
 import {launchCamera} from 'react-native-image-picker';
+import {
+  tabTimeChemistryDataDetail,
+  tabTimeMathDataDetail,
+} from '../../../services/renderData';
 
 const QuestionCreation = () => {
   useStatusBar('black');
@@ -44,8 +48,6 @@ const QuestionCreation = () => {
       solution: '',
     }),
   );
-
-  console.log('questionGroup', questionGroup);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -99,7 +101,7 @@ const MainContent: React.FC<{
   questionGroup: Test[];
   setQuestionGroup: React.Dispatch<React.SetStateAction<Test[]>>;
   currentQuestion: number;
-}> = ({ questionGroup, setQuestionGroup, currentQuestion }) => {
+}> = ({questionGroup, setQuestionGroup, currentQuestion}) => {
   const handleQuestionChange = (text: string) => {
     const answers =
       text
@@ -120,20 +122,20 @@ const MainContent: React.FC<{
     setQuestionGroup(updatedQuestions);
   };
 
-  const [formData, setFormData] = useState<{ dropdownValue: number }[]>(
-    Array(10).fill({ dropdownValue: 0 }),
+  const [formData, setFormData] = useState<{dropdownValue: number}[]>(
+    Array(10).fill({dropdownValue: 0}),
   );
 
   const handleInputChange = (index: number, field: string, value: number) => {
     const updatedFormData = [...formData];
-    updatedFormData[index] = { ...updatedFormData[index], [field]: value };
+    updatedFormData[index] = {...updatedFormData[index], [field]: value};
     setFormData(updatedFormData);
   };
 
   const dropdownData = [
-    { label: 'Một lựa chọn', value: 1 },
-    { label: 'Nhiều lựa chọn', value: 2 },
-    { label: 'Điền câu trả lời', value: 3 },
+    {label: 'Một lựa chọn', value: 1},
+    {label: 'Nhiều lựa chọn', value: 2},
+    {label: 'Điền câu trả lời', value: 3},
   ];
   const [isFocus, setIsFocus] = useState(false);
 
@@ -215,9 +217,9 @@ const MainContent: React.FC<{
   };
 
   return (
-    <View style={{ rowGap: vh(3) }}>
-      <View style={{ rowGap: vh(1) }}>
-        <Text style={{ color: 'white' }}>Đề bài</Text>
+    <View style={{rowGap: vh(3)}}>
+      <View style={{rowGap: vh(1)}}>
+        <Text style={{color: 'white'}}>Đề bài</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -231,15 +233,15 @@ const MainContent: React.FC<{
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ rowGap: vh(1) }}>
-        <Text style={{ color: 'white' }}>Loại câu trả lời</Text>
+      <View style={{rowGap: vh(1)}}>
+        <Text style={{color: 'white'}}>Loại câu trả lời</Text>
         <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'yellowgreen' }]}
+          style={[styles.dropdown, isFocus && {borderColor: 'yellowgreen'}]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           iconStyle={styles.iconStyle}
-          containerStyle={{ backgroundColor: 'black' }}
-          itemTextStyle={{ color: 'white' }}
+          containerStyle={{backgroundColor: 'black'}}
+          itemTextStyle={{color: 'white'}}
           data={dropdownData}
           search
           labelField="label"
@@ -255,8 +257,8 @@ const MainContent: React.FC<{
           renderItem={renderItem}
         />
       </View>
-      <View style={{ rowGap: vh(1) }}>
-        <Text style={{ color: 'white' }}>Đáp án chính xác</Text>
+      <View style={{rowGap: vh(1)}}>
+        <Text style={{color: 'white'}}>Đáp án chính xác</Text>
         {formData[currentQuestion - 1].dropdownValue < 3 ? (
           <View style={styles.row}>
             {['A', 'B', 'C', 'D'].map(letter => (
@@ -265,16 +267,18 @@ const MainContent: React.FC<{
                 style={[
                   styles.box,
                   selectedOptions[currentQuestion - 1].includes(letter)
-                    ? { borderColor: '#D2FD7C' }
+                    ? {borderColor: '#D2FD7C'}
                     : {
-                      borderColor: '#A3A3F2',
-                    },
+                        borderColor: '#A3A3F2',
+                      },
                 ]}
                 onPress={() => handleOptionSelect(letter)}>
                 <Text
                   style={[
                     styles.text,
-                    selectedOptions[currentQuestion - 1].includes(letter) && { color: '#D2FD7C' },
+                    selectedOptions[currentQuestion - 1].includes(letter) && {
+                      color: '#D2FD7C',
+                    },
                   ]}>
                   {letter}
                 </Text>
@@ -297,8 +301,8 @@ const MainContent: React.FC<{
           />
         )}
       </View>
-      <View style={{ rowGap: vh(1) }}>
-        <Text style={{ color: 'white' }}>Lời giải</Text>
+      <View style={{rowGap: vh(1)}}>
+        <Text style={{color: 'white'}}>Lời giải</Text>
         <TextInput
           style={styles.input}
           placeholder="Nhập lời giải"
@@ -323,7 +327,6 @@ const Footer: React.FC<{
   setCurrentQuestion: React.Dispatch<React.SetStateAction<number>>;
   questionGroup: Test[];
 }> = ({formData, setCurrentQuestion, currentQuestion, questionGroup}) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
@@ -361,8 +364,112 @@ const Footer: React.FC<{
           if (currentQuestion < 10) {
             setCurrentQuestion(currentQuestion + 1);
           } else {
-            console.log('questionGroup', questionGroup);
-            console.log('formData', formData);
+            if (formData.subject === 'Toán') {
+              switch (formData.time) {
+                case '15 phút': {
+                  tabTimeMathDataDetail[0].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 15,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+                case '60 phút': {
+                  tabTimeMathDataDetail[1].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 60,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+                case '90 phút': {
+                  tabTimeMathDataDetail[2].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 90,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+              }
+            } else {
+              switch (formData.time) {
+                case '15 phút': {
+                  tabTimeChemistryDataDetail[0].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 15,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+                case '60 phút': {
+                  tabTimeChemistryDataDetail[1].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 60,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+                case '90 phút': {
+                  tabTimeChemistryDataDetail[2].data.push({
+                    id: 'T11.CD.HH02',
+                    title: formData.setName,
+                    time: 90,
+                    point: 0,
+                    status: 'Chưa làm',
+                    total: 10,
+                    review: [],
+                    rightamount: 0,
+                    wrongamount: 0,
+                    amount: 0,
+                    test: questionGroup,
+                  });
+                  break;
+                }
+              }
+            }
+            // console.log('tabTimeMathDataDetail', tabTimeMathDataDetail);
+            // console.log('tabTimeChemistryDataDetail', tabTimeChemistryDataDetail);
+            navigation.navigate('Home');
           }
         }}
         style={{

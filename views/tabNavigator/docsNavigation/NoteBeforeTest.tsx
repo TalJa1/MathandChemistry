@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Image,
   ScrollView,
@@ -42,41 +43,58 @@ const NoteBeforeTest = () => {
     title: '',
     point: 0,
     status: '',
-    total: 10,
-    amount: 10,
+    total: 0,
+    amount: 0,
     rightamount: 0,
     wrongamount: 0,
+    review: [],
     test: [],
+    time: undefined,
   });
 
   useEffect(() => {
-    const initData = isMath
-      ? docsMainDataMathStorage
-      : docsMainDataChemistryStorage;
-
-    loadData<TabTimeDataDetail[]>(initData)
-      .then(data => {
-        const validData = data.filter(item => item.time === time);
-        let getIndex = -1;
-        validData[0].data.forEach((item, index) => {
-          if (item.title.trim() === title.trim() && getIndex === -1) {
-            getIndex = index;
-          }
-        });
-
-        setMainData(validData[0].data[getIndex]);
-      })
-      .catch(() => {
-        const get = isMath
-          ? tabTimeMathDataDetail.filter(item => item.time === time)[0].data
-          : tabTimeChemistryDataDetail.filter(item => item.time === time)[0]
-              .data;
-
-        const index = get.findIndex(item => item.title.trim() === title.trim());
-
-        setMainData(get[index] as DataDetail);
-      });
+    if (isMath) {
+      const get = tabTimeMathDataDetail.filter(item => item.time === time)[0]
+        .data;
+      const index = get.findIndex(item => item.title.trim() === title.trim());
+      setMainData(get[index] as DataDetail);
+    } else {
+      const get = tabTimeChemistryDataDetail.filter(
+        item => item.time === time,
+      )[0].data;
+      const index = get.findIndex(item => item.title.trim() === title.trim());
+      setMainData(get[index] as DataDetail);
+    }
   }, [isMath, time, title]);
+
+  // useEffect(() => {
+  //   const initData = isMath
+  //     ? docsMainDataMathStorage
+  //     : docsMainDataChemistryStorage;
+
+  //   loadData<TabTimeDataDetail[]>(initData)
+  //     .then(data => {
+  //       const validData = data.filter(item => item.time === time);
+  //       let getIndex = -1;
+  //       validData[0].data.forEach((item, index) => {
+  //         if (item.title.trim() === title.trim() && getIndex === -1) {
+  //           getIndex = index;
+  //         }
+  //       });
+
+  //       setMainData(validData[0].data[getIndex]);
+  //     })
+  //     .catch(() => {
+  //       const get = isMath
+  //         ? tabTimeMathDataDetail.filter(item => item.time === time)[0].data
+  //         : tabTimeChemistryDataDetail.filter(item => item.time === time)[0]
+  //             .data;
+
+  //       const index = get.findIndex(item => item.title.trim() === title.trim());
+
+  //       setMainData(get[index] as DataDetail);
+  //     });
+  // }, [isMath, time, title]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -136,6 +154,8 @@ const NoteRenderLast: React.FC<{
   isMath: boolean;
   time: number;
 }> = ({data, isMath, time}) => {
+  console.log('data', data);
+
   return (
     <View style={{padding: vw(5), rowGap: vh(1)}}>
       <View
@@ -155,7 +175,7 @@ const NoteRenderLast: React.FC<{
         />
         <NoteRenderLastdetail
           title="Tổng số câu: "
-          data={`${data.total} câu`}
+          data={`${data.total ?? 10} câu`}
         />
         <NoteRenderLastdetail title="Câu đúng: " data={`${data.rightamount}`} />
         <NoteRenderLastdetail title="Câu sai: " data={`${data.wrongamount}`} />
