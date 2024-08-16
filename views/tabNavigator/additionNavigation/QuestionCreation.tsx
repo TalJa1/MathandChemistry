@@ -45,7 +45,7 @@ const QuestionCreation = () => {
     }),
   );
 
-  console.log('questionGroup', questionGroup[0]);
+  console.log('questionGroup', questionGroup);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -99,43 +99,41 @@ const MainContent: React.FC<{
   questionGroup: Test[];
   setQuestionGroup: React.Dispatch<React.SetStateAction<Test[]>>;
   currentQuestion: number;
-}> = ({questionGroup, setQuestionGroup, currentQuestion}) => {
+}> = ({ questionGroup, setQuestionGroup, currentQuestion }) => {
   const handleQuestionChange = (text: string) => {
-    // Extract answers labeled "A", "B", "C", and "D"
     const answers =
       text
         .match(/(?:A\.|B\.|C\.|D\.)\s*[^A-D]*/g)
         ?.map(answer => answer.replace(/^[A-D]\.\s*/, '').trim()) || [];
 
-    // Ensure the last answer is captured correctly
     const lastAnswerMatch = text.match(/D\.\s*(.*)$/);
     if (lastAnswerMatch) {
       answers[3] = lastAnswerMatch[1].trim();
     }
 
-    // Update the question and answers in the state
-    const updatedQuestions = questionGroup.map((question, index) =>
-      index === currentQuestion - 1
-        ? {...question, question: text, answers}
-        : question,
-    );
+    const updatedQuestions = [...questionGroup];
+    updatedQuestions[currentQuestion - 1] = {
+      ...updatedQuestions[currentQuestion - 1],
+      question: text,
+      answers,
+    };
     setQuestionGroup(updatedQuestions);
   };
 
-  const [formData, setFormData] = useState<{dropdownValue: number}[]>(
-    Array(10).fill({dropdownValue: 0}),
+  const [formData, setFormData] = useState<{ dropdownValue: number }[]>(
+    Array(10).fill({ dropdownValue: 0 }),
   );
 
   const handleInputChange = (index: number, field: string, value: number) => {
     const updatedFormData = [...formData];
-    updatedFormData[index] = {...updatedFormData[index], [field]: value};
+    updatedFormData[index] = { ...updatedFormData[index], [field]: value };
     setFormData(updatedFormData);
   };
 
   const dropdownData = [
-    {label: 'Một lựa chọn', value: 1},
-    {label: 'Nhiều lựa chọn', value: 2},
-    {label: 'Điền câu trả lời', value: 3},
+    { label: 'Một lựa chọn', value: 1 },
+    { label: 'Nhiều lựa chọn', value: 2 },
+    { label: 'Điền câu trả lời', value: 3 },
   ];
   const [isFocus, setIsFocus] = useState(false);
 
@@ -182,24 +180,44 @@ const MainContent: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[][]>(
+    Array(10).fill([]),
+  );
 
   const handleOptionSelect = (letter: string) => {
-    if (formData[currentQuestion - 1].dropdownValue === 1) {
-      setSelectedOptions([letter]);
-    } else if (formData[currentQuestion - 1].dropdownValue === 2) {
-      setSelectedOptions(prev =>
-        prev.includes(letter)
-          ? prev.filter(opt => opt !== letter)
-          : [...prev, letter],
-      );
+    const currentDropdownValue = formData[currentQuestion - 1].dropdownValue;
+    let updatedSelectedOptions = [...selectedOptions];
+    let currentSelectedOptions = updatedSelectedOptions[currentQuestion - 1];
+
+    if (currentDropdownValue === 1) {
+      currentSelectedOptions = [letter];
+    } else if (currentDropdownValue === 2) {
+      currentSelectedOptions = currentSelectedOptions.includes(letter)
+        ? currentSelectedOptions.filter(opt => opt !== letter)
+        : [...currentSelectedOptions, letter];
     }
+
+    updatedSelectedOptions[currentQuestion - 1] = currentSelectedOptions;
+    setSelectedOptions(updatedSelectedOptions);
+
+    const correctAnswers = currentSelectedOptions.map(option => {
+      const index = ['A', 'B', 'C', 'D'].indexOf(option);
+      return questionGroup[currentQuestion - 1].answers[index];
+    });
+
+    const updatedQuestions = [...questionGroup];
+    updatedQuestions[currentQuestion - 1] = {
+      ...updatedQuestions[currentQuestion - 1],
+      correctAnswer: correctAnswers,
+    };
+
+    setQuestionGroup(updatedQuestions);
   };
 
   return (
-    <View style={{rowGap: vh(3)}}>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Đề bài</Text>
+    <View style={{ rowGap: vh(3) }}>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Đề bài</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -213,15 +231,15 @@ const MainContent: React.FC<{
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Loại câu trả lời</Text>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Loại câu trả lời</Text>
         <Dropdown
-          style={[styles.dropdown, isFocus && {borderColor: 'yellowgreen'}]}
+          style={[styles.dropdown, isFocus && { borderColor: 'yellowgreen' }]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           iconStyle={styles.iconStyle}
-          containerStyle={{backgroundColor: 'black'}}
-          itemTextStyle={{color: 'white'}}
+          containerStyle={{ backgroundColor: 'black' }}
+          itemTextStyle={{ color: 'white' }}
           data={dropdownData}
           search
           labelField="label"
@@ -237,8 +255,8 @@ const MainContent: React.FC<{
           renderItem={renderItem}
         />
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Đáp án chính xác</Text>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Đáp án chính xác</Text>
         {formData[currentQuestion - 1].dropdownValue < 3 ? (
           <View style={styles.row}>
             {['A', 'B', 'C', 'D'].map(letter => (
@@ -246,17 +264,17 @@ const MainContent: React.FC<{
                 key={letter}
                 style={[
                   styles.box,
-                  selectedOptions.includes(letter)
-                    ? {borderColor: '#D2FD7C'}
+                  selectedOptions[currentQuestion - 1].includes(letter)
+                    ? { borderColor: '#D2FD7C' }
                     : {
-                        borderColor: '#A3A3F2',
-                      },
+                      borderColor: '#A3A3F2',
+                    },
                 ]}
                 onPress={() => handleOptionSelect(letter)}>
                 <Text
                   style={[
                     styles.text,
-                    selectedOptions.includes(letter) && {color: '#D2FD7C'},
+                    selectedOptions[currentQuestion - 1].includes(letter) && { color: '#D2FD7C' },
                   ]}>
                   {letter}
                 </Text>
@@ -269,28 +287,28 @@ const MainContent: React.FC<{
             placeholder="Nhập Đáp án"
             value={questionGroup[currentQuestion - 1].correctAnswer[0]}
             onChangeText={text => {
-              const updatedQuestions = questionGroup.map((question, index) =>
-                index === currentQuestion - 1
-                  ? {...question, correctAnswer: [text]}
-                  : question,
-              );
+              const updatedQuestions = [...questionGroup];
+              updatedQuestions[currentQuestion - 1] = {
+                ...updatedQuestions[currentQuestion - 1],
+                correctAnswer: [text],
+              };
               setQuestionGroup(updatedQuestions);
             }}
           />
         )}
       </View>
-      <View style={{rowGap: vh(1)}}>
-        <Text style={{color: 'white'}}>Lời giải</Text>
+      <View style={{ rowGap: vh(1) }}>
+        <Text style={{ color: 'white' }}>Lời giải</Text>
         <TextInput
           style={styles.input}
           placeholder="Nhập lời giải"
           value={questionGroup[currentQuestion - 1].solution}
           onChangeText={text => {
-            const updatedQuestions = questionGroup.map((question, index) =>
-              index === currentQuestion - 1
-                ? {...question, solution: text}
-                : question,
-            );
+            const updatedQuestions = [...questionGroup];
+            updatedQuestions[currentQuestion - 1] = {
+              ...updatedQuestions[currentQuestion - 1],
+              solution: text,
+            };
             setQuestionGroup(updatedQuestions);
           }}
         />
