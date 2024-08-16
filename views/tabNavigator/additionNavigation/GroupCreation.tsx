@@ -16,7 +16,7 @@ import useStatusBar from '../../../services/useStatusBarCustom';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {Shadow} from 'react-native-shadow-2';
-import {searchIcon} from '../../../assets/svgXml';
+import {cameraIcon, searchIcon} from '../../../assets/svgXml';
 import {RecommendationDataProps} from '../../../services/typeProps';
 import {
   recomendationAdminData,
@@ -75,8 +75,12 @@ const MainContent: React.FC = () => {
     <View style={{rowGap: vh(2)}}>
       <View style={[{width: '100%'}, centerAll]}>
         <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          {selectedImage && (
+          {selectedImage ? (
             <Image source={{uri: selectedImage}} style={styles.selectedImage} />
+          ) : (
+            <View style={[{width: '100%', height: '100%'}, centerAll]}>
+              {cameraIcon(vw(10), vw(10), 'black')}
+            </View>
           )}
         </TouchableOpacity>
         <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: '700'}}>
