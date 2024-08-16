@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import {containerStyle, vh, vw} from '../../../services/styleSheets';
+import React, {useState} from 'react';
+import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -22,6 +22,7 @@ import {
   recomendationAdminData,
   recomendationPersonData,
 } from '../../../services/renderData';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const GroupCreation = () => {
   useStatusBar('black');
@@ -61,8 +62,27 @@ const GroupCreation = () => {
 };
 
 const MainContent: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const pickImage = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        setSelectedImage(response.assets[0]?.uri || null);
+      }
+    });
+  };
   return (
     <View style={{rowGap: vh(2)}}>
+      <View style={[{width: '100%'}, centerAll]}>
+        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+          {selectedImage && (
+            <Image source={{uri: selectedImage}} style={styles.selectedImage} />
+          )}
+        </TouchableOpacity>
+        <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: '700'}}>
+          Chọn ảnh đại diện
+        </Text>
+      </View>
       <TextInputGroup label="Tên nhóm" placeholder="Nhập tên nhóm" />
       <TextInputGroup
         label="Giới thiệu nhóm"
@@ -269,5 +289,17 @@ const styles = StyleSheet.create({
   textBtnStyle: {
     color: '#A3A3F2',
     fontWeight: '500',
+  },
+  imagePickerButton: {
+    backgroundColor: '#D2FD7C',
+    borderRadius: vw(20),
+    width: vw(30),
+    height: vw(30),
+    overflow: 'hidden',
+  },
+  selectedImage: {
+    width: vw(30),
+    height: vw(30),
+    resizeMode: 'cover',
   },
 });
