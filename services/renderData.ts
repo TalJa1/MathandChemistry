@@ -855,3 +855,61 @@ export const ownerGroup = [
     noti: 2,
   },
 ];
+
+export const followingGroup = [
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Chinh phục điểm 10 môn Toán',
+    amount: 38,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Toán nâng cao',
+    amount: 25,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Yêu thích Đại số',
+    amount: 15,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Phù thủy Hình học',
+    amount: 20,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Bậc thầy Giải tích',
+    amount: 30,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Hóa học Hữu cơ',
+    amount: 22,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Hóa học Vô cơ',
+    amount: 18,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Hóa học Vật lý',
+    amount: 12,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Hóa học Phân tích',
+    amount: 17,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Hóa sinh',
+    amount: 28,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 Kỹ thuật Hóa học',
+    amount: 35,
+  },
+];

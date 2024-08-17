@@ -14,8 +14,8 @@ import useStatusBar from '../../services/useStatusBarCustom';
 import Header from '../../components/docs/Header';
 import SearchBar from '../../components/docs/SearchBar';
 import {containerStyle, vh, vw} from '../../services/styleSheets';
-import {ownerGroup} from '../../services/renderData';
-import {groupIcon, noticeIcon} from '../../assets/svgXml';
+import {followingGroup, ownerGroup} from '../../services/renderData';
+import {followedIcon, groupIcon, noticeIcon} from '../../assets/svgXml';
 
 const NetWork = () => {
   useStatusBar('black');
@@ -51,7 +51,38 @@ const NetWork = () => {
 };
 
 const FollowingView: React.FC = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text style={styles.tabTitle}>Đang theo dõi</Text>
+      <View style={{rowGap: vh(2), marginVertical: vh(2)}}>
+        {followingGroup.map((item, index) => (
+          <View
+            key={index}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              columnGap: vw(2),
+            }}>
+            <Image
+              width={vw(10)}
+              height={vw(5)}
+              resizeMode="contain"
+              style={{borderRadius: vw(20)}}
+              source={item.img}
+            />
+            <View style={{flex: 1}}>
+              <Text style={{color: '#FFFFFF'}}>{item.name}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {groupIcon(vw(5), vw(5), '#FFFFFF')}
+                <Text style={{color: '#A7A7A7'}}> {item.amount}</Text>
+              </View>
+            </View>
+            {followedIcon(vw(5), vw(5), '#D2FD7C')}
+          </View>
+        ))}
+      </View>
+    </View>
+  );
 };
 
 const OnwerView: React.FC = () => {
