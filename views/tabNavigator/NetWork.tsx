@@ -69,6 +69,7 @@ const NetWork = () => {
         return null;
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Cộng đồng" />
