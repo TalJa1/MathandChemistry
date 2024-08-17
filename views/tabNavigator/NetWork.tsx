@@ -14,22 +14,46 @@ import useStatusBar from '../../services/useStatusBarCustom';
 import Header from '../../components/docs/Header';
 import SearchBar from '../../components/docs/SearchBar';
 import {containerStyle, vh, vw} from '../../services/styleSheets';
-import {followingGroup, ownerGroup} from '../../services/renderData';
-import {followedIcon, groupIcon, noticeIcon} from '../../assets/svgXml';
+import {
+  followingGroup as initialFollowingGroup,
+  ownerGroup,
+  suggestionGroupData as initialSuggestionGroupData,
+} from '../../services/renderData';
+import {
+  personAddedIcon,
+  groupIcon,
+  noticeIcon,
+  personAddIcon,
+} from '../../assets/svgXml';
 
 const NetWork = () => {
   useStatusBar('black');
   const [tabs, setTabs] = useState(0);
   const tabBar = ['Của bạn', 'Đang theo dõi', 'Gợi ý'];
 
+  const [suggestionGroupData, setSuggestionGroupData] = useState(
+    initialSuggestionGroupData,
+  );
+  const [followingGroup, setFollowingGroup] = useState(initialFollowingGroup);
+
+  const handleFollow = (index: number) => {
+    const itemToFollow = suggestionGroupData[index];
+    setFollowingGroup([...followingGroup, itemToFollow]);
+    setSuggestionGroupData(suggestionGroupData.filter((_, i) => i !== index));
+  };
   const renderTabContent = () => {
     switch (tabs) {
       case 0:
         return <OnwerView />;
       case 1:
-        return <FollowingView />;
+        return <FollowingView followingGroup={followingGroup} />;
       case 2:
-        return <Text>Content for Gợi ý</Text>;
+        return (
+          <SuggestionView
+            suggestionGroupData={suggestionGroupData}
+            handleFollow={handleFollow}
+          />
+        );
       default:
         return null;
     }
@@ -50,7 +74,49 @@ const NetWork = () => {
   );
 };
 
-const FollowingView: React.FC = () => {
+const SuggestionView: React.FC<{
+  suggestionGroupData: any[];
+  handleFollow: (index: number) => void;
+}> = ({suggestionGroupData, handleFollow}) => {
+  return (
+    <View>
+      <View>
+        <Text style={styles.tabTitle}>Gợi ý</Text>
+        <View style={{rowGap: vh(2), marginVertical: vh(2)}}>
+          {suggestionGroupData.map((item, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                columnGap: vw(2),
+              }}>
+              <Image
+                width={vw(10)}
+                height={vw(5)}
+                resizeMode="contain"
+                style={{borderRadius: vw(20)}}
+                source={item.img}
+              />
+              <View style={{flex: 1}}>
+                <Text style={{color: '#FFFFFF'}}>{item.name}</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  {groupIcon(vw(5), vw(5), '#FFFFFF')}
+                  <Text style={{color: '#A7A7A7'}}> {item.amount}</Text>
+                </View>
+              </View>
+              <TouchableOpacity onPress={() => handleFollow(index)}>
+                {personAddIcon(vw(5), vw(5), '#464646')}
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const FollowingView: React.FC<{followingGroup: any[]}> = ({followingGroup}) => {
   return (
     <View>
       <Text style={styles.tabTitle}>Đang theo dõi</Text>
@@ -77,7 +143,7 @@ const FollowingView: React.FC = () => {
                 <Text style={{color: '#A7A7A7'}}> {item.amount}</Text>
               </View>
             </View>
-            {followedIcon(vw(5), vw(5), '#D2FD7C')}
+            {personAddedIcon(vw(5), vw(5), '#D2FD7C')}
           </View>
         ))}
       </View>

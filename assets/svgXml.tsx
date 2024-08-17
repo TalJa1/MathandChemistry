@@ -12,7 +12,18 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
-export const followedIcon = (w?: any, h?: any, color?: any) => {
+export const personAddIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 6V12M14 9H20M3.5 19.0001H14.5C15.8807 19.0001 17 17.8808 17 16.5001C17 12.4194 11 12.5001 9 12.5001C7 12.5001 1 12.4194 1 16.5001C1 17.8808 2.11929 19.0001 3.5 19.0001ZM13 5C13 7.20914 11.2091 9 9 9C6.79086 9 5 7.20914 5 5C5 2.79086 6.79086 1 9 1C11.2091 1 13 2.79086 13 5Z" stroke=${
+    color ?? '#464646'
+  } style="stroke:#464646;stroke:color(display-p3 0.2740 0.2740 0.2740);stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const personAddedIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M20 7L15.8001 11.1999L14.0001 9.39996M3.5 19.0001H14.5C15.8807 19.0001 17 17.8808 17 16.5001C17 12.4194 11 12.5001 9 12.5001C7 12.5001 1 12.4194 1 16.5001C1 17.8808 2.11929 19.0001 3.5 19.0001ZM13 5C13 7.20914 11.2091 9 9 9C6.79086 9 5 7.20914 5 5C5 2.79086 6.79086 1 9 1C11.2091 1 13 2.79086 13 5Z" stroke=${
     color ?? '#D2FD7C'

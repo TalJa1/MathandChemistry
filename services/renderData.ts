@@ -913,3 +913,21 @@ export const followingGroup = [
     amount: 35,
   },
 ];
+
+export const suggestionGroupData = [
+  {
+    img: require('../assets/liveStream/acc2.png'),
+    name: '2k7 Chinh phục môn Toán 12',
+    amount: 68,
+  },
+  {
+    img: require('../assets/liveStream/acc2.png'),
+    name: '2k7 nâng cao',
+    amount: 75,
+  },
+  {
+    img: require('../assets/liveStream/acc2.png'),
+    name: '2k7  Đại số',
+    amount: 25,
+  },
+];
