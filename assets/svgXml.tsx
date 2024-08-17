@@ -12,6 +12,50 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const commentIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.73535 6.91602H14.7354M6.73535 10.916H11.7354M1.73535 8.91602C1.73535 3.56307 3.853 1.91602 10.7354 1.91602C17.6177 1.91602 19.7354 3.56307 19.7354 8.91602C19.7354 14.269 17.6177 15.916 10.7354 15.916C10.3946 15.916 10.0655 15.912 9.74772 15.9037L5.73535 19.916V15.4099C2.76815 14.5852 1.73535 12.6543 1.73535 8.91602Z" stroke=${
+    color ?? '#7C7C7C'
+  } style="stroke:#7C7C7C;stroke:color(display-p3 0.4863 0.4863 0.4863);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const downArrowIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.724562 0.641066C0.946451 0.419177 1.29367 0.399006 1.53835 0.580551L1.60845 0.641066L6.99984 6.03218L12.3912 0.641066C12.6131 0.419177 12.9603 0.399006 13.205 0.580551L13.2751 0.641066C13.497 0.862955 13.5172 1.21017 13.3356 1.45485L13.2751 1.52495L7.44178 7.35828C7.21989 7.58017 6.87267 7.60034 6.62799 7.4188L6.5579 7.35828L0.724562 1.52495C0.480484 1.28087 0.480484 0.885144 0.724562 0.641066Z" fill=${
+    color ?? '#7C7C7C'
+  } style="fill:#7C7C7C;fill:color(display-p3 0.4863 0.4863 0.4863);fill-opacity:1;"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const shareIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.15509 9.57383L13.7832 6.2598M13.7863 15.5738L7.16449 12.2629M19.4707 4.91602C19.4707 6.57287 18.1276 7.91602 16.4707 7.91602C14.8138 7.91602 13.4707 6.57287 13.4707 4.91602C13.4707 3.25916 14.8138 1.91602 16.4707 1.91602C18.1276 1.91602 19.4707 3.25916 19.4707 4.91602ZM7.4707 10.916C7.4707 12.5729 6.12756 13.916 4.4707 13.916C2.81385 13.916 1.4707 12.5729 1.4707 10.916C1.4707 9.25916 2.81385 7.91602 4.4707 7.91602C6.12756 7.91602 7.4707 9.25916 7.4707 10.916ZM19.4707 16.916C19.4707 18.5729 18.1276 19.916 16.4707 19.916C14.8138 19.916 13.4707 18.5729 13.4707 16.916C13.4707 15.2592 14.8138 13.916 16.4707 13.916C18.1276 13.916 19.4707 15.2592 19.4707 16.916Z" stroke=${
+    color ?? '#7C7C7C'
+  } style="stroke:#7C7C7C;stroke:color(display-p3 0.4863 0.4863 0.4863);stroke-opacity:1;" stroke-width="2"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const heartIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.3314 9.96339L10 17.916L17.6686 9.96339C18.5211 9.07934 19 7.8803 19 6.63006C19 4.02657 16.9648 1.91602 14.4543 1.91602C13.2487 1.91602 12.0925 2.41267 11.24 3.29673L10 4.58268L8.75997 3.29673C7.90749 2.41267 6.75128 1.91602 5.54569 1.91602C3.03517 1.91602 1 4.02657 1 6.63006C1 7.8803 1.47892 9.07934 2.3314 9.96339Z" fill="#B65A46" stroke=${
+    color ?? '#B65A46'
+  } style="fill:#B65A46;fill:color(display-p3 0.7118 0.3525 0.2736);fill-opacity:1;stroke:#B65A46;stroke:color(display-p3 0.7118 0.3525 0.2736);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const personAddIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17 6V12M14 9H20M3.5 19.0001H14.5C15.8807 19.0001 17 17.8808 17 16.5001C17 12.4194 11 12.5001 9 12.5001C7 12.5001 1 12.4194 1 16.5001C1 17.8808 2.11929 19.0001 3.5 19.0001ZM13 5C13 7.20914 11.2091 9 9 9C6.79086 9 5 7.20914 5 5C5 2.79086 6.79086 1 9 1C11.2091 1 13 2.79086 13 5Z" stroke=${

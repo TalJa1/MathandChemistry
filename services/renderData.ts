@@ -931,3 +931,56 @@ export const suggestionGroupData = [
     amount: 25,
   },
 ];
+
+export const postData = [
+  {
+    comment: 10,
+    des: 'Hãy tìm ba điểm thẳng hàng trong tứ diện ABCD với các điều kiện đã cho.',
+    hashtag: ['#hoibai', '#toan_hoc'],
+    heart: 100,
+    imgValue:
+      'Cho tứ diện ABCD. Gọi M, N lần lượt là trung điểm AB và CD. Mặt phẳng qua MN cắt AD, BC lần lượt tại P và Q. Biết MP cắt NQ tại I. Ba điểm nào thẳng hàng?',
+    name: 'Nguyễn Văn A',
+    time: 16,
+  },
+  {
+    comment: 20,
+    des: 'Xác định ba điểm thẳng hàng trong hình bình hành ABCD với các điều kiện đã cho.',
+    hashtag: ['#traodoi', '#toan_hoc'],
+    heart: 200,
+    imgValue:
+      'Cho hình bình hành ABCD. Gọi M, N lần lượt là trung điểm AB và CD. Mặt phẳng qua MN cắt AD, BC lần lượt tại P và Q. Biết MP cắt NQ tại I. Ba điểm nào thẳng hàng?',
+    name: 'Trần Thị B',
+    time: 26,
+  },
+  {
+    comment: 30,
+    des: 'Tìm ba điểm thẳng hàng trong tam giác ABC với các điều kiện đã cho.',
+    hashtag: ['#hoibai', '#toan_hoc'],
+    heart: 300,
+    imgValue:
+      'Cho tam giác ABC. Gọi M, N lần lượt là trung điểm AB và AC. Mặt phẳng qua MN cắt AD, BC lần lượt tại P và Q. Biết MP cắt NQ tại I. Ba điểm nào thẳng hàng?',
+    name: 'Lê Văn C',
+    time: 36,
+  },
+  {
+    comment: 40,
+    des: 'Xác định ba điểm thẳng hàng trong hình thang ABCD với các điều kiện đã cho.',
+    hashtag: ['#traodoi', '#toan_hoc'],
+    heart: 400,
+    imgValue:
+      'Cho hình thang ABCD. Gọi M, N lần lượt là trung điểm AB và CD. Mặt phẳng qua MN cắt AD, BC lần lượt tại P và Q. Biết MP cắt NQ tại I. Ba điểm nào thẳng hàng?',
+    name: 'Phạm Thị D',
+    time: 46,
+  },
+  {
+    comment: 50,
+    des: 'Tìm ba điểm thẳng hàng trong lăng trụ ABCDEF với các điều kiện đã cho.',
+    hashtag: ['#hoibai', '#hoa_hoc'],
+    heart: 500,
+    imgValue:
+      'Cho lăng trụ ABCDEF. Gọi M, N lần lượt là trung điểm AB và DE. Mặt phẳng qua MN cắt AD, BC lần lượt tại P và Q. Biết MP cắt NQ tại I. Ba điểm nào thẳng hàng?',
+    name: 'Hoàng Văn E',
+    time: 56,
+  },
+];

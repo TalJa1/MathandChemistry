@@ -12,10 +12,20 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {containerStyle, vh, vw} from '../../../services/styleSheets';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {ownerGroup} from '../../../services/renderData';
-import {examBack, groupIcon, noticeIcon} from '../../../assets/svgXml';
+import {ownerGroup, postData} from '../../../services/renderData';
+import {
+  commentIcon,
+  downArrowIcon,
+  examBack,
+  groupIcon,
+  heartIcon,
+  noticeIcon,
+  saveIcon,
+  shareIcon,
+} from '../../../assets/svgXml';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import SearchBar from '../../../components/docs/SearchBar';
+import {PostProps} from '../../../services/typeProps';
 
 const OnwerGroup = () => {
   const route = useRoute();
@@ -26,7 +36,7 @@ const OnwerGroup = () => {
   const renderTabContent = () => {
     switch (tab) {
       case 0:
-        return <Text>asd</Text>;
+        return <WallpaperContent />;
       case 1:
         return <Text>asd2</Text>;
 
@@ -43,9 +53,96 @@ const OnwerGroup = () => {
       </View>
       <TabBar tabBar={tabList} tabs={tab} setTabs={setTab} />
       <ScrollView>
-        <View style={{paddingHorizontal: vw(5)}}>{renderTabContent()}</View>
+        <View style={{paddingHorizontal: vw(5)}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: vh(2),
+            }}>
+            <Text style={{color: 'white', fontSize: 18, fontWeight: '600'}}>
+              Bài viết
+            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{color: '#7C7C7C'}}>Bộ lọc </Text>
+              {downArrowIcon(vw(5), vw(5), '#7C7C7C')}
+            </View>
+          </View>
+          {renderTabContent()}
+        </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const WallpaperContent: React.FC = () => {
+  return (
+    <View style={{rowGap: vh(5)}}>
+      {postData.map((item, index) => (
+        <View key={index}>
+          <Post {...item} />
+        </View>
+      ))}
+    </View>
+  );
+};
+
+const Post: React.FC<PostProps> = ({...props}) => {
+  return (
+    <View style={{rowGap: vh(1)}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          columnGap: vw(2),
+        }}>
+        <Image
+          width={vw(6)}
+          height={vw(6)}
+          resizeMode="contain"
+          source={require('../../../assets/network/logo1.png')}
+        />
+        <Text style={{color: 'white', fontWeight: '600', flex: 1}}>
+          {props.name}
+        </Text>
+        <Text style={{color: '#7C7C7C'}}> {props.time} phút trước</Text>
+      </View>
+      <Text style={{color: 'white', fontWeight: '400', fontSize: 16}}>
+        {props.des}
+      </Text>
+      <View
+        style={{backgroundColor: '#37CE7D', padding: vw(5), borderRadius: 15}}>
+        <Text style={{color: 'black', fontWeight: '700', fontSize: 17}}>
+          {props.imgValue}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <PostBottom
+          icon={heartIcon(vw(5), vw(5), '#B65A46')}
+          props={props.time}
+        />
+        <PostBottom
+          icon={commentIcon(vw(5), vw(5), '#7C7C7C')}
+          props={props.time}
+        />
+        <PostBottom icon={shareIcon(vw(5), vw(5), '#7C7C7C')} />
+        <PostBottom icon={saveIcon(vw(5), vw(5), '#7C7C7C')} />
+      </View>
+    </View>
+  );
+};
+const PostBottom: React.FC<{icon: any; props?: number}> = ({props, icon}) => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      {icon}
+      {props && <Text style={{color: '#6D6D6D'}}> {props}</Text>}
+    </View>
   );
 };
 

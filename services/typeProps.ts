@@ -232,3 +232,13 @@ export interface OwnerGroupItem {
   amount: number;
   noti: number;
 }
+
+export interface PostProps {
+  name: string;
+  des: string;
+  hashtag: string[];
+  time: number;
+  imgValue: string;
+  heart: number;
+  comment: number;
+}
