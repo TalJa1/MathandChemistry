@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {containerStyle, vh, vw} from '../../../services/styleSheets';
+import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ownerGroup, postData} from '../../../services/renderData';
 import {
@@ -38,7 +38,7 @@ const OnwerGroup = () => {
       case 0:
         return <WallpaperContent />;
       case 1:
-        return <Text>asd2</Text>;
+        return <AddminCheckq />;
 
       default:
         return null;
@@ -52,7 +52,7 @@ const OnwerGroup = () => {
         <SearchBar />
       </View>
       <TabBar tabBar={tabList} tabs={tab} setTabs={setTab} />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: vh(2)}}>
         <View style={{paddingHorizontal: vw(5)}}>
           <View
             style={{
@@ -75,19 +75,63 @@ const OnwerGroup = () => {
   );
 };
 
+const AddminCheckq: React.FC = () => {
+  return (
+    <View style={{rowGap: vh(5)}}>
+      <Post {...postData[1]} isRender={false} />
+      <View style={{rowGap: vh(1)}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            columnGap: vw(2),
+          }}>
+          <Image
+            width={vw(6)}
+            height={vw(6)}
+            resizeMode="contain"
+            source={require('../../../assets/network/logo2.png')}
+          />
+          <Text style={{color: 'white', fontWeight: '600', flex: 1}}>
+            Nguyễn Đức Anh
+          </Text>
+          <Text style={{color: '#7C7C7C'}}> 20 phút trước</Text>
+        </View>
+        <Text style={{color: 'white', fontWeight: '400', fontSize: 16}}>
+          Mình muốn tham khảo sách nâng cao môn toán, cần gợi ý của mọi người ạ.
+        </Text>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            columnGap: vw(2),
+          }}>
+          <ButtonRender name="Từ chối" color="#B65A46" />
+          <ButtonRender name="Phê duyệt" color="#69CB84" />
+        </View>
+      </View>
+    </View>
+  );
+};
+
 const WallpaperContent: React.FC = () => {
   return (
     <View style={{rowGap: vh(5)}}>
       {postData.map((item, index) => (
         <View key={index}>
-          <Post {...item} />
+          <Post {...item} isRender={true} />
         </View>
       ))}
     </View>
   );
 };
 
-const Post: React.FC<PostProps> = ({...props}) => {
+const Post: React.FC<PostProps & {isRender: boolean}> = ({
+  isRender,
+  ...props
+}) => {
   return (
     <View style={{rowGap: vh(1)}}>
       <View
@@ -117,29 +161,66 @@ const Post: React.FC<PostProps> = ({...props}) => {
         ))}
       </Text>
       <View
-        style={{backgroundColor: '#37CE7D', padding: vw(5), borderRadius: 15}}>
+        style={{
+          backgroundColor: '#37CE7D',
+          padding: vw(5),
+          borderRadius: 15,
+        }}>
         <Text style={{color: 'black', fontWeight: '700', fontSize: 17}}>
           {props.imgValue}
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <PostBottom
-          icon={heartIcon(vw(5), vw(5), '#B65A46')}
-          props={props.time}
-        />
-        <PostBottom
-          icon={commentIcon(vw(5), vw(5), '#7C7C7C')}
-          props={props.time}
-        />
-        <PostBottom icon={shareIcon(vw(5), vw(5), '#7C7C7C')} />
-        <PostBottom icon={saveIcon(vw(5), vw(5), '#7C7C7C')} />
-      </View>
+      {isRender ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <PostBottom
+            icon={heartIcon(vw(5), vw(5), '#B65A46')}
+            props={props.time}
+          />
+          <PostBottom
+            icon={commentIcon(vw(5), vw(5), '#7C7C7C')}
+            props={props.time}
+          />
+          <PostBottom icon={shareIcon(vw(5), vw(5), '#7C7C7C')} />
+          <PostBottom icon={saveIcon(vw(5), vw(5), '#7C7C7C')} />
+        </View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            columnGap: vw(2),
+          }}>
+          <ButtonRender name="Từ chối" color="#B65A46" />
+          <ButtonRender name="Phê duyệt" color="#69CB84" />
+        </View>
+      )}
     </View>
+  );
+};
+
+const ButtonRender: React.FC<{name: string; color: string}> = ({
+  color,
+  name,
+}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        {
+          borderWidth: 1,
+          flex: 1,
+          borderColor: color,
+          padding: vw(2),
+          borderRadius: vw(20),
+        },
+        centerAll,
+      ]}>
+      <Text style={{color: color}}>{name}</Text>
+    </TouchableOpacity>
   );
 };
 
