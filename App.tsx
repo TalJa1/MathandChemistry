@@ -34,6 +34,7 @@ import OneQuestionCreation from './views/tabNavigator/additionNavigation/OneQues
 import GroupCreation from './views/tabNavigator/additionNavigation/GroupCreation';
 import LiveStreamSetup from './views/tabNavigator/additionNavigation/LiveStreamSetup';
 import LiveStream from './views/tabNavigator/additionNavigation/LiveStream';
+import OnwerGroup from './views/tabNavigator/networkNavigation/OnwerGroup';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -161,6 +162,13 @@ const App = () => {
     <NavigationContainer>
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
+        {/* Network page */}
+        <Stack.Screen
+          name="OnwerGroup"
+          component={OnwerGroup}
+          options={{headerShown: false}}
+        />
+        {/* End network page */}
         {/* Addition page */}
         <Stack.Screen
           name="LiveStream"

@@ -25,6 +25,8 @@ import {
   noticeIcon,
   personAddIcon,
 } from '../../assets/svgXml';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 const NetWork = () => {
   useStatusBar('black');
@@ -169,13 +171,14 @@ const FollowingView: React.FC<{
 };
 
 const OnwerView: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View>
       <Text style={styles.tabTitle}>Quản trị nhóm:</Text>
       <View style={{rowGap: vh(2), marginVertical: vh(2)}}>
         {ownerGroup.map((item, index) => (
           <TouchableOpacity
-            onPress={() => console.log(item.name)}
+            onPress={() => navigation.navigate('OnwerGroup', {index: index})}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
