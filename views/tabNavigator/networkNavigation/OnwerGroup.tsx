@@ -109,7 +109,12 @@ const Post: React.FC<PostProps> = ({...props}) => {
         <Text style={{color: '#7C7C7C'}}> {props.time} phút trước</Text>
       </View>
       <Text style={{color: 'white', fontWeight: '400', fontSize: 16}}>
-        {props.des}
+        {props.des}{' '}
+        {props.hashtag.map((item, index) => (
+          <Text style={{color: '#4D7CFF'}} key={index}>
+            {item}{' '}
+          </Text>
+        ))}
       </Text>
       <View
         style={{backgroundColor: '#37CE7D', padding: vw(5), borderRadius: 15}}>
@@ -137,6 +142,7 @@ const Post: React.FC<PostProps> = ({...props}) => {
     </View>
   );
 };
+
 const PostBottom: React.FC<{icon: any; props?: number}> = ({props, icon}) => {
   return (
     <View style={{flexDirection: 'row'}}>
