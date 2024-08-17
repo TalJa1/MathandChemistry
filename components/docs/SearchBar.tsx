@@ -10,7 +10,7 @@ const SearchBar: React.FC = () => {
       {searchIcon(vw(5), vw(5))}
       <TextInput
         style={styles.input}
-        placeholder="Search"
+        placeholder="Tìm kiếm"
         placeholderTextColor="#999"
       />
       {alignIconSVG(vw(5), vw(5))}

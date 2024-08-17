@@ -225,3 +225,10 @@ export interface LiveStreamFormProps {
   liveAt: LiveAtProps;
   invite: string[];
 }
+
+export interface OwnerGroupItem {
+  img: any;
+  name: string;
+  amount: number;
+  noti: number;
+}

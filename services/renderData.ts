@@ -834,3 +834,24 @@ export const liveAtData = [
     active: 40,
   },
 ];
+
+export const ownerGroup = [
+  {
+    img: require('../assets/liveStream/acc2.png'),
+    name: '2k7 Chinh phục điểm 10 môn Toán',
+    amount: 38,
+    noti: 4,
+  },
+  {
+    img: require('../assets/liveStream/acc3.png'),
+    name: '2k7 THPT Kim Liên',
+    amount: 10,
+    noti: 4,
+  },
+  {
+    img: require('../assets/liveStream/acc6.png'),
+    name: 'A10 chuyên Hóa',
+    amount: 6,
+    noti: 2,
+  },
+];
