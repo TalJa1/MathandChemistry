@@ -41,12 +41,23 @@ const NetWork = () => {
     setFollowingGroup([...followingGroup, itemToFollow]);
     setSuggestionGroupData(suggestionGroupData.filter((_, i) => i !== index));
   };
+  const handleUnfollow = (index: number) => {
+    const itemToUnfollow = followingGroup[index];
+    setSuggestionGroupData([...suggestionGroupData, itemToUnfollow]);
+    setFollowingGroup(followingGroup.filter((_, i) => i !== index));
+  };
+
   const renderTabContent = () => {
     switch (tabs) {
       case 0:
         return <OnwerView />;
       case 1:
-        return <FollowingView followingGroup={followingGroup} />;
+        return (
+          <FollowingView
+            followingGroup={followingGroup}
+            handleUnfollow={handleUnfollow}
+          />
+        );
       case 2:
         return (
           <SuggestionView
@@ -116,7 +127,10 @@ const SuggestionView: React.FC<{
   );
 };
 
-const FollowingView: React.FC<{followingGroup: any[]}> = ({followingGroup}) => {
+const FollowingView: React.FC<{
+  followingGroup: any[];
+  handleUnfollow: (index: number) => void;
+}> = ({followingGroup, handleUnfollow}) => {
   return (
     <View>
       <Text style={styles.tabTitle}>Đang theo dõi</Text>
@@ -143,7 +157,9 @@ const FollowingView: React.FC<{followingGroup: any[]}> = ({followingGroup}) => {
                 <Text style={{color: '#A7A7A7'}}> {item.amount}</Text>
               </View>
             </View>
-            {personAddedIcon(vw(5), vw(5), '#D2FD7C')}
+            <TouchableOpacity onPress={() => handleUnfollow(index)}>
+              {personAddedIcon(vw(5), vw(5), '#D2FD7C')}
+            </TouchableOpacity>
           </View>
         ))}
       </View>
