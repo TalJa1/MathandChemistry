@@ -12,6 +12,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const nextIconnotArrow = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 17L9 9L1 1" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const commentIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.73535 6.91602H14.7354M6.73535 10.916H11.7354M1.73535 8.91602C1.73535 3.56307 3.853 1.91602 10.7354 1.91602C17.6177 1.91602 19.7354 3.56307 19.7354 8.91602C19.7354 14.269 17.6177 15.916 10.7354 15.916C10.3946 15.916 10.0655 15.912 9.74772 15.9037L5.73535 19.916V15.4099C2.76815 14.5852 1.73535 12.6543 1.73535 8.91602Z" stroke=${
