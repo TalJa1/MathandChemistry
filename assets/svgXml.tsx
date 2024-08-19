@@ -12,6 +12,62 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const statisticIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 17V12M12 17V7M7 17V14.5M1.375 12C1.375 3.875 3.875 1.375 12 1.375C20.125 1.375 22.625 3.875 22.625 12C22.625 20.125 20.125 22.625 12 22.625C3.875 22.625 1.375 20.125 1.375 12Z" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const cautionIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 17V12M12 17V7M7 17V14.5M1.375 12C1.375 3.875 3.875 1.375 12 1.375C20.125 1.375 22.625 3.875 22.625 12C22.625 20.125 20.125 22.625 12 22.625C3.875 22.625 1.375 20.125 1.375 12Z" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const keepInTouchIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.49992 13.5L11.3409 20.129C11.732 21.0414 12.9482 21.1378 13.4357 20.2731C14.3978 18.5669 15.8238 15.8152 17.2499 12.25C19.7499 6 20.9999 1 20.9999 1C20.9999 1 15.9999 2.25 9.74992 4.75C6.18472 6.17608 3.43301 7.60216 1.72679 8.5642C0.862107 9.05175 0.958505 10.268 1.8709 10.659L8.49992 13.5Z" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const settingIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.75 1.75H14.25C14.9404 1.75 15.5 2.30964 15.5 3V3.71098C15.5 4.24573 15.8589 4.71031 16.3528 4.91536C16.8468 5.12048 17.4221 5.0423 17.8004 4.66403L18.3033 4.16114C18.7914 3.67298 19.5829 3.67298 20.071 4.16114L21.8388 5.9289C22.3269 6.41706 22.3269 7.20851 21.8388 7.69667L21.336 8.1995C20.9577 8.57779 20.8795 9.15309 21.0846 9.64718C21.2897 10.1411 21.7543 10.5 22.2891 10.5L23 10.5C23.6904 10.5 24.25 11.0596 24.25 11.75V14.25C24.25 14.9404 23.6904 15.5 23 15.5H22.289C21.7543 15.5 21.2897 15.8589 21.0846 16.3528C20.8795 16.8469 20.9577 17.4222 21.336 17.8004L21.8388 18.3033C22.327 18.7914 22.327 19.5829 21.8388 20.071L20.071 21.8388C19.5829 22.327 18.7914 22.327 18.3033 21.8388L17.8004 21.336C17.4221 20.9577 16.8469 20.8795 16.3528 21.0846C15.8589 21.2897 15.5 21.7543 15.5 22.289V23C15.5 23.6904 14.9404 24.25 14.25 24.25H11.75C11.0596 24.25 10.5 23.6904 10.5 23V22.2891C10.5 21.7543 10.1411 21.2897 9.64718 21.0846C9.15309 20.8795 8.57779 20.9577 8.1995 21.336L7.69665 21.8388C7.20849 22.327 6.41704 22.327 5.92888 21.8388L4.16111 20.071C3.67296 19.5829 3.67296 18.7914 4.16111 18.3033L4.66403 17.8004C5.0423 17.4221 5.12048 16.8468 4.91536 16.3528C4.71031 15.8589 4.24573 15.5 3.71098 15.5H3C2.30964 15.5 1.75 14.9404 1.75 14.25V11.75C1.75 11.0596 2.30964 10.5 3 10.5L3.71096 10.5C4.24572 10.5 4.71031 10.1411 4.91537 9.64721C5.1205 9.15313 5.04232 8.57786 4.66404 8.19958L4.16114 7.69667C3.67298 7.20852 3.67298 6.41706 4.16114 5.92891L5.9289 4.16114C6.41706 3.67298 7.20851 3.67298 7.69667 4.16114L8.19957 4.66404C8.57785 5.04232 9.15312 5.1205 9.6472 4.91537C10.1411 4.71031 10.5 4.24572 10.5 3.71095V3C10.5 2.30964 11.0596 1.75 11.75 1.75Z" stroke="#0D0D0D" style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2"/>
+<path d="M15.5 13C15.5 14.3807 14.3807 15.5 13 15.5C11.6193 15.5 10.5 14.3807 10.5 13C10.5 11.6193 11.6193 10.5 13 10.5C14.3807 10.5 15.5 11.6193 15.5 13Z" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const darkModeIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.75 13H4.25M4.25008 21.75L6.75008 19.25M13 21.75V24.25M19.25 19.25L21.75 21.75M4.25 4.25L6.75 6.75M21.75 13H24.25M19.2499 6.75L21.7499 4.25M13 1.75V4.25M16.75 13C16.75 15.0711 15.0711 16.75 13 16.75C10.9289 16.75 9.25 15.0711 9.25 13C9.25 10.9289 10.9289 9.25 13 9.25C15.0711 9.25 16.75 10.9289 16.75 13Z" stroke=${
+    color ?? '#0D0D0D'
+  } style="stroke:#0D0D0D;stroke:color(display-p3 0.0510 0.0510 0.0510);stroke-opacity:1;" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const nextIconnotArrow = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 17L9 9L1 1" stroke=${

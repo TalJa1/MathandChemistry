@@ -12,7 +12,17 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import {centerAll, containerStyle, vh, vw} from '../../services/styleSheets';
-import {docsIconSVG, nextIconnotArrow, noticeIcon} from '../../assets/svgXml';
+import {
+  cautionIcon,
+  darkModeIcon,
+  docsIconSVG,
+  keepInTouchIcon,
+  nextIconnotArrow,
+  noticeIcon,
+  profileIconSVG,
+  settingIcon,
+  statisticIcon,
+} from '../../assets/svgXml';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 const Profile = () => {
@@ -35,38 +45,38 @@ const MainContent: React.FC = () => {
     <View>
       <RenderItem
         title="Thống kê"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#FF0000"
+        icon={statisticIcon(vw(5), vw(5), '#0D0D0D')}
+        color="#69CB84"
       />
       <RenderItem
         title="Đề thi của bạn"
         icon={docsIconSVG(vw(5), vw(5), '#0D0D0D')}
-        color="#00FF00"
+        color="#A3A3F2"
       />
       <RenderItem
         title="Lưu ý ôn tập"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#0000FF"
+        icon={cautionIcon(vw(5), vw(5), '#0D0D0D')}
+        color="#565CE7"
       />
       <RenderItem
         title="Trang cá nhân"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#FFFF00"
+        icon={profileIconSVG(vw(5), vw(5), '#0D0D0D')}
+        color="#ED7234"
       />
       <RenderItem
         title="Liên lạc, phản hồi"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#FFFF00"
+        icon={keepInTouchIcon(vw(5), vw(5), '#0D0D0D')}
+        color="#D2FD7C"
       />
       <RenderItem
         title="Cài đặt chung"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#FFFF00"
+        icon={settingIcon(vw(5), vw(5), '#0D0D0D')}
+        color="#7EA8CA"
       />
       <RenderItem
         title="Chế độ tối"
-        icon={nextIconnotArrow(vw(5), vw(5), '#0D0D0D')}
-        color="#FFFF00"
+        icon={darkModeIcon(vw(5), vw(5), '#0D0D0D')}
+        color="#F7F9FA"
       />
     </View>
   );
@@ -111,6 +121,7 @@ const RenderItem: React.FC<{title: string; icon: any; color: string}> = ({
       </Text>
       {title === 'Chế độ tối' && (
         <ToggleSwitch
+          disabled={true}
           isOn={toggleNotice}
           onColor="#16B364"
           offColor="#16B364"
