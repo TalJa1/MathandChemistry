@@ -14,9 +14,40 @@ const Statistic = () => {
       <ScrollView
         style={{paddingHorizontal: vw(5)}}
         contentContainerStyle={{paddingVertical: vh(2)}}>
+        <Text style={{color: '#FFFFFF', fontSize: 20, fontWeight: '700'}}>
+          Môn
+        </Text>
+        <View style={{flexDirection: 'row', columnGap: vw(3)}}>
+          <SubjectRender color="#69CB84" title="Hóa" />
+          <SubjectRender color="#A3A3F2" title="Toán" />
+        </View>
         <InfoGroup />
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const SubjectRender: React.FC<{title: string; color: string}> = ({
+  color,
+  title,
+}) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        columnGap: vw(1),
+        alignItems: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: color,
+          width: vw(3),
+          height: vw(3),
+          borderRadius: 4,
+        }}
+      />
+      <Text>{title}</Text>
+    </View>
   );
 };
 
