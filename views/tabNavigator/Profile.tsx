@@ -24,6 +24,8 @@ import {
   statisticIcon,
 } from '../../assets/svgXml';
 import ToggleSwitch from 'toggle-switch-react-native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const Profile = () => {
   useStatusBar('black');
@@ -47,50 +49,62 @@ const MainContent: React.FC = () => {
         title="Thống kê"
         icon={statisticIcon(vw(5), vw(5), '#0D0D0D')}
         color="#69CB84"
+        navigatePage="Statistic"
       />
       <RenderItem
         title="Đề thi của bạn"
         icon={docsIconSVG(vw(5), vw(5), '#0D0D0D')}
         color="#A3A3F2"
+        navigatePage=""
       />
       <RenderItem
         title="Lưu ý ôn tập"
         icon={cautionIcon(vw(5), vw(5), '#0D0D0D')}
         color="#565CE7"
+        navigatePage=""
       />
       <RenderItem
         title="Trang cá nhân"
         icon={profileIconSVG(vw(5), vw(5), '#0D0D0D')}
         color="#ED7234"
+        navigatePage=""
       />
       <RenderItem
         title="Liên lạc, phản hồi"
         icon={keepInTouchIcon(vw(5), vw(5), '#0D0D0D')}
         color="#D2FD7C"
+        navigatePage=""
       />
       <RenderItem
         title="Cài đặt chung"
         icon={settingIcon(vw(5), vw(5), '#0D0D0D')}
         color="#7EA8CA"
+        navigatePage=""
       />
       <RenderItem
         title="Chế độ tối"
         icon={darkModeIcon(vw(5), vw(5), '#0D0D0D')}
         color="#F7F9FA"
+        navigatePage=""
       />
     </View>
   );
 };
 
-const RenderItem: React.FC<{title: string; icon: any; color: string}> = ({
-  title,
-  icon,
-  color,
-}) => {
+const RenderItem: React.FC<{
+  title: string;
+  icon: any;
+  color: string;
+  navigatePage: string;
+}> = ({title, icon, color, navigatePage}) => {
   const [toggleNotice, setToggleNotice] = React.useState(false); // Declare toggleNotice variable
-
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <TouchableOpacity
+      disabled={navigatePage === ''}
+      onPress={() => {
+        navigatePage !== '' && navigation.navigate(navigatePage);
+      }}
       style={{
         flexDirection: 'row',
         alignItems: 'center',

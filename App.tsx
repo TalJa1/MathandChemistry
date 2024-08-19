@@ -35,6 +35,7 @@ import GroupCreation from './views/tabNavigator/additionNavigation/GroupCreation
 import LiveStreamSetup from './views/tabNavigator/additionNavigation/LiveStreamSetup';
 import LiveStream from './views/tabNavigator/additionNavigation/LiveStream';
 import OnwerGroup from './views/tabNavigator/networkNavigation/OnwerGroup';
+import Statistic from './views/tabNavigator/profileNavigation/Statistic';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -162,6 +163,13 @@ const App = () => {
     <NavigationContainer>
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
+        {/* Profile page */}
+        <Stack.Screen
+          name="Statistic"
+          component={Statistic}
+          options={{headerShown: false}}
+        />
+        {/* End profile page */}
         {/* Network page */}
         <Stack.Screen
           name="OnwerGroup"
