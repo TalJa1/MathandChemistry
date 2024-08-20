@@ -73,7 +73,7 @@ const MainContent: React.FC = () => {
         title="Liên lạc, phản hồi"
         icon={keepInTouchIcon(vw(5), vw(5), '#0D0D0D')}
         color="#D2FD7C"
-        navigatePage=""
+        navigatePage="KeepInTouch"
       />
       <RenderItem
         title="Cài đặt chung"
