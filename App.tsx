@@ -37,6 +37,7 @@ import LiveStream from './views/tabNavigator/additionNavigation/LiveStream';
 import OnwerGroup from './views/tabNavigator/networkNavigation/OnwerGroup';
 import Statistic from './views/tabNavigator/profileNavigation/Statistic';
 import KeepInTouch from './views/tabNavigator/profileNavigation/KeepInTouch';
+import Chat from './views/tabNavigator/profileNavigation/Chat';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -165,6 +166,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Main">
         {/* Profile page */}
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="KeepInTouch"
           component={KeepInTouch}

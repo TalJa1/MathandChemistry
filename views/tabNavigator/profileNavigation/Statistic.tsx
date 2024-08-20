@@ -6,8 +6,10 @@ import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../../components/docs/Header';
 import {nextIcon} from '../../../assets/svgXml';
+import useStatusBar from '../../../services/useStatusBarCustom';
 
 const Statistic = () => {
+  useStatusBar('black');
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Thống kê" />

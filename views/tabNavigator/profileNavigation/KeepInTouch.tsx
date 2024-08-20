@@ -16,8 +16,12 @@ import {
   horizontalContactData,
   verticalContactData,
 } from '../../../services/renderData';
+import useStatusBar from '../../../services/useStatusBarCustom';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const KeepInTouch = () => {
+  useStatusBar('black');
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Liên lạc" />
@@ -32,11 +36,15 @@ const KeepInTouch = () => {
 };
 
 const VerticalContent: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View style={{rowGap: vh(2)}}>
       {verticalContactData.map((item, index) => (
         <TouchableOpacity
           disabled={index !== 0 ? true : false}
+          onPress={() => {
+            navigation.navigate('Chat');
+          }}
           key={index}
           style={{
             flexDirection: 'row',
