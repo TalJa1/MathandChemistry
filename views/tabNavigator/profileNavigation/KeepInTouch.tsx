@@ -43,7 +43,7 @@ const VerticalContent: React.FC = () => {
         <TouchableOpacity
           disabled={index !== 0 ? true : false}
           onPress={() => {
-            navigation.navigate('Chat');
+            navigation.navigate('Chat', {index: index});
           }}
           key={index}
           style={{
