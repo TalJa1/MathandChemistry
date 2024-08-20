@@ -12,6 +12,28 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const phoneIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19 17V15.3541C19 14.5363 18.5021 13.8008 17.7428 13.4971L15.7086 12.6835C14.7429 12.2971 13.6422 12.7156 13.177 13.646L13 14C13 14 10.5 13.5 8.5 11.5C6.5 9.5 6 7 6 7L6.35402 6.82299C7.28438 6.35781 7.70285 5.25714 7.31654 4.29136L6.50289 2.25722C6.19916 1.4979 5.46374 1 4.64593 1H3C1.89543 1 1 1.89543 1 3C1 11.8366 8.16344 19 17 19C18.1046 19 19 18.1046 19 17Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const chatBackIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 1L1 5M1 5L5 9M1 5L13 5" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const statisticIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17 17V12M12 17V7M7 17V14.5M1.375 12C1.375 3.875 3.875 1.375 12 1.375C20.125 1.375 22.625 3.875 22.625 12C22.625 20.125 20.125 22.625 12 22.625C3.875 22.625 1.375 20.125 1.375 12Z" stroke=${
