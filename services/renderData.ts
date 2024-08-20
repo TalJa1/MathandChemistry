@@ -995,7 +995,7 @@ export const horizontalContactData = [
 
 export const verticalContactData = [
   {
-    img: require('../assets/profile/pro1.png'),
+    img: require('../assets/liveStream/live2.png'),
     name: 'Phan Ðức Toản',
     des: 'How are you today?',
     noti: 3,
@@ -1030,14 +1030,14 @@ export const verticalContactData = [
     time: 5,
   },
   {
-    img: require('../assets/profile/pro2.png'),
+    img: require('../assets/profile/pro6.png'),
     name: 'Hoàng Văn E',
     des: 'Bạn đang làm gì?',
     noti: 0,
     time: 6,
   },
   {
-    img: require('../assets/profile/pro3.png'),
+    img: require('../assets/profile/pro7.png'),
     name: 'Đỗ Thị F',
     des: 'Hẹn gặp bạn sau nhé!',
     noti: 0,
