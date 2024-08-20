@@ -43,6 +43,8 @@ const Chat = () => {
     'Tôi đang vướng một chút ở bài tập này',
   ]);
 
+  console.log('ownChat', ownChat);
+
   return (
     <SafeAreaView style={styles.container}>
       <Shadow
@@ -80,6 +82,18 @@ const Chat = () => {
 const InputText: React.FC<{
   setChat: React.Dispatch<React.SetStateAction<string[]>>;
 }> = ({setChat}) => {
+  const [text, setText] = useState('');
+
+  const handleTextChange = (input: string) => {
+    setText(input);
+  };
+
+  const handleTextSubmit = () => {
+    if (text.trim()) {
+      setChat(prevChat => [...prevChat, text]);
+      setText('');
+    }
+  };
   return (
     <View
       style={{
@@ -96,6 +110,10 @@ const InputText: React.FC<{
       <View style={[{flex: 1, flexDirection: 'row'}, centerAll]}>
         <TextInput
           placeholder="Write your message"
+          onChangeText={handleTextChange}
+          onSubmitEditing={handleTextSubmit}
+          returnKeyType="done"
+          value={text}
           style={{
             backgroundColor: '#192222',
             borderRadius: 12,
