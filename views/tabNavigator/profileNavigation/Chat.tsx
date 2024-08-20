@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Image,
   ScrollView,
@@ -32,11 +31,11 @@ const Chat = () => {
   useStatusBar('black');
   const route = useRoute();
   const {index} = route.params as {index: number};
-  const [guest, setGuest] = useState([
+  const guest = [
     'Xin chào',
     'Có việc gì không vậy?',
     'Gửi đề bài đi, biết đâu t giải được',
-  ]);
+  ];
 
   const [ownChat, setOwnChat] = useState([
     'Hellooo',
@@ -73,9 +72,45 @@ const Chat = () => {
             Hôm nay
           </Text>
         </View>
+        <MainChat guestChat={guest} ownChat={ownChat} />
       </ScrollView>
       <InputText setChat={setOwnChat} />
     </SafeAreaView>
+  );
+};
+
+const MainChat: React.FC<{guestChat: string[]; ownChat: string[]}> = ({
+  guestChat,
+  ownChat,
+}) => {
+  return (
+    <View style={{marginTop: vh(2), rowGap: vh(2)}}>
+      <View style={styles.rightChatContainer}>
+        <Text style={styles.chatRight}>{ownChat[0]}</Text>
+      </View>
+      <View style={styles.leftChatContainer}>
+        <Text style={styles.chatleft}>{guestChat[0]}</Text>
+        <Text style={styles.chatleft}>{guestChat[1]}</Text>
+      </View>
+      <View style={styles.rightChatContainer}>
+        <Text style={styles.chatRight}>{ownChat[1]}</Text>
+      </View>
+      <View style={styles.leftChatContainer}>
+        <Text style={styles.chatleft}>{guestChat[2]}</Text>
+      </View>
+      <View style={styles.rightChatContainer}>
+        <Image
+          style={{width: '60%', resizeMode: 'contain'}}
+          source={require('../../../assets/chat/imgg1.png')}
+        />
+      </View>
+      {ownChat.length > 2 &&
+        ownChat.slice(2).map((message, index) => (
+          <View key={index} style={styles.rightChatContainer}>
+            <Text style={styles.chatRight}>{message}</Text>
+          </View>
+        ))}
+    </View>
   );
 };
 
@@ -185,4 +220,28 @@ export default Chat;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  chatRight: {
+    color: 'black',
+    backgroundColor: '#69CB84',
+    padding: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  chatleft: {
+    color: 'black',
+    backgroundColor: '#A7A7A7',
+    padding: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  rightChatContainer: {
+    alignItems: 'flex-end',
+    rowGap: vh(1),
+  },
+  leftChatContainer: {
+    alignItems: 'flex-start',
+    rowGap: vh(1),
+  },
 });
