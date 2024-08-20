@@ -289,11 +289,15 @@ const Header: React.FC<{dataIndex: number}> = ({dataIndex}) => {
         {examBack(vw(7), vw(7), '#FFFFFF')}
       </TouchableOpacity>
       <Image
-        width={vw(10)}
-        height={vw(5)}
-        resizeMode="contain"
+        width={vw(12)}
+        height={vw(12)}
+        resizeMode="cover"
         style={{borderRadius: vw(20)}}
-        source={ownerGroup[dataIndex].img}
+        source={
+          typeof ownerGroup[dataIndex].img === 'string'
+            ? {uri: ownerGroup[dataIndex].img}
+            : ownerGroup[dataIndex].img
+        }
       />
       <View style={{flex: 1}}>
         <Text style={{color: '#FFFFFF'}}>{ownerGroup[dataIndex].name}</Text>

@@ -19,6 +19,7 @@ import {Shadow} from 'react-native-shadow-2';
 import {cameraIcon, searchIcon} from '../../../assets/svgXml';
 import {RecommendationDataProps} from '../../../services/typeProps';
 import {
+  ownerGroup,
   recomendationAdminData,
   recomendationPersonData,
 } from '../../../services/renderData';
@@ -26,6 +27,14 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 const GroupCreation = () => {
   useStatusBar('black');
+  const [group, setGroup] = useState({
+    img: '',
+    name: '',
+    amount: 0,
+    noti: 1,
+  });
+  console.log('Group:', group);
+
   return (
     <SafeAreaView style={styles.container}>
       <Shadow
@@ -44,7 +53,7 @@ const GroupCreation = () => {
       <ScrollView
         style={{paddingHorizontal: vw(5)}}
         contentContainerStyle={{paddingVertical: vh(2)}}>
-        <MainContent />
+        <MainContent setGroup={setGroup} group={group} />
       </ScrollView>
       <Shadow
         distance={10}
@@ -55,22 +64,39 @@ const GroupCreation = () => {
           backgroundColor: 'black',
           width: '100%',
         }}>
-        <Footer />
+        <Footer group={group} />
       </Shadow>
     </SafeAreaView>
   );
 };
 
-const MainContent: React.FC = () => {
+const MainContent: React.FC<{
+  group: {
+    img: string;
+    name: string;
+    amount: number;
+    noti: number;
+  };
+  setGroup: React.Dispatch<
+    React.SetStateAction<{
+      img: string;
+      name: string;
+      amount: number;
+      noti: number;
+    }>
+  >;
+}> = ({setGroup, group}) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const pickImage = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
       if (response.assets && response.assets.length > 0) {
         setSelectedImage(response.assets[0]?.uri || null);
+        setGroup(prev => ({...prev, img: response.assets?.[0]?.uri ?? ''}));
       }
     });
   };
+
   return (
     <View style={{rowGap: vh(2)}}>
       <View style={[{width: '100%'}, centerAll]}>
@@ -87,7 +113,12 @@ const MainContent: React.FC = () => {
           Chọn ảnh đại diện
         </Text>
       </View>
-      <TextInputGroup label="Tên nhóm" placeholder="Nhập tên nhóm" />
+      <TextInputGroup
+        label="Tên nhóm"
+        placeholder="Nhập tên nhóm"
+        setGroup={setGroup}
+        group={group}
+      />
       <TextInputGroup
         label="Giới thiệu nhóm"
         placeholder="Nhập vài thông tin về nhóm học tập để thu hút thêm thành viên nào!"
@@ -193,16 +224,36 @@ const RenderRecommendedMembers: React.FC<{
   );
 };
 
-const TextInputGroup: React.FC<{label: string; placeholder: string}> = ({
-  label,
-  placeholder,
-}) => {
+const TextInputGroup: React.FC<{
+  label: string;
+  placeholder: string;
+  group?: {
+    img: string;
+    name: string;
+    amount: number;
+    noti: number;
+  };
+  setGroup?: React.Dispatch<
+    React.SetStateAction<{
+      img: string;
+      name: string;
+      amount: number;
+      noti: number;
+    }>
+  >;
+}> = ({label, placeholder, setGroup}) => {
   return (
     <View>
       <Text style={{color: '#F7F9FA'}}>{label}</Text>
       <TextInput
         multiline={true}
         placeholder={placeholder}
+        onChange={e => {
+          const text = e?.nativeEvent?.text;
+          if (label === 'Tên nhóm' && text !== undefined) {
+            setGroup && setGroup(prev => ({...prev, name: text}));
+          }
+        }}
         style={{
           borderRadius: 20,
           paddingHorizontal: vw(3),
@@ -216,8 +267,17 @@ const TextInputGroup: React.FC<{label: string; placeholder: string}> = ({
   );
 };
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{
+  group: {
+    img: string;
+    name: string;
+    amount: number;
+    noti: number;
+  };
+}> = ({group}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const isOk = group.img.length > 0 && group.name.length > 0;
 
   return (
     <View
@@ -247,16 +307,22 @@ const Footer: React.FC = () => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          console.log('Tạo đề');
+          if (isOk) {
+            ownerGroup.push(group);
+            navigation.navigate('NetWork');
+          }
         }}
-        style={{
-          backgroundColor: '#D2FD7C',
-          width: '45%',
-          height: vh(7),
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 16,
-        }}>
+        disabled={!isOk}
+        style={[
+          {
+            width: '45%',
+            height: vh(7),
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 16,
+          },
+          isOk ? {backgroundColor: '#D2FD7C'} : {backgroundColor: '#A7A7A7'},
+        ]}>
         <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>
           Lưu
         </Text>

@@ -186,11 +186,11 @@ const OnwerView: React.FC = () => {
             }}
             key={index}>
             <Image
-              width={vw(10)}
-              height={vw(5)}
-              resizeMode="contain"
+              width={vw(12)}
+              height={vw(12)}
+              resizeMode="cover"
               style={{borderRadius: vw(20)}}
-              source={item.img}
+              source={typeof item.img === 'string' ? {uri: item.img} : item.img}
             />
             <View style={{flex: 1}}>
               <Text style={{color: '#FFFFFF'}}>{item.name}</Text>
