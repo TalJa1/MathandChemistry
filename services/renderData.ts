@@ -984,3 +984,63 @@ export const postData = [
     time: 56,
   },
 ];
+
+export const horizontalContactData = [
+  {img: require('../assets/profile/pro2.png'), name: 'Bùi Công Duy'},
+  {img: require('../assets/profile/pro3.png'), name: 'Nguyễn Xun Hường'},
+  {img: require('../assets/profile/pro4.png'), name: 'Trần Thị Xuân Mai '},
+  {img: require('../assets/profile/pro5.png'), name: 'Nguyễn Trường Sơn'},
+  {img: require('../assets/profile/pro2.png'), name: 'Lê Quang Trung'},
+];
+
+export const verticalContactData = [
+  {
+    img: require('../assets/profile/pro1.png'),
+    name: 'Phan Ðức Toản',
+    des: 'How are you today?',
+    noti: 3,
+    time: 2,
+  },
+  {
+    img: require('../assets/profile/pro2.png'),
+    name: 'Nguyễn Văn A',
+    des: 'Chào bạn, bạn khỏe không?',
+    noti: 0,
+    time: 1,
+  },
+  {
+    img: require('../assets/profile/pro3.png'),
+    name: 'Trần Thị B',
+    des: 'Hôm nay bạn thế nào?',
+    noti: 0,
+    time: 3,
+  },
+  {
+    img: require('../assets/profile/pro4.png'),
+    name: 'Lê Văn C',
+    des: 'Bạn có rảnh không?',
+    noti: 0,
+    time: 4,
+  },
+  {
+    img: require('../assets/profile/pro5.png'),
+    name: 'Phạm Thị D',
+    des: 'Chúng ta gặp nhau nhé?',
+    noti: 0,
+    time: 5,
+  },
+  {
+    img: require('../assets/profile/pro2.png'),
+    name: 'Hoàng Văn E',
+    des: 'Bạn đang làm gì?',
+    noti: 0,
+    time: 6,
+  },
+  {
+    img: require('../assets/profile/pro3.png'),
+    name: 'Đỗ Thị F',
+    des: 'Hẹn gặp bạn sau nhé!',
+    noti: 0,
+    time: 7,
+  },
+];
