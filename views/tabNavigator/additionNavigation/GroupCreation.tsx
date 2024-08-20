@@ -33,7 +33,22 @@ const GroupCreation = () => {
     amount: 0,
     noti: 1,
   });
-  console.log('Group:', group);
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+
+  const handlePress = (index: number) => {
+    setSelectedIndices(prevSelectedIndices => {
+      const newSelectedIndices = prevSelectedIndices.includes(index)
+        ? prevSelectedIndices.filter(i => i !== index)
+        : [...prevSelectedIndices, index];
+
+      setGroup(prevGroup => ({
+        ...prevGroup,
+        amount: newSelectedIndices.length,
+      }));
+
+      return newSelectedIndices;
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +68,12 @@ const GroupCreation = () => {
       <ScrollView
         style={{paddingHorizontal: vw(5)}}
         contentContainerStyle={{paddingVertical: vh(2)}}>
-        <MainContent setGroup={setGroup} group={group} />
+        <MainContent
+          setGroup={setGroup}
+          group={group}
+          handlePress={handlePress}
+          selectedIndices={selectedIndices}
+        />
       </ScrollView>
       <Shadow
         distance={10}
@@ -85,7 +105,9 @@ const MainContent: React.FC<{
       noti: number;
     }>
   >;
-}> = ({setGroup, group}) => {
+  handlePress: (index: number) => void;
+  selectedIndices: number[];
+}> = ({setGroup, group, handlePress, selectedIndices}) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const pickImage = () => {
@@ -130,10 +152,14 @@ const MainContent: React.FC<{
       <RenderRecommendedMembers
         data={recomendationPersonData}
         label="Mời thành viên"
+        handlePress={handlePress}
+        selectedIndices={selectedIndices}
       />
       <RenderRecommendedMembers
         data={recomendationAdminData}
         label="Quản trị viên"
+        handlePress={handlePress}
+        selectedIndices={selectedIndices}
       />
       <View style={{width: '100%', rowGap: vh(1)}}>
         <Text style={{color: '#F7F9FA'}}>Quyền riêng tư</Text>
@@ -158,7 +184,9 @@ const MainContent: React.FC<{
 const RenderRecommendedMembers: React.FC<{
   data: RecommendationDataProps[];
   label: string;
-}> = ({data, label}) => {
+  handlePress: (index: number) => void;
+  selectedIndices: number[];
+}> = ({data, label, handlePress, selectedIndices}) => {
   return (
     <View>
       <View>
@@ -191,6 +219,8 @@ const RenderRecommendedMembers: React.FC<{
           {data.map((item, index) => (
             <TouchableOpacity
               key={index}
+              disabled={label === 'Quản trị viên' ? true : false}
+              onPress={() => handlePress(index)}
               style={{
                 width: vw(25),
                 height: vw(25),
@@ -209,7 +239,7 @@ const RenderRecommendedMembers: React.FC<{
               />
               <Text
                 style={{
-                  color: 'white',
+                  color: selectedIndices.includes(index) ? 'yellow' : 'white',
                   fontSize: 16,
                   fontWeight: '500',
                   textAlign: 'center',
