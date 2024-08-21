@@ -36,9 +36,30 @@ const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [loginAcc, setLoginAcc] = useState<LoginAccountProps[]>([]);
-  const [account, setAccount] = useState({
+  const [account, setAccount] = useState<LoginAccountProps>({
     email: 'Te@gmail.com',
     password: 'test1234',
+    role: '',
+    accInfor: {
+      language: '',
+      who: '',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [],
+      difficulty: {
+        math: [],
+        chemistry: [],
+      },
+      infor: {
+        name: '',
+        school: '',
+        city: '',
+        image: [],
+      },
+    },
   });
   const [error, setError] = useState('');
 
@@ -69,7 +90,7 @@ const SignInPage: React.FC = () => {
       const role = loginAcc.find(acc => acc.email === account.email)?.role;
       switch (role) {
         case 'STUDENT':
-          console.log('Student');
+          navigation.navigate('Main');
           break;
         case 'TEACHER':
           console.log('Teacher');

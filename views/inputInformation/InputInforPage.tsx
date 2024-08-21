@@ -811,6 +811,7 @@ const LanguageOptionsLayout: React.FC<languageOptionsProps> = ({
       <Image source={img} style={styles.languageOptionImage} />
       <Text style={styles.languageOptionText}>{name}</Text>
       <CheckBox
+        disabled={name === 'Việt Nam' ? false : true}
         value={isSelected}
         // onValueChange={name === 'Việt Nam' ? setSelection : () => {}}
         onValueChange={handleSelectionChange}

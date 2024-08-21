@@ -164,7 +164,7 @@ const App = () => {
   return (
     <NavigationContainer>
       {/* Main || Login */}
-      <Stack.Navigator initialRouteName="Main">
+      <Stack.Navigator initialRouteName="Login">
         {/* Profile page */}
         <Stack.Screen
           name="Chat"
