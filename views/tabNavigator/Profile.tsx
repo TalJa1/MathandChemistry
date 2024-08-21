@@ -205,9 +205,15 @@ const RenderItem: React.FC<{
 };
 
 const ProfileTab: React.FC<{user: LoginAccountProps}> = ({user}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View style={{flexDirection: 'row'}}>
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('UserProfile', {
+            user: user,
+          });
+        }}
         style={{
           flexDirection: 'row',
           flex: 1,
@@ -246,7 +252,7 @@ const ProfileTab: React.FC<{user: LoginAccountProps}> = ({user}) => {
             Lớp {user.accInfor.class ?? 11}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
