@@ -42,9 +42,10 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {loadData, saveData} from '../../services/storage';
-import {loginAccountStorage} from '../../data/rootStorage';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {loadData, saveData, updateData} from '../../services/storage';
+import {loginAccountStorage, loginIndexStorage} from '../../data/rootStorage';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type InputInforRouteProp = RouteProp<InputInforStackParamList, 'InputInfor'>;
 
@@ -76,6 +77,7 @@ const InputInforPage: React.FC = () => {
       image: [],
     },
   });
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   // Load data from loginAccountStorage
   useEffect(() => {
@@ -98,7 +100,18 @@ const InputInforPage: React.FC = () => {
       );
       if (dataSearch) {
         dataSearch.accInfor = globalData;
-        await saveData(loginAccountStorage, data);
+        const index = data.findIndex(
+          item => item.email === email && item.password === password,
+        );
+        await saveData(loginIndexStorage, index);
+        await updateData(loginAccountStorage, data)
+          .then(() => {
+            console.log('Data updated');
+            navigation.navigate('Main');
+          })
+          .catch(error => {
+            console.log(error);
+          });
       } else {
         console.log('Data not found');
       }

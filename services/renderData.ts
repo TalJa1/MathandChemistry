@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+export const loginIndex = -1;
+
 export const loginAccount = [
   {
     email: 'St@gmail.com',

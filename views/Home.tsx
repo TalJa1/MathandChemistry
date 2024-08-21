@@ -23,11 +23,28 @@ import {
 } from '../assets/svgXml';
 import * as Progress from 'react-native-progress';
 import ToggleSwitch from 'toggle-switch-react-native';
+import {loadData, saveData} from '../services/storage';
+import {loginIndexStorage} from '../data/rootStorage';
 
 const Home = () => {
   useStatusBar('black');
   const [containerWidth, setContainerWidth] = useState(0);
   const [toggleNotice, setToggleNotice] = useState(false);
+  const [loginIndex, setLoginIndex] = useState(-1);
+
+  console.log('loginIndex', loginIndex);
+
+  // use useEffect to get loginIndex from storage
+  React.useEffect(() => {
+    loadData<number>(loginIndexStorage)
+      .then(loadedData => {
+        setLoginIndex(loadedData);
+      })
+      .catch(() => {
+        saveData(loginIndexStorage, 0);
+        setLoginIndex(0);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -29,7 +29,7 @@ import {checkIcon} from '../../assets/svgXml';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {loadData, saveData} from '../../services/storage';
-import {loginAccountStorage} from '../../data/rootStorage';
+import {loginAccountStorage, loginIndexStorage} from '../../data/rootStorage';
 import {loginAccount} from '../../services/renderData';
 
 const SignInPage: React.FC = () => {
@@ -57,7 +57,7 @@ const SignInPage: React.FC = () => {
     setAccount(prevState => ({...prevState, [field]: value}));
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const accountExists = loginAcc.some(
       acc => acc.email === account.email && acc.password === account.password,
     );
@@ -67,8 +67,10 @@ const SignInPage: React.FC = () => {
     } else {
       setError('');
       const role = loginAcc.find(acc => acc.email === account.email)?.role;
+      const index = loginAcc.findIndex(acc => acc.email === account.email);
       switch (role) {
         case 'STUDENT':
+          await saveData(loginIndexStorage, index);
           navigation.navigate('Main');
           break;
         case 'TEACHER':
