@@ -36,30 +36,9 @@ const SignInPage: React.FC = () => {
   useStatusBar('black');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [loginAcc, setLoginAcc] = useState<LoginAccountProps[]>([]);
-  const [account, setAccount] = useState<LoginAccountProps>({
+  const [account, setAccount] = useState({
     email: 'Te@gmail.com',
     password: 'test1234',
-    role: '',
-    accInfor: {
-      language: '',
-      who: '',
-      class: 11,
-      ability: {
-        math: 50,
-        chemistry: 50,
-      },
-      goal: [],
-      difficulty: {
-        math: [],
-        chemistry: [],
-      },
-      infor: {
-        name: '',
-        school: '',
-        city: '',
-        image: [],
-      },
-    },
   });
   const [error, setError] = useState('');
 
