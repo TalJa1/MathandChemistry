@@ -12,6 +12,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const editIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.1298 5.12565L8.46313 2.45898M11.1298 5.12565L7.79749 8.45795C7.35839 8.89705 6.82539 9.24374 6.21345 9.34928C5.59557 9.45585 4.82879 9.49131 4.46313 9.12565C4.09746 8.75999 4.13293 7.99321 4.23949 7.37533C4.34504 6.76339 4.69173 6.23038 5.13083 5.79128L8.46313 2.45898M11.1298 5.12565C11.1298 5.12565 13.1298 3.12565 11.7965 1.79232C10.4631 0.458984 8.46313 2.45898 8.46313 2.45898M12.1668 7.00065C12.1668 11.334 10.8335 12.6673 6.50016 12.6673C2.16683 12.6673 0.833496 11.334 0.833496 7.00065C0.833496 2.66732 2.16683 1.33398 6.50016 1.33398" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const greenStickIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 0.5C3.86 0.5 0.5 3.86 0.5 8C0.5 12.14 3.86 15.5 8 15.5C12.14 15.5 15.5 12.14 15.5 8C15.5 3.86 12.14 0.5 8 0.5ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM11.4425 4.685L6.5 9.6275L4.5575 7.6925L3.5 8.75L6.5 11.75L12.5 5.75L11.4425 4.685Z" fill=${

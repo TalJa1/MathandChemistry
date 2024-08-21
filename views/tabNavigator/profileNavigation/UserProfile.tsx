@@ -6,13 +6,15 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React from 'react';
-import {containerStyle, vw, vh} from '../../../services/styleSheets';
+import {containerStyle, vw, vh, centerAll} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useRoute} from '@react-navigation/native';
 import {LoginAccountProps} from '../../../services/typeProps';
+import {addIconSVG, editIcon, greenStickIcon} from '../../../assets/svgXml';
 
 const UserProfile = () => {
   // useStatusBar('black');
@@ -36,7 +38,76 @@ const MainInfo: React.FC<{user: LoginAccountProps}> = ({user}) => {
       <Text style={{color: '#FFFFFF', fontSize: 18, fontWeight: '600'}}>
         {user.accInfor.infor.name}
       </Text>
-      <Text style={{color: '#FFFFFF'}}>{user.email}</Text>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={{color: '#FFFFFF'}}>{user.email} </Text>
+        {greenStickIcon(vw(4), vw(4))}
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          width: '100%',
+          paddingHorizontal: vw(5),
+          marginTop: vh(3),
+        }}>
+        <VerticalInfoRender label="Theo dõi" data={205} />
+        <VerticalInfoRender label="Đang theo dõi" data={500} />
+        <VerticalInfoRender label="Lượt lưu đề" data={282} />
+      </View>
+      <View
+        style={{
+          width: '100%',
+          paddingHorizontal: vw(5),
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: vh(2),
+        }}>
+        <TouchableOpacity
+          style={[
+            {
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              width: '40%',
+              height: vh(4),
+              borderRadius: 10,
+            },
+            centerAll,
+          ]}>
+          <Text style={{color: 'black'}}>Đăng tải</Text>
+          {addIconSVG(vw(5), vw(5), 'black')}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            {
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderWidth: 2,
+              borderColor: 'white',
+              width: '40%',
+              height: vh(4),
+              borderRadius: 10,
+            },
+            centerAll,
+          ]}>
+          <Text style={{color: 'white'}}>Sửa thông tin</Text>
+          {editIcon(vw(5), vw(5), 'white')}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const VerticalInfoRender: React.FC<{label: string; data: number}> = ({
+  label,
+  data,
+}) => {
+  return (
+    <View style={{alignItems: 'center'}}>
+      <Text style={{color: '#FFFFFF', fontWeight: '700', fontSize: 24}}>
+        {data}
+      </Text>
+      <Text style={{color: '#A7A7A7'}}>{label}</Text>
     </View>
   );
 };
