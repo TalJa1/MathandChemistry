@@ -12,6 +12,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const greenStickIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 0.5C3.86 0.5 0.5 3.86 0.5 8C0.5 12.14 3.86 15.5 8 15.5C12.14 15.5 15.5 12.14 15.5 8C15.5 3.86 12.14 0.5 8 0.5ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM11.4425 4.685L6.5 9.6275L4.5575 7.6925L3.5 8.75L6.5 11.75L12.5 5.75L11.4425 4.685Z" fill=${
+    color ?? '#69CB84'
+  } style="fill:#69CB84;fill:color(display-p3 0.4118 0.7961 0.5176);fill-opacity:1;"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const attachmentIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M10.8791 6.3743L5.39309 11.8603C4.56709 12.6863 4.56709 14.0263 5.39309 14.8523V14.8523C6.21909 15.6783 7.55909 15.6783 8.38509 14.8523L15.6171 7.6203C17.1321 6.1053 17.1321 3.6493 15.6171 2.1343V2.1343C14.1021 0.619297 11.6461 0.619297 10.1311 2.1343L2.89909 9.3663C0.695094 11.5703 0.695094 15.1423 2.89909 17.3463V17.3463C5.10309 19.5503 8.67509 19.5503 10.8791 17.3463L15.2681 12.9573" stroke=${
