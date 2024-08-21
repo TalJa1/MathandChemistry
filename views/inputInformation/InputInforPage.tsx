@@ -100,6 +100,9 @@ const InputInforPage: React.FC = () => {
       );
       if (dataSearch) {
         dataSearch.accInfor = globalData;
+        globalData.who === 'Học sinh'
+          ? (dataSearch.role = 'STUDENT')
+          : (dataSearch.role = 'TEACHER');
         const index = data.findIndex(
           item => item.email === email && item.password === password,
         );
