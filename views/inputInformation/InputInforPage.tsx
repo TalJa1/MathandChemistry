@@ -217,7 +217,7 @@ const InputInforPage: React.FC = () => {
             isNext === false ? {backgroundColor: '#464646'} : {},
           ]}>
           <Text style={{color: '#1B1B1B', fontSize: 16, fontWeight: '600'}}>
-            Tiếp tục
+            {step < 6 ? 'Tiếp theo' : 'Bắt đầu trải nghiệm thôi!'}
           </Text>
         </TouchableOpacity>
       </View>
