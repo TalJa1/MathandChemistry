@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../services/useStatusBarCustom';
 import {centerAll, vh, vw} from '../services/styleSheets';
@@ -24,18 +24,42 @@ import {
 import * as Progress from 'react-native-progress';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {loadData, saveData} from '../services/storage';
-import {loginIndexStorage} from '../data/rootStorage';
+import {loginAccountStorage, loginIndexStorage} from '../data/rootStorage';
+import {LoginAccountProps} from '../services/typeProps';
 
 const Home = () => {
   useStatusBar('black');
   const [containerWidth, setContainerWidth] = useState(0);
   const [toggleNotice, setToggleNotice] = useState(false);
   const [loginIndex, setLoginIndex] = useState(-1);
-
-  console.log('loginIndex', loginIndex);
+  const [user, setUser] = useState<LoginAccountProps>({
+    email: '',
+    password: '',
+    role: '',
+    accInfor: {
+      language: '',
+      who: '',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [],
+      difficulty: {
+        math: [],
+        chemistry: [],
+      },
+      infor: {
+        name: '',
+        school: '',
+        city: '',
+        image: [],
+      },
+    },
+  });
 
   // use useEffect to get loginIndex from storage
-  React.useEffect(() => {
+  useEffect(() => {
     loadData<number>(loginIndexStorage)
       .then(loadedData => {
         setLoginIndex(loadedData);
@@ -46,10 +70,26 @@ const Home = () => {
       });
   }, []);
 
+  // use useEffect to get user from loginIndex
+  useEffect(() => {
+    if (loginIndex !== -1) {
+      loadData<LoginAccountProps[]>(loginAccountStorage)
+        .then(accounts => {
+          const currentUser = accounts[loginIndex];
+          if (currentUser) {
+            setUser(currentUser);
+          }
+        })
+        .catch(error => {
+          console.error('Failed to load user data:', error);
+        });
+    }
+  }, [loginIndex]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Header />
+        <Header data={user} />
         <View
           style={{
             paddingHorizontal: vw(3),
@@ -356,7 +396,7 @@ const Home = () => {
   );
 };
 
-const Header: React.FC = () => {
+const Header: React.FC<{data: LoginAccountProps}> = ({data}) => {
   return (
     <View
       style={{
@@ -378,8 +418,13 @@ const Header: React.FC = () => {
           },
         ]}>
         <Image
-          style={{width: vw(10), height: vw(10), resizeMode: 'contain'}}
-          source={require('../assets/home/profileDefault.png')}
+          style={{width: vw(10), height: vw(10), resizeMode: 'cover'}}
+          source={
+            data.accInfor.infor.image[0] &&
+            typeof data.accInfor.infor.image[0] === 'string'
+              ? {uri: data.accInfor.infor.image[0]}
+              : require('../assets/home/profileDefault.png')
+          }
         />
       </View>
       <View style={{flex: 1, marginHorizontal: 10}}>
