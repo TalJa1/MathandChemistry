@@ -38,6 +38,7 @@ import OnwerGroup from './views/tabNavigator/networkNavigation/OnwerGroup';
 import Statistic from './views/tabNavigator/profileNavigation/Statistic';
 import KeepInTouch from './views/tabNavigator/profileNavigation/KeepInTouch';
 import Chat from './views/tabNavigator/profileNavigation/Chat';
+import UserProfile from './views/tabNavigator/profileNavigation/UserProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -166,6 +167,11 @@ const App = () => {
       {/* Main || Login */}
       <Stack.Navigator initialRouteName="Login">
         {/* Profile page */}
+        <Stack.Screen
+          name="UserProfile"
+          component={UserProfile}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Chat"
           component={Chat}

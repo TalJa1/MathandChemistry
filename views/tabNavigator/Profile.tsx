@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import {centerAll, containerStyle, vh, vw} from '../../services/styleSheets';
@@ -26,16 +26,72 @@ import {
 import ToggleSwitch from 'toggle-switch-react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {LoginAccountProps} from '../../services/typeProps';
+import {loadData} from '../../services/storage';
+import {loginAccountStorage, loginIndexStorage} from '../../data/rootStorage';
 
 const Profile = () => {
   useStatusBar('black');
+  const [loginIndex, setLoginIndex] = useState(-1);
+  const [user, setUser] = useState<LoginAccountProps>({
+    email: '',
+    password: '',
+    role: '',
+    accInfor: {
+      language: '',
+      who: '',
+      class: 11,
+      ability: {
+        math: 50,
+        chemistry: 50,
+      },
+      goal: [],
+      difficulty: {
+        math: [],
+        chemistry: [],
+      },
+      infor: {
+        name: '',
+        school: '',
+        city: '',
+        image: [],
+      },
+    },
+  });
+
+  // use useEffect to load index from loginIndexStorage
+  React.useEffect(() => {
+    loadData<number>(loginIndexStorage)
+      .then(index => {
+        setLoginIndex(index);
+      })
+      .catch(error => {
+        console.error('Failed to load login index:', error);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    if (loginIndex !== -1) {
+      loadData<LoginAccountProps[]>(loginAccountStorage)
+        .then(accounts => {
+          const currentUser = accounts[loginIndex];
+          if (currentUser) {
+            setUser(currentUser);
+          }
+        })
+        .catch(error => {
+          console.error('Failed to load user data:', error);
+        });
+    }
+  }, [loginIndex]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Cá nhân" />
       <ScrollView
         style={{paddingHorizontal: vw(5)}}
         contentContainerStyle={{paddingVertical: vh(1)}}>
-        <ProfileTab />
+        <ProfileTab user={user} />
         <MainContent />
       </ScrollView>
     </SafeAreaView>
@@ -148,7 +204,7 @@ const RenderItem: React.FC<{
   );
 };
 
-const ProfileTab: React.FC = () => {
+const ProfileTab: React.FC<{user: LoginAccountProps}> = ({user}) => {
   return (
     <View style={{flexDirection: 'row'}}>
       <View
@@ -162,12 +218,17 @@ const ProfileTab: React.FC = () => {
           style={{
             width: vw(15),
             height: vw(15),
-            resizeMode: 'contain',
+            resizeMode: 'cover',
             borderRadius: vw(20),
             borderWidth: 2,
             borderColor: '#3E6280',
           }}
-          source={require('../../assets/profile/pro1.png')}
+          source={
+            user.accInfor.infor.image[0] &&
+            typeof user.accInfor.infor.image[0] === 'string'
+              ? {uri: user.accInfor.infor.image[0]}
+              : require('../../assets/profile/pro1.png')
+          }
         />
         <View style={{flex: 1}}>
           <View
@@ -177,11 +238,13 @@ const ProfileTab: React.FC = () => {
               justifyContent: 'space-between',
             }}>
             <Text style={{color: '#FFFFFF', fontSize: 16, fontWeight: '700'}}>
-              Nguyễn Minh Hòa
+              {user.accInfor.infor.name ?? 'Nguyễn Minh Hòa'}
             </Text>
             {nextIconnotArrow(vw(5), vw(5))}
           </View>
-          <Text style={{color: '#A7A7A7'}}>Lớp 11</Text>
+          <Text style={{color: '#A7A7A7'}}>
+            Lớp {user.accInfor.class ?? 11}
+          </Text>
         </View>
       </View>
     </View>
