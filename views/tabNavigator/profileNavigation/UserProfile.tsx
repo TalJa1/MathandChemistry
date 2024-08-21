@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {containerStyle, vw, vh, centerAll} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useRoute} from '@react-navigation/native';
@@ -20,6 +20,8 @@ const UserProfile = () => {
   // useStatusBar('black');
   const route = useRoute();
   const {user} = route.params as {user: LoginAccountProps};
+  const tabs = ['Bài đăng', 'Đề đăng tải', 'Quản trị nhóm'];
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,8 +29,57 @@ const UserProfile = () => {
       <ScrollView>
         <ImageGrp user={user} />
         <MainInfo user={user} />
+        <View
+          style={{
+            marginVertical: vh(2),
+            marginHorizontal: vw(3),
+            borderBottomWidth: 2,
+            borderColor: '#FFFFFF',
+          }}
+        />
+        <TabsRender
+          tabs={tabs}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const TabsRender: React.FC<{
+  tabs: string[];
+  selectedTab: number;
+  setSelectedTab: React.Dispatch<React.SetStateAction<number>>;
+}> = ({tabs, selectedTab, setSelectedTab}) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        marginHorizontal: vw(5),
+        backgroundColor: '#D2FD7C',
+        justifyContent: 'space-between',
+        borderRadius: 10,
+        height: vh(6),
+        alignItems: 'center',
+        paddingHorizontal: vw(2),
+      }}>
+      {tabs.map((tab, index) => (
+        <TouchableOpacity
+          key={index}
+          disabled={index > 0}
+          style={[styles.tab, selectedTab === index && styles.selectedTab]}
+          onPress={() => setSelectedTab(index)}>
+          <Text
+            style={[
+              styles.tabText,
+              selectedTab === index && styles.selectedTabText,
+            ]}>
+            {tab}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
 
@@ -36,10 +87,10 @@ const MainInfo: React.FC<{user: LoginAccountProps}> = ({user}) => {
   return (
     <View style={{width: vw(100), alignItems: 'center'}}>
       <Text style={{color: '#FFFFFF', fontSize: 18, fontWeight: '600'}}>
-        {user.accInfor.infor.name}
+        {user.accInfor.infor.name ?? 'Chưa cập nhật'}
       </Text>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={{color: '#FFFFFF'}}>{user.email} </Text>
+        <Text style={{color: '#FFFFFF'}}>{user.email ?? 'Chưa cập nhật'} </Text>
         {greenStickIcon(vw(4), vw(4))}
       </View>
       <View
@@ -162,4 +213,20 @@ export default UserProfile;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  tab: {
+    width: '30%',
+    height: vh(5),
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedTab: {
+    backgroundColor: 'black',
+  },
+  tabText: {
+    color: '#464646',
+  },
+  selectedTabText: {
+    color: '#D2FD7C',
+  },
 });
