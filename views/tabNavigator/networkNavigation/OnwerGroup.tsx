@@ -183,7 +183,7 @@ const Post: React.FC<PostProps & {isRender: boolean}> = ({
           />
           <PostBottom
             icon={commentIcon(vw(5), vw(5), '#7C7C7C')}
-            props={props.time}
+            props={props.comment}
           />
           <PostBottom icon={shareIcon(vw(5), vw(5), '#7C7C7C')} />
           <PostBottom icon={saveIcon(vw(5), vw(5), '#7C7C7C')} />

@@ -14,7 +14,16 @@ import {containerStyle, vw, vh, centerAll} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useRoute} from '@react-navigation/native';
 import {LoginAccountProps} from '../../../services/typeProps';
-import {addIconSVG, editIcon, greenStickIcon} from '../../../assets/svgXml';
+import {
+  addIconSVG,
+  commentIcon,
+  editIcon,
+  greenStickIcon,
+  heartIcon,
+  saveIcon,
+  shareIcon,
+} from '../../../assets/svgXml';
+import {profilePostData} from '../../../services/renderData';
 
 const UserProfile = () => {
   // useStatusBar('black');
@@ -42,8 +51,97 @@ const UserProfile = () => {
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         />
+        <PostRender user={user} />
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const PostRender: React.FC<{user: LoginAccountProps}> = ({user}) => {
+  return (
+    <View
+      style={{rowGap: vh(2), marginVertical: vh(1), paddingHorizontal: vw(5)}}>
+      {profilePostData.map((post, index) => (
+        <View
+          key={index}
+          style={[
+            {
+              rowGap: vh(1),
+              borderColor: '#464646',
+              borderBottomWidth: 1,
+              paddingBottom: vh(1),
+            },
+          ]}>
+          <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                alignItems: 'center',
+              }}>
+              {user.accInfor.infor.image[0] &&
+              typeof user.accInfor.infor.image[0] === 'string' ? (
+                <Image
+                  style={{
+                    width: vw(10),
+                    height: vw(10),
+                    resizeMode: 'cover',
+                    borderRadius: vw(10),
+                  }}
+                  source={{uri: user.accInfor.infor.image[0]}}
+                />
+              ) : (
+                <Image
+                  style={{
+                    width: vw(10),
+                    height: vw(10),
+                    resizeMode: 'cover',
+                    borderRadius: vw(10),
+                  }}
+                  source={require('../../../assets/profile/mainPro.png')}
+                />
+              )}
+              <View style={{marginLeft: vw(2), flex: 1}}>
+                <Text style={{color: '#FFFFFF', fontWeight: '700'}}>
+                  {user.accInfor.infor.name ?? 'Chưa cập nhật'}
+                </Text>
+              </View>
+              <Text style={{color: '#A7A7A7'}}>{post.time} giờ trước</Text>
+            </View>
+          </View>
+          <View>
+            <Text style={{color: '#FFFFFF', fontSize: 16}}>{post.des}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+            }}>
+            <PostBottom
+              icon={heartIcon(vw(5), vw(5), '#B65A46')}
+              props={post.time}
+            />
+            <PostBottom
+              icon={commentIcon(vw(5), vw(5), '#7C7C7C')}
+              props={post.comment}
+            />
+            <PostBottom icon={shareIcon(vw(5), vw(5), '#7C7C7C')} />
+            <PostBottom icon={saveIcon(vw(5), vw(5), '#7C7C7C')} />
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+};
+
+const PostBottom: React.FC<{icon: any; props?: number}> = ({props, icon}) => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      {icon}
+      {props && <Text style={{color: '#6D6D6D'}}> {props}</Text>}
+    </View>
   );
 };
 
@@ -60,7 +158,7 @@ const TabsRender: React.FC<{
         backgroundColor: '#D2FD7C',
         justifyContent: 'space-between',
         borderRadius: 10,
-        height: vh(6),
+        height: vh(5),
         alignItems: 'center',
         paddingHorizontal: vw(2),
       }}>
@@ -215,7 +313,7 @@ const styles = StyleSheet.create({
   container: containerStyle,
   tab: {
     width: '30%',
-    height: vh(5),
+    height: vh(4),
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

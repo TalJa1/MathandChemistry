@@ -1046,3 +1046,36 @@ export const verticalContactData = [
     time: 7,
   },
 ];
+
+export const profilePostData = [
+  {
+    des: 'Mình muốn tham khảo sách nâng cao môn toán, cần gợi ý của mọi người ạ.',
+    time: 3,
+    heart: 22,
+    comment: 10,
+  },
+  {
+    des: 'Ai có tài liệu về giải tích không? Mình cần tham khảo.',
+    time: 5,
+    heart: 15,
+    comment: 8,
+  },
+  {
+    des: 'Có ai biết sách nào hay về hình học không? Mình đang tìm kiếm.',
+    time: 2,
+    heart: 30,
+    comment: 12,
+  },
+  {
+    des: 'Mình cần tài liệu về đại số tuyến tính, ai có thể giúp mình không?',
+    time: 4,
+    heart: 18,
+    comment: 5,
+  },
+  {
+    des: 'Mọi người có thể gợi ý sách nâng cao về xác suất thống kê không?',
+    time: 1,
+    heart: 25,
+    comment: 7,
+  },
+];
