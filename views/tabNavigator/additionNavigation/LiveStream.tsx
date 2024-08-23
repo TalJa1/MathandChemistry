@@ -3,18 +3,20 @@
 import {
   Image,
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {
   cameraIcon,
   cancelIcon,
+  downArrowIcon,
   frontBackCameraIcon,
   liveStreamBackIcon,
   liveStreamHandRaiseIcon,
@@ -25,15 +27,28 @@ import {
   menuIcon,
   micIcon,
   pinIcon,
+  upArrowIcon,
+  vertical3dotsIcon,
   viewIcon,
+  voiceIcon,
 } from '../../../assets/svgXml';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import SearchBar from '../../../components/docs/SearchBar';
+import {liveStreamViewersData} from '../../../services/renderData';
+import {loadData, saveData} from '../../../services/storage';
+import {LoginAccountProps} from '../../../services/typeProps';
+import {
+  loginAccountStorage,
+  loginIndexStorage,
+} from '../../../data/rootStorage';
 
 const LiveStream = () => {
   useStatusBar('black');
   const route = useRoute();
   const {data} = route.params as {data: string[]};
+  const [loginIndex, setLoginIndex] = useState(-1);
+  const [userName, setUserName] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [modalVisible, setModalVisible] = useState(false);
   const [menuModalVisible, setMenuModalVisible] = useState(false);
@@ -41,6 +56,31 @@ const LiveStream = () => {
 
   data.push('Nguyễn Văn A');
 
+  useEffect(() => {
+    loadData<number>(loginIndexStorage)
+      .then(loadedData => {
+        setLoginIndex(loadedData);
+      })
+      .catch(() => {
+        saveData(loginIndexStorage, 0);
+        setLoginIndex(0);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (loginIndex !== -1) {
+      loadData<LoginAccountProps[]>(loginAccountStorage)
+        .then(accounts => {
+          const currentUser = accounts[loginIndex];
+          if (currentUser) {
+            setUserName(currentUser.accInfor.infor.name || 'Hello');
+          }
+        })
+        .catch(error => {
+          console.error('Failed to load user data:', error);
+        });
+    }
+  }, [loginIndex]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={{paddingHorizontal: vw(5), flex: 1}}>
@@ -88,6 +128,8 @@ const LiveStream = () => {
       <ViewerModal
         viewerModalVisible={viewerModalVisible}
         setViewerModalVisible={setViewerModalVisible}
+        data={data}
+        username={userName}
       />
     </SafeAreaView>
   );
@@ -96,7 +138,9 @@ const LiveStream = () => {
 const ViewerModal: React.FC<{
   viewerModalVisible: boolean;
   setViewerModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({viewerModalVisible, setViewerModalVisible}) => {
+  data: string[];
+  username: string;
+}> = ({viewerModalVisible, setViewerModalVisible, data, username}) => {
   return (
     <Modal
       animationType="slide"
@@ -105,15 +149,99 @@ const ViewerModal: React.FC<{
       onRequestClose={() => setViewerModalVisible(false)}>
       <View style={styles.fullScreenModalContainer}>
         <View style={styles.fullScreenModalContent}>
+          <View
+            style={[
+              {backgroundColor: '#0D0D0D', height: vh(8), width: vw(100)},
+              centerAll,
+            ]}>
+            <Text style={{color: '#D2FD7C', fontSize: 18, fontWeight: '600'}}>
+              Người tham gia
+            </Text>
+          </View>
+          <ScrollView
+            style={{width: '100%', paddingHorizontal: vw(5)}}
+            contentContainerStyle={{paddingVertical: vh(2)}}>
+            <View style={{rowGap: vh(1)}}>
+              <SearchBar />
+              <ToggleContentLayout
+                label="Chủ phiên phát trực tiếp"
+                listUsers={[username]}
+              />
+              <ToggleContentLayout
+                listUsers={data.slice(0, 3)}
+                label="Đang trên phiên live"
+              />
+              <ToggleContentLayout
+                label="Người xem (9)"
+                listUsers={liveStreamViewersData}
+              />
+            </View>
+          </ScrollView>
           <TouchableOpacity
             onPress={() => setViewerModalVisible(false)}
-            style={styles.closeButton}>
-            <Text style={{color: '#FFFFFF'}}>Close</Text>
+            style={[styles.closeButton, centerAll]}>
+            <Text style={{color: '#0D0D0D', fontSize: 16, fontWeight: '500'}}>
+              Lưu thay đổi
+            </Text>
           </TouchableOpacity>
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>Viewer Modal</Text>
         </View>
       </View>
     </Modal>
+  );
+};
+
+const ToggleContentLayout: React.FC<{
+  label: string;
+  listUsers: string[];
+}> = ({label, listUsers}) => {
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
+  return (
+    <View style={styles.toggleContentLayout}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Text style={{color: '#FFFFFF', fontSize: 16, fontWeight: '700'}}>
+          {label}
+        </Text>
+        <TouchableOpacity
+          onPress={() => setIsContentVisible(!isContentVisible)}>
+          {isContentVisible ? (
+            <>{upArrowIcon(vw(5), vw(5), '#FFFFFF')}</>
+          ) : (
+            <>{downArrowIcon(vw(5), vw(5), '#FFFFFF')}</>
+          )}
+        </TouchableOpacity>
+      </View>
+      {isContentVisible && (
+        <View style={styles.content}>
+          {listUsers.map((user, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingVertical: vh(1),
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{color: '#FFFFFF', fontSize: 16}}>{user}</Text>
+              <View style={{flexDirection: 'row', columnGap: vw(1)}}>
+                {label === 'Đang trên phiên live' && index === 0 ? (
+                  <>{voiceIcon(vw(5), vw(5))}</>
+                ) : (
+                  <></>
+                )}
+                {micIcon(vw(5), vw(5))}
+                {vertical3dotsIcon(vw(5), vw(5))}
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
   );
 };
 
@@ -399,10 +527,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#B65A46',
-    borderRadius: 10,
+    backgroundColor: '#D2FD7C',
+    borderRadius: 15,
+    width: vw(90),
+    height: vh(7),
+    position: 'absolute',
+    bottom: vh(2),
   },
   modalBtnBackStyle: {
     padding: vw(5),
@@ -443,17 +573,24 @@ const styles = StyleSheet.create({
   },
   fullScreenModalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderTopRightRadius: 20,
+    overflow: 'hidden',
     borderTopLeftRadius: 20,
     backgroundColor: '#11131A',
   },
   fullScreenModalContent: {
     width: '100%',
     height: '100%',
-
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+  toggleContentLayout: {
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#464646',
+  },
+  content: {
+    marginTop: 10,
   },
 });

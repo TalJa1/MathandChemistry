@@ -12,6 +12,45 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const voiceIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 8V10M4 5V13M7 7V11M10 4V14M13 1V17M16 6V12M19 8V10" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const vertical3dotsIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="4" height="18" viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 2C3 1.44772 2.55228 1 2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3C2.55228 3 3 2.55228 3 2Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 9C3 8.44772 2.55228 8 2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10C2.55228 10 3 9.55228 3 9Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16C1 16.5523 1.44772 17 2 17C2.55228 17 3 16.5523 3 16Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const upArrowIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 6L6 1L1 6" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const liveStreamRecordIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.61833 15.1585C11.5404 15.1585 14.7778 11.9212 14.7778 8.00602C14.7778 4.09082 11.5335 0.853516 7.61141 0.853516C3.69621 0.853516 0.46582 4.09082 0.46582 8.00602C0.46582 11.9212 3.70312 15.1585 7.61833 15.1585ZM7.61833 13.7336C4.44328 13.7336 1.90462 11.1811 1.90462 8.00602C1.90462 4.83097 4.44328 2.2854 7.61141 2.2854C10.7865 2.2854 13.3389 4.83097 13.3459 8.00602C13.3528 11.1811 10.7934 13.7336 7.61833 13.7336ZM7.62524 10.7176C9.1263 10.7176 10.3368 9.50708 10.3368 7.9991C10.3368 6.50496 9.1263 5.28752 7.62524 5.28752C6.11727 5.28752 4.90674 6.50496 4.90674 7.9991C4.90674 9.50708 6.11727 10.7176 7.62524 10.7176Z" fill=${

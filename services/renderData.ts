@@ -1079,3 +1079,15 @@ export const profilePostData = [
     comment: 7,
   },
 ];
+
+export const liveStreamViewersData = [
+  'Nguyễn Văn A',
+  'Trần Thị B',
+  'Lê Văn C',
+  'Phạm Thị D',
+  'Hoàng Văn E',
+  'Đỗ Thị F',
+  'Bùi Công G',
+  'Nguyễn Xun H',
+  'Trần Thị I',
+];
