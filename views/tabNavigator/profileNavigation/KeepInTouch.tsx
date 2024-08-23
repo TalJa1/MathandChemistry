@@ -19,6 +19,8 @@ import {
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
+import {noticeIcon, trashCanIcon} from '../../../assets/svgXml';
 
 const KeepInTouch = () => {
   useStatusBar('black');
@@ -37,69 +39,59 @@ const KeepInTouch = () => {
 
 const VerticalContent: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  return (
-    <View style={{rowGap: vh(2)}}>
-      {verticalContactData.map((item, index) => (
-        <TouchableOpacity
-          disabled={index !== 0 ? true : false}
-          onPress={() => {
-            navigation.navigate('Chat', {index: index});
-          }}
-          key={index}
-          style={{
-            flexDirection: 'row',
-            columnGap: vw(2),
-          }}>
-          <Image
-            style={{
-              width: vw(15),
-              height: vw(15),
-              resizeMode: 'cover',
-              borderRadius: vw(20),
-            }}
-            source={item.img}
-          />
-          <View style={{flex: 1}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flex: 1,
-              }}>
-              <Text style={{color: '#FFFFFF', fontSize: 16, fontWeight: '600'}}>
-                {item.name}
-              </Text>
-              <Text style={{color: '#7C7C7C'}}>{item.time} phút trước</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flex: 1,
-              }}>
-              <Text style={{color: '#7C7C7C'}}>{item.des}</Text>
-              {item.noti > 0 ? (
-                <View
-                  style={[
-                    {
-                      backgroundColor: '#ED7234',
-                      width: 30,
-                      height: 30,
-                      borderRadius: vw(20),
-                    },
-                    centerAll,
-                  ]}>
-                  <Text style={{color: 'white'}}>{item.noti}</Text>
-                </View>
-              ) : (
-                <></>
-              )}
-            </View>
-          </View>
+
+  const renderRightActions = () => (
+    <View style={styles.rightActionContainer}>
+      <View style={[styles.actionButton, {backgroundColor: 'transparent'}]}>
+        <TouchableOpacity style={[styles.swipeBtn, {backgroundColor: 'white'}]}>
+          {noticeIcon(vw(5), vw(5), 'black')}
         </TouchableOpacity>
-      ))}
+      </View>
+      <View style={[styles.actionButton, {backgroundColor: 'transparent'}]}>
+        <TouchableOpacity
+          style={[styles.swipeBtn, {backgroundColor: '#ED7234'}]}>
+          {trashCanIcon(vw(5), vw(5), 'white')}
+        </TouchableOpacity>
+      </View>
     </View>
+  );
+
+  return (
+    <GestureHandlerRootView style={{flex: 1}}>
+      <View style={{rowGap: vh(2)}}>
+        {verticalContactData.map((item, index) => (
+          <Swipeable key={index} renderRightActions={renderRightActions}>
+            <TouchableOpacity
+              disabled={index === 0 ? false : true}
+              onPress={() => {
+                navigation.navigate('Chat', {index: index});
+              }}
+              style={{
+                flexDirection: 'row',
+                columnGap: vw(2),
+              }}>
+              <Image style={styles.image} source={item.img} />
+              <View style={{flex: 1}}>
+                <View style={styles.row}>
+                  <Text style={styles.nameText}>{item.name}</Text>
+                  <Text style={styles.timeText}>{item.time} phút trước</Text>
+                </View>
+                <View style={styles.row}>
+                  <Text style={styles.descriptionText}>{item.des}</Text>
+                  {item.noti > 0 ? (
+                    <View style={[styles.notification, centerAll]}>
+                      <Text style={styles.notificationText}>{item.noti}</Text>
+                    </View>
+                  ) : (
+                    <></>
+                  )}
+                </View>
+              </View>
+            </TouchableOpacity>
+          </Swipeable>
+        ))}
+      </View>
+    </GestureHandlerRootView>
   );
 };
 
@@ -137,4 +129,52 @@ export default KeepInTouch;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  rightActionContainer: {
+    flexDirection: 'row',
+    width: vw(30),
+  },
+  actionButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionText: {
+    color: 'white',
+  },
+  image: {
+    width: vw(15),
+    height: vw(15),
+    resizeMode: 'cover',
+    borderRadius: vw(20),
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  nameText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  timeText: {
+    color: '#7C7C7C',
+  },
+  descriptionText: {
+    color: '#7C7C7C',
+  },
+  notification: {
+    backgroundColor: '#ED7234',
+    width: 30,
+    height: 30,
+    borderRadius: vw(20),
+  },
+  notificationText: {
+    color: 'white',
+  },
+  swipeBtn: {
+    padding: vw(2),
+    borderRadius: vw(20),
+    overflow: 'hidden',
+  },
 });
