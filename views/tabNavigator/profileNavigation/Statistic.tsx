@@ -7,6 +7,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../../components/docs/Header';
 import {nextIcon} from '../../../assets/svgXml';
 import useStatusBar from '../../../services/useStatusBarCustom';
+import {LineChart} from 'react-native-gifted-charts';
 
 const Statistic = () => {
   useStatusBar('black');
@@ -23,9 +24,48 @@ const Statistic = () => {
           <SubjectRender color="#69CB84" title="Hóa" />
           <SubjectRender color="#A3A3F2" title="Toán" />
         </View>
+        <ChartRender />
         <InfoGroup />
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const ChartRender: React.FC = () => {
+  const getRandomValue = () => Math.floor(Math.random() * 41) + 60; // Random value between 60 and 100
+
+  const lineData = Array.from({length: 12}, (_, i) => ({
+    value: getRandomValue(),
+    dataPointText: `${getRandomValue()}`,
+    label: `t${i + 1}`,
+  }));
+
+  const lineData2 = Array.from({length: 12}, (_, i) => ({
+    value: getRandomValue(),
+    dataPointText: `${getRandomValue()}`,
+    label: `t${i + 1}`,
+  }));
+  return (
+    <View style={{marginVertical: vh(2)}}>
+      <LineChart
+        data={lineData}
+        data2={lineData2}
+        curved={true}
+        height={250}
+        spacing={44}
+        initialSpacing={20}
+        color1="#69CB84"
+        color2="#A3A3F2"
+        textColor1="green"
+        dataPointsHeight={6}
+        dataPointsWidth={6}
+        dataPointsColor1="blue"
+        dataPointsColor2="red"
+        textShiftY={-2}
+        textShiftX={-5}
+        textFontSize={13}
+      />
+    </View>
   );
 };
 
