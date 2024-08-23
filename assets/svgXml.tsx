@@ -12,6 +12,50 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const liveStreamRecordIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.61833 15.1585C11.5404 15.1585 14.7778 11.9212 14.7778 8.00602C14.7778 4.09082 11.5335 0.853516 7.61141 0.853516C3.69621 0.853516 0.46582 4.09082 0.46582 8.00602C0.46582 11.9212 3.70312 15.1585 7.61833 15.1585ZM7.61833 13.7336C4.44328 13.7336 1.90462 11.1811 1.90462 8.00602C1.90462 4.83097 4.44328 2.2854 7.61141 2.2854C10.7865 2.2854 13.3389 4.83097 13.3459 8.00602C13.3528 11.1811 10.7934 13.7336 7.61833 13.7336ZM7.62524 10.7176C9.1263 10.7176 10.3368 9.50708 10.3368 7.9991C10.3368 6.50496 9.1263 5.28752 7.62524 5.28752C6.11727 5.28752 4.90674 6.50496 4.90674 7.9991C4.90674 9.50708 6.11727 10.7176 7.62524 10.7176Z" fill=${
+    color ?? 'white'
+  } style="fill:white;fill-opacity:1;"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const liveStreamHandRaiseIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.54167 10.6667C5.54167 10.6667 6.79167 12.3333 8.875 12.3333C10.9583 12.3333 12.2083 10.6667 12.2083 10.6667M11.375 6.5H11.3833M6.375 6.5H6.38333M16.375 9C16.375 13.1421 13.0171 16.5 8.875 16.5C4.73286 16.5 1.375 13.1421 1.375 9C1.375 4.85786 4.73286 1.5 8.875 1.5C13.0171 1.5 16.375 4.85786 16.375 9Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const liveStreamScreenShareIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.7918 9.83333V13.5833C14.7918 16.1314 11.4585 16.0833 8.12516 16.0833C4.79183 16.0833 1.4585 16.1314 1.4585 13.5833V9.83333M8.12516 1.5L8.12516 11.5M8.12516 1.5L11.4585 4.83333M8.12516 1.5L4.79183 4.83333" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const liveStreamViewerIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.4585 16.5C18.6091 16.5 19.5418 15.5673 19.5418 14.4167C19.5418 12.4771 17.9154 11.6657 16.2085 11.3265M12.8752 8.16667C14.7161 8.16667 16.2085 6.67428 16.2085 4.83333C16.2085 2.99238 14.7161 1.5 12.8752 1.5M3.29183 16.5001H12.4585C13.6091 16.5001 14.5418 15.5674 14.5418 14.4168C14.5418 11.0161 9.54183 11.0834 7.87516 11.0834C6.2085 11.0834 1.2085 11.0161 1.2085 14.4168C1.2085 15.5674 2.14124 16.5001 3.29183 16.5001ZM11.2085 4.83333C11.2085 6.67428 9.71611 8.16667 7.87516 8.16667C6.03421 8.16667 4.54183 6.67428 4.54183 4.83333C4.54183 2.99238 6.03421 1.5 7.87516 1.5C9.71611 1.5 11.2085 2.99238 11.2085 4.83333Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const liveStreamStopIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7 1C4.33333 1 2 1.33333 1.66667 1.66667C1.33333 2 1 4.33333 1 7C1 9.66667 1.33333 12 1.66667 12.3333C2 12.6667 4.33333 13 7 13C9.66667 13 12 12.6667 12.3333 12.3333C12.6667 12 13 9.66667 13 7C13 4.33333 12.6667 2 12.3333 1.66667C12 1.33333 9.66667 1 7 1Z" stroke=${

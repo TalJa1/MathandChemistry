@@ -14,9 +14,14 @@ import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
 import {
   cameraIcon,
+  cancelIcon,
   frontBackCameraIcon,
   liveStreamBackIcon,
+  liveStreamHandRaiseIcon,
+  liveStreamRecordIcon,
+  liveStreamScreenShareIcon,
   liveStreamStopIcon,
+  liveStreamViewerIcon,
   menuIcon,
   micIcon,
   pinIcon,
@@ -31,6 +36,7 @@ const LiveStream = () => {
   const {data} = route.params as {data: string[]};
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
 
   data.push('Nguyễn Văn A');
 
@@ -63,7 +69,9 @@ const LiveStream = () => {
           {micIcon(vw(5), vw(5))}
           {cameraIcon(vw(5), vw(5))}
           {frontBackCameraIcon(vw(5), vw(5))}
-          {menuIcon(vw(5), vw(5))}
+          <TouchableOpacity onPress={() => setMenuModalVisible(true)}>
+            {menuIcon(vw(5), vw(5))}
+          </TouchableOpacity>
         </View>
       </View>
       <ModalBack
@@ -71,7 +79,101 @@ const LiveStream = () => {
         setModalVisible={setModalVisible}
         navigation={navigation}
       />
+      <MenuModal
+        menuModalVisible={menuModalVisible}
+        setMenuModalVisible={setMenuModalVisible}
+      />
     </SafeAreaView>
+  );
+};
+
+const MenuModal: React.FC<{
+  menuModalVisible: boolean;
+  setMenuModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({menuModalVisible, setMenuModalVisible}) => {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={menuModalVisible}
+      onRequestClose={() => setMenuModalVisible(false)}>
+      <View style={styles.menuModalContainer}>
+        <View style={styles.menuModalContent}>
+          <View
+            style={{
+              paddingVertical: vh(1),
+              height: '100%',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                height: '35%',
+                borderBottomWidth: 1,
+                borderBottomColor: '#1B1B1B',
+                paddingHorizontal: vw(5),
+              }}>
+              <Text style={{color: '#EFF0FA', fontSize: 16, fontWeight: '700'}}>
+                Lựa chọn
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setMenuModalVisible(false);
+                }}>
+                {cancelIcon(vw(5), vw(5), '#EFF0FA')}
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingTop: vh(1),
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                height: '65%',
+                paddingHorizontal: vw(5),
+              }}>
+              <RenderItemMenuModal
+                icon={liveStreamViewerIcon(vw(7), vw(7))}
+                label="Người xem"
+              />
+              <RenderItemMenuModal
+                icon={liveStreamScreenShareIcon(vw(7), vw(7))}
+                label="Chia sẻ màn hình"
+              />
+              <RenderItemMenuModal
+                icon={liveStreamHandRaiseIcon(vw(7), vw(7))}
+                label="Dơ tay"
+              />
+              <RenderItemMenuModal
+                icon={liveStreamRecordIcon(vw(7), vw(7))}
+                label="Ghi lại"
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const RenderItemMenuModal: React.FC<{icon: any; label: string}> = ({
+  icon,
+  label,
+}) => {
+  return (
+    <TouchableOpacity style={{alignItems: 'center', width: '25%'}}>
+      <View style={{position: 'relative'}}>
+        {icon}
+        {label === 'Người xem' && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>12</Text>
+          </View>
+        )}
+      </View>
+      <Text style={{textAlign: 'center', color: '#FFFFFF'}}>{label}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -271,4 +373,33 @@ const styles = StyleSheet.create({
     columnGap: vw(5),
   },
   modalBackTextbutton: {color: '#EFF0FA', flexWrap: 'wrap'},
+  menuModalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  menuModalContent: {
+    height: '20%',
+    width: '100%',
+    backgroundColor: '#11131A',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    overflow: 'hidden',
+  },
+  badge: {
+    position: 'absolute',
+    top: -5,
+    right: -15,
+    backgroundColor: '#1B1B1B',
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
 });
