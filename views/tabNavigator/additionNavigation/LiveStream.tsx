@@ -37,6 +37,7 @@ const LiveStream = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [modalVisible, setModalVisible] = useState(false);
   const [menuModalVisible, setMenuModalVisible] = useState(false);
+  const [viewerModalVisible, setViewerModalVisible] = useState(false);
 
   data.push('Nguyễn Văn A');
 
@@ -82,15 +83,45 @@ const LiveStream = () => {
       <MenuModal
         menuModalVisible={menuModalVisible}
         setMenuModalVisible={setMenuModalVisible}
+        setViewerModalVisible={setViewerModalVisible}
+      />
+      <ViewerModal
+        viewerModalVisible={viewerModalVisible}
+        setViewerModalVisible={setViewerModalVisible}
       />
     </SafeAreaView>
+  );
+};
+
+const ViewerModal: React.FC<{
+  viewerModalVisible: boolean;
+  setViewerModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({viewerModalVisible, setViewerModalVisible}) => {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={viewerModalVisible}
+      onRequestClose={() => setViewerModalVisible(false)}>
+      <View style={styles.fullScreenModalContainer}>
+        <View style={styles.fullScreenModalContent}>
+          <TouchableOpacity
+            onPress={() => setViewerModalVisible(false)}
+            style={styles.closeButton}>
+            <Text style={{color: '#FFFFFF'}}>Close</Text>
+          </TouchableOpacity>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>Viewer Modal</Text>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
 const MenuModal: React.FC<{
   menuModalVisible: boolean;
   setMenuModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({menuModalVisible, setMenuModalVisible}) => {
+  setViewerModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({menuModalVisible, setMenuModalVisible, setViewerModalVisible}) => {
   return (
     <Modal
       animationType="slide"
@@ -137,6 +168,10 @@ const MenuModal: React.FC<{
               <RenderItemMenuModal
                 icon={liveStreamViewerIcon(vw(7), vw(7))}
                 label="Người xem"
+                onPress={() => {
+                  setMenuModalVisible(false);
+                  setViewerModalVisible(true);
+                }}
               />
               <RenderItemMenuModal
                 icon={liveStreamScreenShareIcon(vw(7), vw(7))}
@@ -158,12 +193,16 @@ const MenuModal: React.FC<{
   );
 };
 
-const RenderItemMenuModal: React.FC<{icon: any; label: string}> = ({
-  icon,
-  label,
-}) => {
+const RenderItemMenuModal: React.FC<{
+  icon: any;
+  label: string;
+  onPress?: () => void;
+}> = ({icon, label, onPress}) => {
   return (
-    <TouchableOpacity style={{alignItems: 'center', width: '25%'}}>
+    <TouchableOpacity
+      disabled={label === 'Người xem' ? false : true}
+      style={{alignItems: 'center', width: '25%'}}
+      onPress={onPress}>
       <View style={{position: 'relative'}}>
         {icon}
         {label === 'Người xem' && (
@@ -401,5 +440,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  fullScreenModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    backgroundColor: '#11131A',
+  },
+  fullScreenModalContent: {
+    width: '100%',
+    height: '100%',
+
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
