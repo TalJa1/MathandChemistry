@@ -1,7 +1,14 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import useStatusBar from '../../../services/useStatusBarCustom';
@@ -9,6 +16,7 @@ import {
   cameraIcon,
   frontBackCameraIcon,
   liveStreamBackIcon,
+  liveStreamStopIcon,
   menuIcon,
   micIcon,
   pinIcon,
@@ -22,6 +30,7 @@ const LiveStream = () => {
   const route = useRoute();
   const {data} = route.params as {data: string[]};
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [modalVisible, setModalVisible] = useState(false);
 
   data.push('Nguyễn Văn A');
 
@@ -39,7 +48,7 @@ const LiveStream = () => {
             marginBottom: vh(2),
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => setModalVisible(true)}
             style={[
               {
                 backgroundColor: '#B65A46',
@@ -57,7 +66,58 @@ const LiveStream = () => {
           {menuIcon(vw(5), vw(5))}
         </View>
       </View>
+      <ModalBack
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        navigation={navigation}
+      />
     </SafeAreaView>
+  );
+};
+
+const ModalBack: React.FC<{
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  navigation?: NativeStackNavigationProp<any>;
+}> = ({modalVisible, setModalVisible, navigation}) => {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => setModalVisible(false)}>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <TouchableOpacity
+            style={styles.modalBtnBackStyle}
+            onPress={() => {
+              navigation?.navigate('Add');
+            }}>
+            {liveStreamBackIcon(vw(5), vw(5))}
+            <View style={{flex: 1}}>
+              <Text style={{color: '#EFF0FA', fontSize: 18}}>Rời</Text>
+              <Text style={styles.modalBackTextbutton}>
+                Những thành viên còn lại sẽ tiếp tục phiên phát trực tiếp
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={[styles.modalBtnBackStyle, {backgroundColor: '#B65A46'}]}>
+            {liveStreamStopIcon(vw(5), vw(5))}
+            <View style={{flex: 1}}>
+              <Text style={{color: '#EFF0FA', fontSize: 18}}>
+                Dừng phát trực tiếp
+              </Text>
+              <Text style={styles.modalBackTextbutton}>
+                Phiên phát sẽ dừng ngay lập tức, mọi người trong phiên cũng phải
+                dừng lại.
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -185,4 +245,30 @@ export default LiveStream;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    height: '30%',
+    width: '100%',
+    backgroundColor: '#1B1B1B',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#B65A46',
+    borderRadius: 10,
+  },
+  modalBtnBackStyle: {
+    padding: vw(5),
+    flexDirection: 'row',
+    height: '50%',
+    alignItems: 'flex-start',
+    columnGap: vw(5),
+  },
+  modalBackTextbutton: {color: '#EFF0FA', flexWrap: 'wrap'},
 });

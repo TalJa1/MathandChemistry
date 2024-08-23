@@ -12,6 +12,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const liveStreamStopIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 1C4.33333 1 2 1.33333 1.66667 1.66667C1.33333 2 1 4.33333 1 7C1 9.66667 1.33333 12 1.66667 12.3333C2 12.6667 4.33333 13 7 13C9.66667 13 12 12.6667 12.3333 12.3333C12.6667 12 13 9.66667 13 7C13 4.33333 12.6667 2 12.3333 1.66667C12 1.33333 9.66667 1 7 1Z" stroke=${
+    color ?? 'white'
+  } style="stroke:white;stroke-opacity:1;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const editIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.1298 5.12565L8.46313 2.45898M11.1298 5.12565L7.79749 8.45795C7.35839 8.89705 6.82539 9.24374 6.21345 9.34928C5.59557 9.45585 4.82879 9.49131 4.46313 9.12565C4.09746 8.75999 4.13293 7.99321 4.23949 7.37533C4.34504 6.76339 4.69173 6.23038 5.13083 5.79128L8.46313 2.45898M11.1298 5.12565C11.1298 5.12565 13.1298 3.12565 11.7965 1.79232C10.4631 0.458984 8.46313 2.45898 8.46313 2.45898M12.1668 7.00065C12.1668 11.334 10.8335 12.6673 6.50016 12.6673C2.16683 12.6673 0.833496 11.334 0.833496 7.00065C0.833496 2.66732 2.16683 1.33398 6.50016 1.33398" stroke=${
