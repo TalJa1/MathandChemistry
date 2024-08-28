@@ -16,6 +16,10 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {DataDetail} from '../../../services/typeProps';
 import {Shadow} from 'react-native-shadow-2';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {
+  tabTimeChemistryDataDetail,
+  tabTimeMathDataDetail,
+} from '../../../services/renderData';
 
 const Result = () => {
   useStatusBar('black');
@@ -173,7 +177,15 @@ const Result = () => {
           backgroundColor: 'black',
           width: '100%',
         }}>
-        <BottomNavigator data={data} userAnswer={listAnswer} />
+        <BottomNavigator
+          data={data}
+          userAnswer={listAnswer}
+          time={time}
+          isMath={isMath}
+          correctCount={correctCount}
+          wrongCount={wrongCount}
+          score={score}
+        />
       </Shadow>
     </SafeAreaView>
   );
@@ -182,8 +194,41 @@ const Result = () => {
 const BottomNavigator: React.FC<{
   data: DataDetail;
   userAnswer: string[];
-}> = ({data, userAnswer}) => {
+  time: number;
+  isMath: boolean;
+  score: string;
+  correctCount: number;
+  wrongCount: number;
+}> = ({data, userAnswer, time, isMath, score, correctCount, wrongCount}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const storage = isMath ? tabTimeMathDataDetail : tabTimeChemistryDataDetail;
+
+  const formatScore = (value: string): number => {
+    const num = parseFloat(value);
+    return num % 1 === 0 ? parseFloat(num.toFixed(1)) : num;
+  };
+
+  const handleBack = () => {
+    const timeData = storage.find(item => item.time === time);
+
+    if (timeData) {
+      // Find the specific data object by its id
+      const dataIndex = timeData.data.findIndex(item => item.id === data.id);
+
+      if (dataIndex !== -1) {
+        // Modify the data object at that index
+        timeData.data[dataIndex] = {
+          ...timeData.data[dataIndex],
+          status: 'Đã làm',
+          point: formatScore(score),
+          rightamount: correctCount,
+          wrongamount: wrongCount,
+        };
+      }
+    }
+    navigation.navigate('Main');
+  };
 
   return (
     <View
@@ -195,7 +240,7 @@ const BottomNavigator: React.FC<{
         paddingVertical: vh(2),
       }}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Main')}
+        onPress={handleBack}
         style={[
           {
             borderColor: '#D2FD7C',
