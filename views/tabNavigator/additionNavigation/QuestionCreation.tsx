@@ -364,11 +364,22 @@ const Footer: React.FC<{
           if (currentQuestion < 10) {
             setCurrentQuestion(currentQuestion + 1);
           } else {
+            const generateNewId = (dataArray: any) => {
+              if (dataArray.length === 0) {
+                return 'T11.CD.HH01'; // Default initial id if array is empty
+              }
+              const lastItem = dataArray[dataArray.length - 1];
+              const lastId = lastItem.id;
+              const lastNumber = parseInt(lastId.slice(-2), 10);
+              const newNumber = (lastNumber + 1).toString().padStart(2, '0');
+              return `T11.CD.HH${newNumber}`;
+            };
             if (formData.subject === 'Toán') {
               switch (formData.time) {
                 case '15 phút': {
+                  const newId = generateNewId(tabTimeMathDataDetail[0].data);
                   tabTimeMathDataDetail[0].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 15,
                     point: 0,
@@ -383,8 +394,9 @@ const Footer: React.FC<{
                   break;
                 }
                 case '60 phút': {
+                  const newId = generateNewId(tabTimeMathDataDetail[1].data);
                   tabTimeMathDataDetail[1].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 60,
                     point: 0,
@@ -399,8 +411,9 @@ const Footer: React.FC<{
                   break;
                 }
                 case '90 phút': {
+                  const newId = generateNewId(tabTimeMathDataDetail[2].data);
                   tabTimeMathDataDetail[2].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 90,
                     point: 0,
@@ -418,8 +431,11 @@ const Footer: React.FC<{
             } else {
               switch (formData.time) {
                 case '15 phút': {
+                  const newId = generateNewId(
+                    tabTimeChemistryDataDetail[0].data,
+                  );
                   tabTimeChemistryDataDetail[0].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 15,
                     point: 0,
@@ -434,8 +450,11 @@ const Footer: React.FC<{
                   break;
                 }
                 case '60 phút': {
+                  const newId = generateNewId(
+                    tabTimeChemistryDataDetail[1].data,
+                  );
                   tabTimeChemistryDataDetail[1].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 60,
                     point: 0,
@@ -450,8 +469,11 @@ const Footer: React.FC<{
                   break;
                 }
                 case '90 phút': {
+                  const newId = generateNewId(
+                    tabTimeChemistryDataDetail[2].data,
+                  );
                   tabTimeChemistryDataDetail[2].data.push({
-                    id: 'T11.CD.HH02',
+                    id: newId,
                     title: formData.setName,
                     time: 90,
                     point: 0,
