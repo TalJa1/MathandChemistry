@@ -155,3 +155,10 @@ export const getCurrentWeekDays = (): WeekDays => {
 
   return {days};
 };
+
+export const getTodayDayAndMonth = (): {day: string; month: string} => {
+  const today1 = new Date();
+  const day = String(today1.getDate()).padStart(2, '0');
+  const month = String(today1.getMonth() + 1).padStart(2, '0');
+  return {day, month};
+};

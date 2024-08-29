@@ -26,11 +26,13 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import {loadData, saveData} from '../services/storage';
 import {loginAccountStorage, loginIndexStorage} from '../data/rootStorage';
 import {LoginAccountProps} from '../services/typeProps';
+import {getTodayDayAndMonth} from '../services/timeService';
 
 const Home = () => {
   useStatusBar('black');
   const [containerWidth, setContainerWidth] = useState(0);
   const [toggleNotice, setToggleNotice] = useState(false);
+  const {day, month} = getTodayDayAndMonth();
   const [loginIndex, setLoginIndex] = useState(-1);
   const [user, setUser] = useState<LoginAccountProps>({
     email: '',
@@ -160,8 +162,10 @@ const Home = () => {
                     },
                     centerAll,
                   ]}>
-                  <Text style={{color: '#69CB84', fontWeight: '700'}}>10</Text>
-                  <Text style={{color: '#69CB84'}}>Th10</Text>
+                  <Text style={{color: '#69CB84', fontWeight: '700'}}>
+                    {day ?? '01'}
+                  </Text>
+                  <Text style={{color: '#69CB84'}}>Th{month ?? '01'}</Text>
                 </View>
               </View>
               <View
