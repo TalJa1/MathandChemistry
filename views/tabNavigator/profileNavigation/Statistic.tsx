@@ -64,6 +64,8 @@ const ChartRender: React.FC = () => {
         textShiftY={-2}
         textShiftX={-5}
         textFontSize={13}
+        xAxisLabelTextStyle={{color: '#7C7C7C'}}
+        yAxisTextStyle={{color: '#7C7C7C'}}
       />
     </View>
   );
@@ -88,7 +90,7 @@ const SubjectRender: React.FC<{title: string; color: string}> = ({
           borderRadius: 4,
         }}
       />
-      <Text>{title}</Text>
+      <Text style={{color: '#8D9092'}}>{title}</Text>
     </View>
   );
 };
