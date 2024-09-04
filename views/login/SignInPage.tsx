@@ -42,6 +42,8 @@ const SignInPage: React.FC = () => {
   });
   const [error, setError] = useState('');
 
+  console.log('loginAcc', loginAcc.length);
+
   React.useEffect(() => {
     loadData<LoginAccountProps[]>(loginAccountStorage)
       .then(loadedData => {

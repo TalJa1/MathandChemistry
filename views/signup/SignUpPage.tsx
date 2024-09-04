@@ -13,10 +13,18 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useStatusBar from '../../services/useStatusBarCustom';
 import {centerAll, textTitle, vh, vw} from '../../services/styleSheets';
-import {TextInputComponentProps} from '../../services/typeProps';
+import {
+  LoginAccountProps,
+  TextInputComponentProps,
+} from '../../services/typeProps';
+import {loadData, saveData} from '../../services/storage';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {loginAccountStorage} from '../../data/rootStorage';
 
 const SignUpPage = () => {
   useStatusBar('black');
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [signUpAccount, setSignUpAccount] = useState({
     email: '',
     password: '',
@@ -45,8 +53,8 @@ const SignUpPage = () => {
       setEmailError('');
     }
 
-    if (password.length <= 6 && password.length > 0) {
-      setPasswordError('Mật khẩu phải dài hơn 6 ký tự');
+    if (password.length < 8 && password.length > 0) {
+      setPasswordError('Mật khẩu phải dài hơn 7 ký tự');
       passwordValid = false;
     } else {
       setPasswordError('');
@@ -66,7 +74,44 @@ const SignUpPage = () => {
     }
   }, [signUpAccount]);
 
-  const handleSignUp = () => {};
+  const handleSignUp = async () => {
+    if (finish) {
+      try {
+        const tmp: LoginAccountProps[] = await loadData(loginAccountStorage);
+        const newAcc = {
+          email: signUpAccount.email,
+          password: signUpAccount.password,
+          role: '',
+          accInfor: {
+            language: '',
+            who: '',
+            class: 11,
+            ability: {
+              math: 50,
+              chemistry: 50,
+            },
+            goal: [],
+            difficulty: {
+              math: [],
+              chemistry: [],
+            },
+            infor: {
+              name: '',
+              school: '',
+              city: '',
+              image: [],
+            },
+          },
+        };
+        tmp.push(newAcc);
+        saveData(loginAccountStorage, tmp);
+        navigation.navigate('Login');
+      } catch (error) {
+        console.log(error);
+      }
+      // Additional logic after saving data can be added here
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
