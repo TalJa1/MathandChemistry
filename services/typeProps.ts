@@ -31,6 +31,8 @@ export interface TextInputComponentProps {
   placeholder: string;
   secureTextEntry?: boolean;
   isEmail?: boolean;
+  value: string;
+  onChangeText: (text: string) => void;
 }
 
 export type LoginAccountProps = {
