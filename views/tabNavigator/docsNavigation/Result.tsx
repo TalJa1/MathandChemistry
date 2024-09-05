@@ -51,10 +51,22 @@ const Result = () => {
   useEffect(() => {
     let correct = 0;
     data.test.forEach((testItem, index) => {
-      if (listAnswer[index] === testItem.correctAnswer[0]) {
-        correct++;
+      const userAnswers = listAnswer[index]
+        .split('|')
+        .map(answer => answer.trim().toLocaleLowerCase());
+      const correctAnswers = testItem.correctAnswer.map(answer =>
+        answer.trim().toLocaleLowerCase(),
+      );
+
+      const allCorrect = userAnswers.every(userAnswer =>
+        correctAnswers.includes(userAnswer),
+      );
+
+      if (allCorrect) {
+        correct += 1;
       }
     });
+
     const wrong = data.test.length - correct;
     const calculatedScore = (correct / data.test.length) * 10;
     setScore(calculatedScore.toFixed(1));
