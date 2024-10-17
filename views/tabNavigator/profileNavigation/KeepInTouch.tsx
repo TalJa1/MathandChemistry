@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {centerAll, containerStyle, vh, vw} from '../../../services/styleSheets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../../components/docs/Header';
@@ -21,26 +21,35 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
 import {noticeIcon, trashCanIcon} from '../../../assets/svgXml';
+import {VerticalChatData} from '../../../services/typeProps';
 
 const KeepInTouch = () => {
   useStatusBar('black');
+  const [data, setData] = useState<VerticalChatData[]>(verticalContactData);
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Liên lạc" />
       <ScrollView contentContainerStyle={{paddingVertical: vh(2)}}>
         <HorizontalContent />
         <View style={{paddingHorizontal: vw(5)}}>
-          <VerticalContent />
+          <VerticalContent data={data} setData={setData} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-const VerticalContent: React.FC = () => {
+const VerticalContent: React.FC<{
+  data: VerticalChatData[];
+  setData: React.Dispatch<React.SetStateAction<VerticalChatData[]>>;
+}> = ({data, setData}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
-  const renderRightActions = () => (
+  const removeItem = (index: number) => {
+    setData(prevData => prevData.filter((_, i) => i !== index));
+  };
+
+  const renderRightActions = (index: number) => (
     <View style={styles.rightActionContainer}>
       <View style={[styles.actionButton, {backgroundColor: 'transparent'}]}>
         <TouchableOpacity style={[styles.swipeBtn, {backgroundColor: 'white'}]}>
@@ -49,6 +58,7 @@ const VerticalContent: React.FC = () => {
       </View>
       <View style={[styles.actionButton, {backgroundColor: 'transparent'}]}>
         <TouchableOpacity
+          onPress={() => removeItem(index)}
           style={[styles.swipeBtn, {backgroundColor: '#ED7234'}]}>
           {trashCanIcon(vw(5), vw(5), 'white')}
         </TouchableOpacity>
@@ -59,8 +69,10 @@ const VerticalContent: React.FC = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <View style={{rowGap: vh(2)}}>
-        {verticalContactData.map((item, index) => (
-          <Swipeable key={index} renderRightActions={renderRightActions}>
+        {data.map((item, index) => (
+          <Swipeable
+            key={index}
+            renderRightActions={() => renderRightActions(index)}>
             <TouchableOpacity
               disabled={index === 0 ? false : true}
               onPress={() => {

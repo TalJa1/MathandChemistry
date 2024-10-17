@@ -31,6 +31,8 @@ export interface TextInputComponentProps {
   placeholder: string;
   secureTextEntry?: boolean;
   isEmail?: boolean;
+  value: string;
+  onChangeText: (text: string) => void;
 }
 
 export type LoginAccountProps = {
@@ -241,4 +243,12 @@ export interface PostProps {
   imgValue: string;
   heart: number;
   comment: number;
+}
+
+export interface VerticalChatData {
+  img: any;
+  name: string;
+  des: string;
+  noti: number;
+  time: number;
 }

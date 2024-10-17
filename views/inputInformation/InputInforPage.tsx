@@ -307,6 +307,7 @@ const SeftInfor: React.FC<commonOptionsProps> = ({globalData, onChange}) => {
           </Text>
           <TextInput
             placeholder="Nhập tên hiển thị"
+            placeholderTextColor={'#7C7C7C'}
             value={globalData.infor.name}
             onChange={e =>
               onChange({
@@ -338,6 +339,7 @@ const SeftInfor: React.FC<commonOptionsProps> = ({globalData, onChange}) => {
             </Text>
             <TextInput
               placeholder="Nhập tên trường"
+              placeholderTextColor={'#7C7C7C'}
               value={globalData.infor.school}
               onChange={e =>
                 onChange({
@@ -363,6 +365,7 @@ const SeftInfor: React.FC<commonOptionsProps> = ({globalData, onChange}) => {
             </Text>
             <TextInput
               placeholder="Nhập tên tỉnh/thành phố"
+              placeholderTextColor={'#7C7C7C'}
               value={globalData.infor.city}
               onChange={e =>
                 onChange({
@@ -904,6 +907,7 @@ const styles = StyleSheet.create({
   },
   numberText: {
     fontSize: 60,
+    color: '#7C7C7C',
   },
   selectedNumberText: {
     fontSize: 128,
